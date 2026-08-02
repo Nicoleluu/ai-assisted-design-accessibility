@@ -186,10 +186,17 @@ li:nth-child(even)::before { left: 12px; }
 .visual-note { position: absolute; z-index: 5; left: 18px; right: 18px; bottom: 16px; padding-top: 10px; border-top: 1px solid var(--line-soft); background: linear-gradient(transparent, var(--panel) 30%); font: 9px/1.35 "Courier New", monospace !important; color: var(--muted) !important; }
 
 /* Each canvas has a content specific composition. */
-.canvas-question { grid-template-columns: 1.35fr .65fr; }
-.canvas-question .canvas-copy { align-self: end; padding-bottom: 7vh; }
-.canvas-question h1 { font-size: clamp(54px, 7vw, 112px); }
-.canvas-question .visual-placeholder { border: 0; background: transparent; min-height: 68vh; }
+.canvas-question { display: block; padding: 0 clamp(32px, 4.5vw, 72px); overflow: hidden; }
+.canvas-question::before { inset: 72px clamp(20px, 3vw, 46px) 26px; }
+.canvas-question .canvas-copy { position: relative; z-index: 3; width: 100%; max-width: none; height: 100svh; padding: 96px 0 44px; display: flex; flex-direction: column; }
+.canvas-question .canvas-label { margin: 0; align-self: flex-end; }
+.canvas-question h1 { width: 100%; margin: auto 0; font-size: clamp(68px, 10.2vw, 164px); font-weight: 400; line-height: .82; letter-spacing: -.078em; text-wrap: balance; }
+.canvas-question .statement { width: min(660px, 52vw); margin: 0 0 0 auto; padding: 0; border: 0; font-size: clamp(15px, 1.45vw, 22px); line-height: 1.28; }
+.opening-meta { margin-top: clamp(28px, 5vh, 52px); padding-top: 12px; display: grid; grid-template-columns: 160px 160px 1fr; border-top: 1px solid var(--line); }
+.opening-meta p { margin: 0; color: var(--text); font: 9px/1.4 "Courier New", monospace; text-transform: uppercase; }
+.opening-meta p span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 7px; letter-spacing: .14em; }
+.opening-meta .opening-equation { justify-self: end; align-self: end; color: var(--accent); font-size: clamp(9px, 1vw, 13px); letter-spacing: .04em; }
+.canvas-question .visual-placeholder { position: absolute; z-index: 1; inset: 72px clamp(20px, 3vw, 46px) 26px; min-height: 0; border: 0; background: transparent; opacity: .34; }
 .canvas-question .visual-placeholder::before, .canvas-question .visual-placeholder::after, .canvas-question .visual-note { display: none; }
 
 .canvas-experiment { grid-template-columns: .72fr 1.28fr; }
@@ -345,6 +352,13 @@ li:nth-child(even)::before { left: 12px; }
   .canvas-community { padding-top: 88px; }
   .canvas-community .visual-placeholder { margin-top: 30px; }
   .canvas-return .visual-placeholder { position: absolute; }
+  .canvas-question { display: block; padding: 0 28px; }
+  .canvas-question .canvas-copy { height: 100svh; padding: 82px 0 42px; }
+  .canvas-question h1 { margin: auto 0; font-size: clamp(58px, 15vw, 92px); }
+  .canvas-question .statement { width: 86%; margin-left: auto; }
+  .opening-meta { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .opening-meta .opening-equation { grid-column: 1 / -1; justify-self: start; }
+  .canvas-question .visual-placeholder { position: absolute; min-height: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

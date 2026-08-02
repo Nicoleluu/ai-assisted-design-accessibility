@@ -15,8 +15,8 @@ const canvases: Canvas[] = [
   {
     id: "question",
     act: "Question",
-    title: "What does it mean for AI assisted design to be accessible?",
-    statement: "Does access to an AI tool provide access to design?",
+    title: "Does access to an AI tool provide access to design?",
+    statement: "Access to production does not automatically create access to knowledge, judgment, or participation.",
     visual: "Opening visual to develop: a quiet field that separates access to a tool from access to design knowledge.",
   },
   {
@@ -218,7 +218,7 @@ export default function Home() {
   return (
     <main className="presentation">
       <header className="presentation-header">
-        <div className="project-name">AI Assisted Design Accessibility</div>
+        <div className="project-name">Accessing Design</div>
         <div className="acts" aria-label="Presentation structure">
           {["Question", "Problem", "Context", "Direction"].map(act => (
             <span key={act} className={canvases[activeIndex].act === act ? "active" : ""}>{act}</span>
@@ -239,6 +239,13 @@ export default function Home() {
             <p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p>
             <h1>{canvas.title}</h1>
             <p className="statement">{canvas.statement}</p>
+            {canvas.id === "question" && (
+              <div className="opening-meta">
+                <p><span>Project</span>Accessing Design</p>
+                <p><span>Author</span>Nicole Lu</p>
+                <p className="opening-equation">Generating ≠ Designing ≠ Learning</p>
+              </div>
+            )}
             {canvas.details && (
               <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>
             )}
