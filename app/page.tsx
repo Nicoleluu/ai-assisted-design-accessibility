@@ -94,9 +94,14 @@ const canvases: Canvas[] = [
 function VisualContent({ id, note }: { id: string; note: string }) {
   if (id === "question") return (
     <div className="opening-field" aria-label={note}>
-      <span className="coordinate coordinate-a">ACCESS / 01</span>
-      <span className="coordinate coordinate-b">KNOWLEDGE / ?</span>
-      <i className="axis axis-x" /><i className="axis axis-y" /><b className="signal" />
+      <div className="hero-wordmark" aria-label="Accessing Design">
+        <span className="word-accessing">Accessing</span>
+        <span className="word-design">Design</span>
+      </div>
+      <span className="hero-name">Nicole Lu</span>
+      <span className="hero-program">Computational Design Practices</span>
+      <span className="hero-course">Colloquium Final</span>
+      <span className="hero-equation">Generating ≠ Designing ≠ Learning</span>
     </div>
   );
 
@@ -241,9 +246,8 @@ export default function Home() {
             <p className="statement">{canvas.statement}</p>
             {canvas.id === "question" && (
               <div className="opening-meta">
-                <p><span>Project</span>Accessing Design</p>
-                <p><span>Author</span>Nicole Lu</p>
-                <p className="opening-equation">Generating ≠ Designing ≠ Learning</p>
+                <p>Computational Design Practices</p>
+                <p>Colloquium Final</p>
               </div>
             )}
             {canvas.details && (
