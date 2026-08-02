@@ -91,6 +91,85 @@ const canvases: Canvas[] = [
   },
 ];
 
+function VisualContent({ id, note }: { id: string; note: string }) {
+  if (id === "question") return (
+    <div className="opening-field" aria-label={note}>
+      <span className="coordinate coordinate-a">ACCESS / 01</span>
+      <span className="coordinate coordinate-b">KNOWLEDGE / ?</span>
+      <i className="axis axis-x" /><i className="axis axis-y" /><b className="signal" />
+    </div>
+  );
+
+  if (id === "experiment") {
+    const terms = ["observe", "ask", "research", "frame", "sketch", "test", "compare", "prototype", "fail", "revise", "judge", "decide"];
+    return (
+      <div className="process-field" aria-label={note}>
+        {terms.map((term, index) => <span key={term} style={{ "--x": `${10 + (index * 37) % 80}%`, "--y": `${12 + (index * 53) % 76}%`, "--delay": `${index * 35}ms` } as React.CSSProperties}>{term}</span>)}
+        <p>Move through the field</p>
+      </div>
+    );
+  }
+
+  if (id === "problem") return (
+    <div className="compressed-process" aria-label={note}>
+      <div><span>01</span><b>Ask AI</b></div><i />
+      <div><span>02</span><b>Generate</b></div><i />
+      <div><span>03</span><b>Select</b></div><i />
+      <div><span>04</span><b>Finished object</b></div>
+      <p>Where did the design process go?</p>
+    </div>
+  );
+
+  if (id === "situated") {
+    const resources = ["school", "museum", "mentor", "studio", "workshop", "job", "materials", "community"];
+    return (
+      <div className="resource-map" aria-label={note}>
+        <svg viewBox="0 0 800 520" preserveAspectRatio="none"><path d="M30 390 C130 210 220 470 325 260 S530 70 770 190" /><path d="M95 80 C250 120 260 360 470 410 S660 350 780 470" /></svg>
+        {resources.map((resource, index) => <button key={resource} style={{ left: `${9 + (index * 41) % 83}%`, top: `${12 + (index * 29) % 74}%` }}><i /><span>{resource}<small>resource image to add</small></span></button>)}
+        <p>Move across the map to reveal resources</p>
+      </div>
+    );
+  }
+
+  if (id === "fields") return (
+    <div className="field-intersection" aria-label={note}>
+      <span>Product design</span><span>Design education</span><span>AI literacy</span><span>Human computer interaction</span><span>Computational design</span>
+      <b>ACCESSIBLE<br />DESIGN LEARNING</b>
+    </div>
+  );
+
+  if (id === "lineage") return (
+    <div className="lineage-lines" aria-label={note}>
+      <div><span>Learning design</span><i /><i /><i /><i /><i /></div>
+      <div><span>Learning with computation</span><i /><i /><i /><i /><i /></div>
+      <b>?</b><p>Research, dates, and examples to add</p>
+    </div>
+  );
+
+  if (id === "community") {
+    const projects = ["AI Now", "Data and Society", "NotebookLM", "Design education", "AI literacy", "Learning tools"];
+    return (
+      <div className="archive" aria-label={note}>
+        <div className="archive-track">{[...projects, ...projects].map((project, index) => <button key={`${project}-${index}`} aria-label={project}><i /><span>{String((index % projects.length) + 1).padStart(2, "0")}</span></button>)}</div>
+        <div className="archive-focus"><span>Selected precedent</span><p>Click a project image to show its summary, approach, and relationship to this research.</p></div>
+      </div>
+    );
+  }
+
+  if (id === "argument") return (
+    <div className="argument-gap" aria-label={note}><span>AVAILABLE OUTPUT</span><i /><b>?</b><i /><span>ACCESSIBLE KNOWLEDGE</span></div>
+  );
+
+  if (id === "capstone") return (
+    <div className="capstone-loop" aria-label={note}>
+      {["Question", "Investigate", "Make", "Reflect", "Decide"].map((step, index) => <span key={step} style={{ "--i": index } as React.CSSProperties}>{step}</span>)}
+      <b>AI<br /><small>guide</small></b>
+    </div>
+  );
+
+  return <div className="return-field" aria-label={note}><i /><span>OUTCOME</span><b>PROCESS</b><span>KNOWLEDGE</span><i /></div>;
+}
+
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sections = useRef<Array<HTMLElement | null>>([]);
@@ -150,7 +229,7 @@ export default function Home() {
 
       {canvases.map((canvas, index) => (
         <section
-          className="canvas"
+          className={`canvas canvas-${canvas.id}`}
           id={canvas.id}
           data-index={index}
           key={canvas.id}
@@ -165,8 +244,8 @@ export default function Home() {
             )}
           </div>
           <aside className="visual-placeholder">
-            <span>Visual material</span>
-            <p>{canvas.visual}</p>
+            <VisualContent id={canvas.id} note={canvas.visual} />
+            <p className="visual-note">{canvas.visual}</p>
           </aside>
           <p className="navigation-hint">Tab for next canvas&nbsp;&nbsp;&nbsp;Shift and Tab for previous&nbsp;&nbsp;&nbsp;Scroll is also available</p>
         </section>
