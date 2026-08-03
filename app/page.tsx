@@ -111,6 +111,13 @@ const lensData = [
   ["Human and AI collaboration", "What should the person do, and what should the system do?"],
   ["Equitable participation", "Who has a meaningful opportunity to learn and participate?"],
 ];
+const accessibilityViews = [
+  ["Accessibility as ability", "Whether someone can meaningfully use AI, not only reach it."],
+  ["Accessibility as conditions", "Whether someone's environment gives them the resources needed to use AI."],
+  ["Accessibility as preparation", "Whether someone has had opportunities to build the knowledge and confidence required before using AI."],
+  ["Accessibility as possibility", "What someone is realistically able to learn, create, or pursue with AI."],
+  ["Accessibility as a relationship", "The relationship between a person, the tool, and everything surrounding them."],
+];
 
 const precedents = [
   {
@@ -430,8 +437,8 @@ function LensesVisual() {
     "How people interpret, question, and make informed choices with AI.",
     "How computation can support exploration without replacing judgment."
   ];
-  const symbols = ["Da", "Dl", "Sl", "Ha", "Ep", "Pd", "De", "Hc", "Al", "Cd", "AD"];
-  const items = [...lensData.map(([name]) => name), ...fields, "AI supported learning for physical product design"];
+  const symbols = ["Da", "Dl", "Sl", "Ha", "Ep", "Pd", "De", "Hc", "Al", "Cd", "AD", "Ab", "Ac", "Ap", "Po", "Ar"];
+  const items = [...lensData.map(([name]) => name), ...fields, "AI supported learning for physical product design", ...accessibilityViews.map(([name]) => name)];
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -448,12 +455,19 @@ function LensesVisual() {
     const group = new THREE.Group();
     scene.add(group);
 
-    const links: Record<number, number[]> = { 0: [5, 7, 9], 1: [6, 8], 2: [5, 6, 7], 3: [7, 8, 9], 4: [6, 7, 8] };
+    const links: Record<number, number[]> = {
+      0: [5, 7, 9, 11, 14, 15],
+      1: [6, 8, 11, 13],
+      2: [5, 6, 7, 12, 13, 15],
+      3: [7, 8, 9, 11, 15],
+      4: [6, 7, 8, 12, 13, 14]
+    };
     const objects: CSS3DObject[] = [];
     const elements: HTMLButtonElement[] = [];
     const targets = [[], [], []] as THREE.Vector3[][];
     const lensMap = [[-275,-125],[-90,-175],[100,-115],[-200,125],[175,130]];
     const fieldMap = [[-390,20],[-300,225],[0,235],[315,210],[390,-20]];
+    const viewMap = [[-430,-235],[-220,-300],[0,-325],[220,-300],[430,-235]];
     const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
     let activeLens = -1;
     let pinnedLens = -1;
@@ -471,9 +485,9 @@ function LensesVisual() {
     items.forEach((label, index) => {
       const element = document.createElement("button");
       element.type = "button";
-      element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : "is-center"}`;
-      const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : "The open center where the five research lenses and five fields meet.";
-      const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : "Central inquiry";
+      element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : index === 10 ? "is-center" : "is-view"}`;
+      const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : index === 10 ? "The open center where the five research lenses and five fields meet." : accessibilityViews[index - 11][1];
+      const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : index === 10 ? "Central inquiry" : "Accessibility view";
       element.innerHTML = `<span class="periodic-number">${String(index + 1).padStart(2, "0")}</span><strong class="periodic-symbol"><i class="periodic-short">${symbols[index]}</i><i class="periodic-full">${label}</i></strong><b class="periodic-name">${label}</b><small class="periodic-family">${family}</small><em class="periodic-detail">${detail}</em>`;
       element.setAttribute("aria-label", label);
       const object = new CSS3DObject(element);
@@ -485,11 +499,13 @@ function LensesVisual() {
       targets[0].push(new THREE.Vector3((Math.random() - .5) * 860, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
       if (index < 5) targets[1].push(new THREE.Vector3(lensMap[index][0], lensMap[index][1], 40));
       else if (index < 10) targets[1].push(new THREE.Vector3(fieldMap[index - 5][0], fieldMap[index - 5][1], -55));
-      else targets[1].push(new THREE.Vector3(0, 0, 110));
-      const cluster = index < 5 ? index : index < 10 ? index - 5 : 2;
+      else if (index === 10) targets[1].push(new THREE.Vector3(0, 0, 110));
+      else targets[1].push(new THREE.Vector3(viewMap[index - 11][0], viewMap[index - 11][1], -105));
+      const cluster = index < 5 ? index : index < 10 ? index - 5 : index === 10 ? 2 : index - 11;
       const angle = cluster * Math.PI * 2 / 5 - Math.PI / 2;
-      const radius = index < 5 ? 230 : index < 10 ? 390 : 0;
-      targets[2].push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius * .68, index < 5 ? 75 : -80));
+      const radius = index < 5 ? 215 : index < 10 ? 340 : index === 10 ? 0 : 465;
+      const offsetAngle = index > 10 ? angle + Math.PI / 5 : angle;
+      targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : index === 10 ? 115 : -80));
 
       const activate = () => {
         if (index >= 5) return;
@@ -575,11 +591,11 @@ function LensesVisual() {
 
   return <div className="lenses-three-map">
     <svg ref={linksRef} className="lens-relationship-lines" aria-hidden="true" />
-    <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive relationship map of five research lenses and five intersecting fields" />
+    <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive relationship map of five research lenses, five intersecting fields, and five views of accessibility" />
     <div className={`lens-definition ${selected === null ? "is-idle" : ""}`}>
       {selected === null ? <><b>Five research lenses</b><span>Hover a lens to reveal its question and relationships.</span></> : <><b>{lensData[selected][0]}</b><span>{lensData[selected][1]}</span></>}
     </div>
-    <div className="lens-map-key"><span>Research lens</span><span>Intersecting field</span><span>Central inquiry</span></div>
+    <div className="lens-map-key"><span>Research lens</span><span>Intersecting field</span><span>Central inquiry</span><span>Accessibility view</span></div>
   </div>;
 }
 
