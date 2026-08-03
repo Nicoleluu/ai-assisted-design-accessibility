@@ -122,7 +122,7 @@ const precedents = [
   { name: "Data and Society", category: "Critical AI", detail: "Research that connects technology to social structures, communities, and lived experience." },
   { name: "NotebookLM", category: "AI Learning Tool", detail: "A functional precedent for AI interaction organized around learning and source based inquiry." },
   { name: "Conversational Tutors", category: "AI Learning Tool", detail: "Systems that use dialogue to guide understanding rather than only deliver information." },
-  { name: "AI Literacy Toolkits", category: "AI Learning Tool", detail: "Resources that help people question, interpret, and use AI systems more critically." },
+  { name: "AI Design Guide", category: "Design Learning", detail: "A practical learning library that helps designers understand and apply agentic AI through guides, prompts, tools, and structured learning paths." },
 ];
 
 function ExperimentVisual() {
