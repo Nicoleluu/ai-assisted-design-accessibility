@@ -429,15 +429,19 @@ function LineageVisual() {
 }
 
 function CommunityArchive() {
-  const [selected, setSelected] = useState(5);
+  const [selected, setSelected] = useState<number | null>(null);
+  const archiveLoop = [...precedents, ...precedents];
   return <div className="community-archive">
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
-    <div className="archive-ribbon">{precedents.map((item, i) => <button key={item.name} className={selected === i ? "active" : ""} onClick={() => setSelected(i)} onMouseEnter={() => setSelected(i)}><i data-index={String(i + 1).padStart(2, "0")} /><span>{item.name}</span></button>)}</div>
-    <div className="precedent-record">
+    <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
+      const itemIndex = loopIndex % precedents.length;
+      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => setSelected(itemIndex)} onMouseLeave={() => setSelected(null)} onFocus={() => setSelected(itemIndex)} onBlur={() => setSelected(null)}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
+    })}</div></div>
+    {selected !== null && <div className="precedent-record">
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
       <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
-    </div>
+    </div>}
   </div>;
 }
 
