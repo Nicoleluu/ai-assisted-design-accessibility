@@ -98,10 +98,6 @@ function VisualContent({ id, note }: { id: string; note: string }) {
         <span className="word-accessing">Accessing</span>
         <span className="word-design">Design</span>
       </div>
-      <span className="hero-name">Nicole Lu</span>
-      <span className="hero-program">Computational Design Practices</span>
-      <span className="hero-course">Colloquium Final</span>
-      <span className="hero-equation">Generating ≠ Designing ≠ Learning</span>
     </div>
   );
 
@@ -222,7 +218,7 @@ export default function Home() {
 
   return (
     <main className="presentation">
-      <header className="presentation-header">
+      <header className={`presentation-header ${activeIndex === 0 ? "hero-active" : ""}`}>
         <div className="project-name">Accessing Design</div>
         <div className="acts" aria-label="Presentation structure">
           {["Question", "Problem", "Context", "Direction"].map(act => (
@@ -246,8 +242,10 @@ export default function Home() {
             <p className="statement">{canvas.statement}</p>
             {canvas.id === "question" && (
               <div className="opening-meta">
-                <p>Computational Design Practices</p>
-                <p>Colloquium Final</p>
+                <p className="opening-name">Nicole Lu</p>
+                <p className="opening-program">Computational Design Practices</p>
+                <p className="opening-course">Colloquium Final</p>
+                <p className="opening-equation">Generating ≠ Designing ≠ Learning</p>
               </div>
             )}
             {canvas.details && (

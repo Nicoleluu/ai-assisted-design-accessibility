@@ -45,6 +45,7 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+.presentation-header.hero-active { opacity: 0; pointer-events: none; }
 .project-name { color: var(--text); }
 .project-name::before { content: "[ "; color: var(--accent); }
 .project-name::after { content: " ]"; color: var(--accent); }
@@ -189,14 +190,18 @@ li:nth-child(even)::before { left: 12px; }
 .canvas-question { display: block; padding: 0; overflow: hidden; background-image: none; }
 .canvas-question::before { display: none; }
 .canvas-question::after { content: "01 / OPENING QUESTION"; top: auto; right: 3.2vw; bottom: 3vh; color: var(--muted); background: transparent; font-size: 8px; }
-.canvas-question .canvas-copy { position: absolute; z-index: 4; left: 51.2%; top: 13.5%; width: 34.8%; max-width: none; height: 62%; padding: 5.5vh 3.2vw 3.2vh; display: flex; flex-direction: column; color: #111; background: #e9e7e1; box-shadow: 0 20px 55px rgba(0,0,0,.42); }
+.canvas-question .canvas-copy { position: absolute; z-index: 4; left: 48.2%; top: 9.5%; width: 28.4%; max-width: none; height: 65%; padding: 4.8vh 2.4vw 2.2vh; display: flex; flex-direction: column; color: #111; background: #e9e7e1; box-shadow: 0 20px 55px rgba(0,0,0,.42); }
 .canvas-question .canvas-copy::before { content: ""; position: absolute; left: 50%; top: -14px; width: 54px; height: 28px; transform: translateX(-50%); background: #070807; border-radius: 2px 2px 0 0; box-shadow: 0 4px 0 #252625; }
 .canvas-question .canvas-copy::after { content: "●\A●\A●"; white-space: pre; position: absolute; left: 2.1vw; top: 16%; color: #111; font: 16px/5.9 "Arial", sans-serif; }
-.canvas-question .canvas-label { margin: 0; padding-left: 44%; color: #333; font-size: 7px; }
-.canvas-question h1 { width: 64%; margin: 3vh 0 0 auto; font-size: clamp(17px, 1.6vw, 27px); font-weight: 600; line-height: .94; letter-spacing: -.05em; text-align: center; text-wrap: balance; text-transform: uppercase; }
-.canvas-question .statement { width: 69%; margin: auto 0 0 auto; padding: 0; border: 0; color: #111; font: 600 clamp(11px, .92vw, 15px)/1.02 "Helvetica Neue", sans-serif; letter-spacing: -.035em; text-align: center; }
-.opening-meta { margin: auto 0 0; padding: 10px 0 0 19%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid rgba(0,0,0,.16); }
-.opening-meta p { margin: 0; color: #282828; font: 7px/1.25 "Courier New", monospace; text-transform: uppercase; }
+.canvas-question .canvas-label { display: none; }
+.canvas-question h1 { width: 56%; margin: 0 auto; font-size: clamp(14px, 1.1vw, 19px); font-weight: 650; line-height: .9; letter-spacing: -.045em; text-align: center; text-wrap: balance; text-transform: uppercase; }
+.canvas-question .statement { width: 55%; margin: 7.8vh auto 0; padding: 0; border: 0; color: #111; font: 650 clamp(10px, .75vw, 13px)/.98 "Helvetica Neue", sans-serif; letter-spacing: -.035em; text-align: center; }
+.opening-meta { position: absolute; inset: 0; margin: 0; padding: 0; border: 0; pointer-events: none; }
+.opening-meta p { position: absolute; margin: 0; color: #252525; font: 7px/1.2 "Courier New", monospace; text-transform: uppercase; }
+.opening-name { left: 11%; top: 8%; }
+.opening-program { left: 10%; bottom: 3.5%; }
+.opening-course { right: 7%; bottom: 3.5%; }
+.opening-meta .opening-equation { left: 22%; top: 56%; color: rgba(20,20,20,.4); font: 500 clamp(12px, 1.05vw, 18px)/1 "Helvetica Neue", sans-serif; letter-spacing: -.03em; text-transform: none; transform: rotate(-32deg); }
 .canvas-question .visual-placeholder { position: absolute; z-index: 1; inset: 0; min-height: 0; border: 0; background: transparent; opacity: 1; }
 .canvas-question .visual-placeholder::before, .canvas-question .visual-placeholder::after, .canvas-question .visual-note { display: none; }
 
@@ -259,15 +264,12 @@ li:nth-child(even)::before { left: 12px; }
 .canvas-return .visual-note { display: none; }
 
 /* Working interactive studies. */
-.hero-wordmark { position: absolute; left: 25%; top: 36%; width: 44%; height: 47%; color: #f2f2ee; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 3.4vw 7.7vh; border: 1px solid var(--line); }
+.hero-wordmark { position: absolute; left: 27.4%; top: 26%; width: 32.8%; height: 69%; color: #f2f2ee; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 3.2vw 7.3vh; border: 1px solid var(--line); }
 .hero-wordmark::after { content: ""; position: absolute; left: 22%; top: 0; bottom: 24%; width: 1px; background: var(--line); }
-.word-accessing { position: absolute; left: .4vw; top: 1.6vh; bottom: 24%; writing-mode: vertical-rl; transform: rotate(180deg); font-size: clamp(42px, 5.3vw, 86px); font-weight: 300; line-height: .78; letter-spacing: -.08em; }
-.word-design { position: absolute; left: 22%; bottom: -1.2vh; font-size: clamp(54px, 7.2vw, 116px); font-weight: 300; line-height: .7; letter-spacing: -.08em; }
-.opening-field > span { position: absolute; z-index: 3; color: var(--text); text-transform: uppercase; }
-.hero-name { left: 51.8%; top: 15.5%; color: #222 !important; font: 700 7px "Courier New", monospace; }
-.hero-program { left: 52.4%; top: 67.5%; color: #333 !important; font: 7px "Courier New", monospace; }
-.hero-course { right: 15%; top: 67.5%; color: #333 !important; font: 7px "Courier New", monospace; }
-.hero-equation { left: 38%; bottom: 9%; color: var(--muted) !important; font: 9px "Courier New", monospace; letter-spacing: .06em; }
+.visual-placeholder .hero-wordmark span::after { content: none; }
+.visual-placeholder .hero-wordmark .word-accessing { position: absolute; left: .4vw; top: 1.4vh; bottom: 23%; writing-mode: vertical-rl; transform: rotate(180deg); color: #f2f2ee; font: 300 clamp(48px, 5.6vw, 90px)/.78 "Helvetica Neue", sans-serif; letter-spacing: -.08em; text-transform: none; }
+.visual-placeholder .hero-wordmark .word-design { position: absolute; left: 23%; bottom: -.4vh; color: #f2f2ee; font: 300 clamp(54px, 6.4vw, 104px)/.7 "Helvetica Neue", sans-serif; letter-spacing: -.08em; text-transform: none; }
+.canvas-question .navigation-hint { display: none; }
 
 .process-field { cursor: crosshair; }
 .process-field > span { position: absolute; left: var(--x); top: var(--y); padding: 5px 7px; border: 1px solid transparent; color: var(--faint); font: 10px "Courier New", monospace; text-transform: uppercase; opacity: .28; transition: opacity .2s var(--delay), color .2s, border-color .2s, transform .2s; }
