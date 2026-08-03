@@ -637,7 +637,7 @@ li:nth-child(even)::before { left: 12px; }
 .precedent-layout-participation { display: grid; grid-template-columns: .72fr 1.2fr 1fr .72fr; grid-template-rows: 86px 1fr 112px; gap: 10px 24px; }
 .precedent-layout-participation header { grid-column: 2 / 4; z-index: 2; }.precedent-layout-participation header span { display: block; margin-bottom: 7px; }
 .precedent-layout-participation .precedent-sections { display: contents; position: relative; z-index: 2; }.precedent-layout-participation .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-participation .precedent-section-2 { grid-column: 4; grid-row: 2; }.precedent-layout-participation .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-participation .precedent-section-4 { grid-column: 3 / 5; grid-row: 3; }
-.precedent-layout-participation .precedent-media { grid-column: 2 / 4; grid-row: 2; opacity: .42; filter: blur(4px); }.precedent-layout-participation .media-frame, .precedent-layout-participation .media-frame div { height: 170px; }
+.precedent-layout-participation .precedent-media { grid-column: 2 / 4; grid-row: 2; opacity: 1; filter: none; }.precedent-layout-participation .media-frame, .precedent-layout-participation .media-frame div { height: 170px; }
 .precedent-layout-participation .precedent-connection { position: absolute; left: 24%; right: 24%; top: 155px; z-index: 3; font-size: 17px; text-align: center; }
 
 /* The archive remains the fixed center line. Every case composes above and below it. */

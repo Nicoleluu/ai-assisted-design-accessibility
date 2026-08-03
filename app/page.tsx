@@ -631,7 +631,7 @@ function CommunityArchive() {
       <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section className={`precedent-section precedent-section-${index + 1}`} key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
       <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}>
         {precedents[selected].name === "Data & Society"
-          ? <img src="/archive-data-society-research-areas.png" alt="Data and Society research areas, including AI Civics, Democracy in the Age of AI, and Participation, Agency, and Algorithmic Accountability" />
+          ? <img src="/archive-data-society-research-areas.png" alt="Portraits associated with Data and Society research" />
           : precedents[selected].name === "AI Now Institute"
             ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
             : precedents[selected].name === "NotebookLM"
