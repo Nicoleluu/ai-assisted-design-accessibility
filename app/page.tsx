@@ -236,26 +236,24 @@ export default function Home() {
           key={canvas.id}
           ref={element => { sections.current[index] = element; }}
         >
-          <div className="canvas-copy">
-            <p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p>
-            <h1>{canvas.title}</h1>
-            <p className="statement">{canvas.statement}</p>
-            {canvas.id === "question" && (
-              <div className="opening-meta">
-                <p className="opening-name">Nicole Lu</p>
-                <p className="opening-program">Computational Design Practices</p>
-                <p className="opening-course">Colloquium Final</p>
-                <p className="opening-equation">Generating ≠ Designing ≠ Learning</p>
+          {canvas.id === "question" ? (
+            <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" />
+          ) : (
+            <>
+              <div className="canvas-copy">
+                <p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p>
+                <h1>{canvas.title}</h1>
+                <p className="statement">{canvas.statement}</p>
+                {canvas.details && (
+                  <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>
+                )}
               </div>
-            )}
-            {canvas.details && (
-              <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>
-            )}
-          </div>
-          <aside className="visual-placeholder">
-            <VisualContent id={canvas.id} note={canvas.visual} />
-            <p className="visual-note">{canvas.visual}</p>
-          </aside>
+              <aside className="visual-placeholder">
+                <VisualContent id={canvas.id} note={canvas.visual} />
+                <p className="visual-note">{canvas.visual}</p>
+              </aside>
+            </>
+          )}
           <p className="navigation-hint">Tab for next canvas&nbsp;&nbsp;&nbsp;Shift and Tab for previous&nbsp;&nbsp;&nbsp;Scroll is also available</p>
         </section>
       ))}
