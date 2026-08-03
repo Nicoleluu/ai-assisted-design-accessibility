@@ -196,13 +196,26 @@ function ForceProcessWeb() {
       });
     };
 
+    const displayedPosition = (node: Node) => {
+      const angle = tick * .22;
+      const cosine = Math.cos(angle);
+      const sine = Math.sin(angle);
+      const dx = node.x - width / 2;
+      const dy = node.y - height / 2;
+      return {
+        x: width / 2 + dx * cosine - dy * sine,
+        y: height / 2 + dx * sine + dy * cosine
+      };
+    };
+
     const onPointerMove = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
       let nearest = -1;
       let distance = 34;
       nodes.forEach((node, index) => {
-        const current = Math.hypot(node.x - pointer.x, node.y - pointer.y);
+        const shown = displayedPosition(node);
+        const current = Math.hypot(shown.x - pointer.x, shown.y - pointer.y);
         if (current < distance) { distance = current; nearest = index; }
       });
       active = nearest;
@@ -250,35 +263,31 @@ function ForceProcessWeb() {
         node.x = Math.max(18, Math.min(width - 18, node.x + node.vx));
         node.y = Math.max(18, Math.min(height - 18, node.y + node.vy));
 
-        const dx = node.x - width / 2;
-        const dy = node.y - height / 2;
-        const rotation = elapsed * .00016;
-        const cosine = Math.cos(rotation);
-        const sine = Math.sin(rotation);
-        node.x = width / 2 + dx * cosine - dy * sine;
-        node.y = height / 2 + dx * sine + dy * cosine;
       });
 
       context.lineWidth = 1;
       context.strokeStyle = "rgba(233,233,228,.13)";
       links.forEach(link => {
+        const source = displayedPosition(nodes[link.source]);
+        const target = displayedPosition(nodes[link.target]);
         context.beginPath();
-        context.moveTo(nodes[link.source].x, nodes[link.source].y);
-        context.lineTo(nodes[link.target].x, nodes[link.target].y);
+        context.moveTo(source.x, source.y);
+        context.lineTo(target.x, target.y);
         context.stroke();
       });
 
       nodes.forEach((node, index) => {
+        const shown = displayedPosition(node);
         const selected = index === active;
         const radius = selected ? 12 : 3.5;
         if (selected) {
           context.beginPath();
-          context.arc(node.x, node.y, 25, 0, Math.PI * 2);
+          context.arc(shown.x, shown.y, 25, 0, Math.PI * 2);
           context.fillStyle = "rgba(255,255,255,.06)";
           context.fill();
         }
         context.beginPath();
-        context.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        context.arc(shown.x, shown.y, radius, 0, Math.PI * 2);
         context.fillStyle = selected ? "#f0f0eb" : "rgba(233,233,228,.58)";
         context.fill();
         if (selected) {
@@ -286,7 +295,7 @@ function ForceProcessWeb() {
           context.textAlign = "center";
           context.textBaseline = "bottom";
           context.fillStyle = "#f0f0eb";
-          context.fillText(node.term, node.x, node.y - 18);
+          context.fillText(node.term, shown.x, shown.y - 18);
         }
       });
 
