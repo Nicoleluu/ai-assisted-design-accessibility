@@ -446,7 +446,7 @@ function LensesVisual() {
     const height = mount.clientHeight;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, width / height, 1, 3000);
-    camera.position.z = 1050;
+    camera.position.z = 1180;
     const renderer = new CSS3DRenderer();
     renderer.setSize(width, height);
     renderer.domElement.className = "lenses-three-stage";
@@ -462,9 +462,11 @@ function LensesVisual() {
     const objects: CSS3DObject[] = [];
     const elements: HTMLButtonElement[] = [];
     const targets = [[], [], []] as THREE.Vector3[][];
-    const lensMap = [[-340,-125],[-115,-175],[120,-115],[-250,125],[220,130]];
-    const fieldMap = [[-485,20],[-375,225],[0,235],[395,210],[485,-20]];
-    const viewMap = [[-550,-235],[-280,-300],[0,-325],[280,-300],[550,-235]];
+    const organicMaps = [
+      [[-365,-95],[245,35],[-85,185],[365,-145],[-420,145],[-105,20],[420,165],[120,-150],[-475,-25],[35,245],[-515,215],[500,-40],[-225,-165],[235,225],[465,-185]],
+      [[-285,145],[360,-40],[80,-125],[-440,-115],[205,210],[475,105],[-130,-170],[-385,55],[25,235],[330,155],[-500,-40],[455,-165],[-215,225],[155,70],[-35,-15]],
+      [[-410,35],[175,-145],[350,125],[-160,190],[35,60],[-300,-120],[455,20],[250,225],[-470,165],[-40,-165],[490,185],[-215,-35],[105,235],[390,-155],[-505,-85]]
+    ];
     const groupLines: Array<{ groupIndex: number; members: number[]; line: SVGPolylineElement }> = [];
     let activeGroup = -1;
     let pinnedLens = -1;
@@ -490,15 +492,11 @@ function LensesVisual() {
       objects.push(object);
       elements.push(element);
 
-      targets[0].push(new THREE.Vector3((Math.random() - .5) * 1100, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
-      if (index < 5) targets[1].push(new THREE.Vector3(lensMap[index][0], lensMap[index][1], 40));
-      else if (index < 10) targets[1].push(new THREE.Vector3(fieldMap[index - 5][0], fieldMap[index - 5][1], -55));
-      else targets[1].push(new THREE.Vector3(viewMap[index - 10][0], viewMap[index - 10][1], -105));
-      const cluster = index < 5 ? index : index < 10 ? index - 5 : index - 10;
-      const angle = cluster * Math.PI * 2 / 5 - Math.PI / 2;
-      const radius = index < 5 ? 260 : index < 10 ? 425 : 560;
-      const offsetAngle = index >= 10 ? angle + Math.PI / 5 : angle;
-      targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : -80));
+      organicMaps.forEach((map, mapIndex) => {
+        const [x, y] = map[index];
+        const depth = index < 5 ? 55 : index < 10 ? -25 : -70;
+        targets[mapIndex].push(new THREE.Vector3(x, y, depth));
+      });
 
       const activate = () => {
         activeGroup = index < 5 ? 0 : index < 10 ? 1 : 2;
