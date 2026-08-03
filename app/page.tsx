@@ -636,13 +636,15 @@ function CommunityArchive() {
             ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
             : precedents[selected].name === "NotebookLM"
               ? <img src="/archive-notebooklm-interface.png" alt="NotebookLM interface showing sources, chat, and learning tools including audio overview, mind map, flashcards, and quiz" />
+              : precedents[selected].name === "Duolingo"
+                ? <img src="/archive-duolingo-lesson.png" alt="Duolingo Japanese lesson asking which image represents tea" />
               : precedents[selected].name === "People + AI Guidebook"
                 ? <img
                     src={index === 0 ? "/archive-pair-guidebook-chapters.png" : "/archive-pair-guidebook-evidence.png"}
                     alt={index === 0 ? "People and AI Guidebook chapters" : "People and AI Guidebook summary of evidence worksheet"}
                   />
             : <div aria-hidden="true" />}
-        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" || precedents[selected].name === "NotebookLM" || precedents[selected].name === "People + AI Guidebook" ? label : `${label} / image to add`}</figcaption>
+        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" || precedents[selected].name === "NotebookLM" || precedents[selected].name === "Duolingo" || precedents[selected].name === "People + AI Guidebook" ? label : `${label} / image to add`}</figcaption>
       </figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}
