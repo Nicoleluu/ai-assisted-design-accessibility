@@ -191,7 +191,7 @@ function ForceProcessWeb() {
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       nodes = processTerms.map((term, index) => {
         const angle = index * 2.399963;
-        const radius = Math.sqrt((index + .6) / processTerms.length) * Math.min(width, height) * .29;
+        const radius = Math.sqrt((index + .6) / processTerms.length) * Math.min(width, height) * .34;
         const anchorX = width / 2 + Math.cos(angle) * radius;
         const anchorY = height / 2 + Math.sin(angle) * radius;
         return { x: anchorX, y: anchorY, anchorX, anchorY, vx: 0, vy: 0, term };
