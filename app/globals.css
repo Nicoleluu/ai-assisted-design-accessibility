@@ -424,7 +424,6 @@ li:nth-child(even)::before { left: 12px; }
 .compression-support { position: absolute; z-index: 4; top: 10vh; right: clamp(42px, 6vw, 96px); width: min(43vw, 700px); margin: 0; color: #b8bbb6; font-size: clamp(18px, 1.7vw, 28px); font-weight: 300; line-height: 1.3; letter-spacing: -.02em; }
 .force-process-web { position: absolute; left: 50vw; right: 8vw; top: 28vh; bottom: 14vh; overflow: hidden; cursor: crosshair; }
 .force-process-web canvas { display: block; width: 100%; height: 100%; }
-.force-hint { position: absolute; left: 12px; top: 10px; color: var(--faint); font: 9px "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; }
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
 .compression-study { display: grid; grid-template-columns: .68fr 1.32fr; gap: 14px; padding: 18px 18px 55px; }
 .linear-path { display: flex; flex-direction: column; justify-content: center; }

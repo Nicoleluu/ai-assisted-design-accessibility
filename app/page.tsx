@@ -196,15 +196,17 @@ function ForceProcessWeb() {
       });
     };
 
-    const displayedPosition = (node: Node) => {
+    const displayedPosition = (node: Node, index: number) => {
       const angle = tick * .22;
       const cosine = Math.cos(angle);
       const sine = Math.sin(angle);
       const dx = node.x - width / 2;
       const dy = node.y - height / 2;
+      const floatAngle = tick * (.34 + (index % 7) * .035) + index * 1.618;
+      const floatRadius = 3 + (index % 5) * .9;
       return {
-        x: width / 2 + dx * cosine - dy * sine,
-        y: height / 2 + dx * sine + dy * cosine
+        x: width / 2 + dx * cosine - dy * sine + Math.cos(floatAngle) * floatRadius,
+        y: height / 2 + dx * sine + dy * cosine + Math.sin(floatAngle * 1.13) * floatRadius
       };
     };
 
@@ -214,7 +216,7 @@ function ForceProcessWeb() {
       let nearest = -1;
       let distance = 34;
       nodes.forEach((node, index) => {
-        const shown = displayedPosition(node);
+        const shown = displayedPosition(node, index);
         const current = Math.hypot(shown.x - pointer.x, shown.y - pointer.y);
         if (current < distance) { distance = current; nearest = index; }
       });
@@ -260,16 +262,32 @@ function ForceProcessWeb() {
         node.vx += centerX * .00028 + Math.sin(tick * 1.3 + index * .67) * .018;
         node.vy += centerY * .00028 + Math.cos(tick * 1.1 + index * .53) * .018;
         node.vx *= .96; node.vy *= .96;
-        node.x = Math.max(18, Math.min(width - 18, node.x + node.vx));
-        node.y = Math.max(18, Math.min(height - 18, node.y + node.vy));
+        node.x += node.vx;
+        node.y += node.vy;
+
+        const dx = node.x - width / 2;
+        const dy = node.y - height / 2;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const boundary = Math.min(width, height) * .455;
+        if (distance > boundary) {
+          const nx = dx / distance;
+          const ny = dy / distance;
+          node.x = width / 2 + nx * boundary;
+          node.y = height / 2 + ny * boundary;
+          const outwardVelocity = node.vx * nx + node.vy * ny;
+          if (outwardVelocity > 0) {
+            node.vx -= outwardVelocity * nx * 1.4;
+            node.vy -= outwardVelocity * ny * 1.4;
+          }
+        }
 
       });
 
       context.lineWidth = 1;
       context.strokeStyle = "rgba(233,233,228,.13)";
       links.forEach(link => {
-        const source = displayedPosition(nodes[link.source]);
-        const target = displayedPosition(nodes[link.target]);
+        const source = displayedPosition(nodes[link.source], link.source);
+        const target = displayedPosition(nodes[link.target], link.target);
         context.beginPath();
         context.moveTo(source.x, source.y);
         context.lineTo(target.x, target.y);
@@ -277,7 +295,7 @@ function ForceProcessWeb() {
       });
 
       nodes.forEach((node, index) => {
-        const shown = displayedPosition(node);
+        const shown = displayedPosition(node, index);
         const selected = index === active;
         const radius = selected ? 12 : 3.5;
         if (selected) {
@@ -318,7 +336,6 @@ function ForceProcessWeb() {
 
   return <div className="force-process-web">
     <canvas ref={canvasRef} aria-label="Interactive network of design processes, materials, methods, styles, and concerns" />
-    <span className="force-hint">Move through the field</span>
     <ul className="sr-only">{processTerms.map(term => <li key={term}>{term}</li>)}</ul>
   </div>;
 }
