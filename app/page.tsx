@@ -120,8 +120,6 @@ const lensData = [
 const precedents = [
   { name: "AI Now Institute", category: "Critical AI", detail: "Public interest research that helps frame the institutional and social consequences of AI." },
   { name: "Data and Society", category: "Critical AI", detail: "Research that connects technology to social structures, communities, and lived experience." },
-  { name: "Studio Education", category: "Design Learning", detail: "Learning through critique, iteration, observation, making, and reflective practice." },
-  { name: "Learning Through Making", category: "Design Learning", detail: "Knowledge develops through materials, physical experiments, failures, and revisions." },
   { name: "NotebookLM", category: "AI Learning Tool", detail: "A functional precedent for AI interaction organized around learning and source based inquiry." },
   { name: "Conversational Tutors", category: "AI Learning Tool", detail: "Systems that use dialogue to guide understanding rather than only deliver information." },
   { name: "AI Literacy Toolkits", category: "AI Learning Tool", detail: "Resources that help people question, interpret, and use AI systems more critically." },
