@@ -428,6 +428,7 @@ function ResourceMap() {
 function LensesVisual() {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<SVGSVGElement | null>(null);
+  const connectionLabelRef = useRef<HTMLParagraphElement | null>(null);
   const fields = ["Physical product design", "Design education", "Human computer interaction", "AI literacy", "Computational design"];
   const fieldDescriptions = [
     "How objects respond to people, materials, manufacturing, and use.",
@@ -458,6 +459,11 @@ function LensesVisual() {
       [0, 1, 2, 3, 4],
       [5, 6, 7, 8, 9],
       [10, 11, 12, 13, 14]
+    ];
+    const relationshipLabels = [
+      "Questions guiding the research",
+      "Fields informing the project",
+      "Ways of defining accessibility"
     ];
     const objects: CSS3DObject[] = [];
     const elements: HTMLButtonElement[] = [];
@@ -503,11 +509,16 @@ function LensesVisual() {
         const related = new Set(relationshipGroups[activeGroup]);
         elements.forEach((card, cardIndex) => card.classList.toggle("is-related", related.has(cardIndex)));
         elements.forEach((card, cardIndex) => card.classList.toggle("is-dimmed", !related.has(cardIndex)));
+        if (connectionLabelRef.current) {
+          connectionLabelRef.current.textContent = relationshipLabels[activeGroup];
+          connectionLabelRef.current.classList.add("is-visible");
+        }
       };
       const clear = () => {
         if (pinnedLens >= 0) return;
         activeGroup = -1;
         elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
+        connectionLabelRef.current?.classList.remove("is-visible");
       };
       element.addEventListener("pointerenter", () => { interactionPaused = true; activate(); });
       element.addEventListener("pointerleave", () => { interactionPaused = false; clear(); });
@@ -577,6 +588,7 @@ function LensesVisual() {
   return <div className="lenses-three-map">
     <svg ref={linksRef} className="lens-relationship-lines" aria-hidden="true" />
     <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive map with three relationship groups: research lenses, intersecting fields, and views of accessibility" />
+    <p ref={connectionLabelRef} className="lens-relationship-caption" aria-live="polite" />
   </div>;
 }
 

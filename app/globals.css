@@ -490,10 +490,12 @@ li:nth-child(even)::before { left: 12px; }
 .lens-controls button { min-height: 42px; padding: 5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); font: 7px/1.2 "Courier New", monospace; text-transform: uppercase; cursor: pointer; }.lens-controls button.active { color: var(--text); background: #171a17; border-color: var(--accent); }
 .lenses-map > p { position: absolute; left: 3%; right: 3%; bottom: 4px; display: flex; gap: 14px; margin: 0; color: var(--muted); font: 8px/1.3 "Courier New", monospace; }.lenses-map > p b { min-width: 130px; color: var(--accent); font-weight: 400; text-transform: uppercase; }
 .lenses-three-map { position: absolute; inset: 13% 7% 5%; width: auto; height: auto; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 47%, rgba(255,255,255,.035), transparent 43%); }
-.lenses-three-mount { position: absolute; z-index: 2; inset: 0; cursor: crosshair; }
-.lens-relationship-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.lenses-three-mount { position: absolute; z-index: 2; inset: 0 0 26px; cursor: crosshair; }
+.lens-relationship-lines { position: absolute; z-index: 1; inset: 0 0 26px; width: 100%; height: auto; overflow: visible; pointer-events: none; }
 .lens-relationship-line { stroke: #d0d0d0; stroke-width: 1; opacity: 0; transition: opacity .22s; }
 .lens-relationship-line.is-visible { opacity: .48; }
+.lens-relationship-caption { position: absolute; z-index: 4; left: 50%; bottom: 2px; margin: 0; opacity: 0; color: rgba(205,205,205,.46); font: 400 clamp(9px,.66vw,12px)/1.2 "Helvetica Neue",Arial,sans-serif; letter-spacing: .035em; text-align: center; white-space: nowrap; pointer-events: none; transform: translate(-50%,5px); transition: opacity .2s ease, transform .2s ease; }
+.lens-relationship-caption.is-visible { opacity: 1; transform: translate(-50%,0); }
 .lenses-three-stage { overflow: visible !important; }
 .lens-three-card { --element-color: #e8e8e8; position: relative; width: 122px; height: 142px; display: block; padding: 9px 10px 10px; overflow: visible; color: #f0f0f0; background: linear-gradient(145deg, rgba(45,45,45,.92), rgba(9,9,9,.97)); border: 1px solid rgba(232,232,232,.7); box-shadow: inset 0 0 18px rgba(255,255,255,.06), 0 0 8px rgba(255,255,255,.25), 0 0 25px rgba(255,255,255,.1); font-family: "Courier New", monospace; text-align: center; text-transform: none; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s; backdrop-filter: blur(8px); }
 .lens-three-card::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255,255,255,.1); pointer-events: none; }
