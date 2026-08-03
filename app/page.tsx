@@ -118,11 +118,61 @@ const lensData = [
 ];
 
 const precedents = [
-  { name: "AI Now Institute", category: "Critical AI", detail: "Public interest research that helps frame the institutional and social consequences of AI." },
-  { name: "Data and Society", category: "Critical AI", detail: "Research that connects technology to social structures, communities, and lived experience." },
-  { name: "NotebookLM", category: "AI Learning Tool", detail: "A functional precedent for AI interaction organized around learning and source based inquiry." },
-  { name: "Duolingo", category: "AI Learning Tool", detail: "A learning platform that combines structured progression, adaptive practice, feedback, and AI supported conversation." },
-  { name: "AI Design Guide", category: "Design Learning", detail: "A practical learning library that helps designers understand and apply agentic AI through guides, prompts, tools, and structured learning paths." },
+  {
+    name: "AI Now Institute",
+    category: "Critical AI and public interest",
+    sections: [
+      ["Who They Are", "An independent research institute studying artificial intelligence in the public interest, with attention to power, inequality, accountability, labor, and institutions."],
+      ["What They Do", "AI Now examines the companies, infrastructures, resources, policies, and social conditions that determine how AI is developed and who can participate."],
+      ["Selected Work", "A New AI Lexicon: Power examines how expensive computing, education, funding, and institutional support limit meaningful participation even when code is publicly available."],
+      ["Relationship to My Project", "It helps me distinguish access to an AI tool from access to the knowledge, methods, critique, materials, examples, and mentorship needed to use it meaningfully."],
+    ],
+    connection: "Availability does not automatically create meaningful participation.",
+  },
+  {
+    name: "NotebookLM",
+    category: "AI supported learning tool",
+    sections: [
+      ["What It Is", "An AI research and learning platform developed by Google. Users build a personal knowledge environment from documents, websites, videos, audio, and notes."],
+      ["What It Does", "NotebookLM helps users question, organize, and understand selected sources through cited responses, study guides, mind maps, audio overviews, flashcards, and quizzes."],
+      ["Selected Feature", "Source Grounding links answers back to user selected material, supporting inquiry and understanding instead of only generating an outcome."],
+      ["Relationship to My Project", "It inspires a learning focused approach, but assumes users already know which sources they need. My project asks how AI might guide people who do not yet have design knowledge or precedents."],
+    ],
+    connection: "AI can guide a learning process rather than complete the work for the user.",
+  },
+  {
+    name: "AI Design Guide",
+    category: "Design learning",
+    sections: [
+      ["What It Is", "A learning platform created by designer Romina Kavcic that provides practical resources for designers working with AI and agentic design tools."],
+      ["What It Does", "It organizes guides, prompts, templates, tool reviews, design system references, and interactive resources for professional design workflows."],
+      ["Selected Feature", "Structured Learning Paths turn related guides and exercises into a repeatable sequence of learning, applying, evaluating, and saving what worked."],
+      ["Relationship to My Project", "It shows how AI knowledge can connect to real design work, but it primarily serves people who already understand design. My project begins before that knowledge exists."],
+    ],
+    connection: "Guidance must respond to what the learner already knows.",
+  },
+  {
+    name: "Duolingo",
+    category: "AI supported learning tool",
+    sections: [
+      ["What It Is", "A digital education platform that teaches languages through short interactive lessons, curriculum design, learning science, personalization, and game mechanics."],
+      ["What It Does", "Duolingo uses a structured path that introduces skills gradually, responds to mistakes, adjusts difficulty, and provides repeated practice."],
+      ["Selected Feature", "AI Roleplay places learners in real world scenarios, responds to their choices, and provides feedback. The AI creates a space to practice instead of performing the skill for them."],
+      ["Relationship to My Project", "It demonstrates guided practice, feedback, and adaptation. Unlike language learning, design has no single correct answer, so my project must support different processes without fixing the outcome."],
+    ],
+    connection: "AI can create conditions for practice while keeping the learner responsible.",
+  },
+  {
+    name: "People + AI Guidebook",
+    category: "Human centered AI design",
+    sections: [
+      ["Who It Is", "Google’s People + AI Research team studies relationships between people and artificial intelligence through research, tools, and design frameworks."],
+      ["What It Does", "PAIR helps designers create AI products around human needs, addressing control, trust, explainability, feedback, data, and system failure."],
+      ["Selected Work", "The People + AI Guidebook follows the AI product development process from identifying user needs to designing feedback, control, and graceful failure."],
+      ["Relationship to My Project", "Its distinction between automation and augmentation supports an AI that guides rather than replaces design. Feedback + Control helps define how learners retain responsibility and influence the system."],
+    ],
+    connection: "The learner and the system should distribute control without removing human responsibility.",
+  },
 ];
 
 function ExperimentVisual() {
@@ -372,8 +422,11 @@ function CommunityArchive() {
   return <div className="community-archive">
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className="archive-ribbon">{precedents.map((item, i) => <button key={item.name} className={selected === i ? "active" : ""} onClick={() => setSelected(i)} onMouseEnter={() => setSelected(i)}><i data-index={String(i + 1).padStart(2, "0")} /><span>{item.name}</span></button>)}</div>
-    <div className="precedent-record"><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2><p>{precedents[selected].detail}</p><small>Image, creator, date, approach, relationship, and citation to add</small></div>
-    <div className="missing-space"><span>MISSING SPACE TO INVESTIGATE</span><p>AI supported design learning that encourages inquiry, material investigation, judgment, and human decision making without immediately generating the final outcome.</p></div>
+    <div className="precedent-record">
+      <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
+      <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
+      <p className="precedent-connection">{precedents[selected].connection}</p>
+    </div>
   </div>;
 }
 
