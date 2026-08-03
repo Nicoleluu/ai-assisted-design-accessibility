@@ -431,7 +431,7 @@ function LineageVisual() {
 function CommunityArchive() {
   const [selected, setSelected] = useState<number | null>(null);
   const archiveLoop = [...precedents, ...precedents];
-  return <div className="community-archive">
+  return <div className={`community-archive ${selected !== null ? "has-selection" : ""}`}>
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
