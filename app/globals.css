@@ -393,6 +393,42 @@ li:nth-child(even)::before { left: 12px; }
 .chat-record p { width: 78%; margin: 20px 0 0; padding: 10px 12px; border: 1px solid var(--line-soft); color: #b7bab5; font: 10px/1.35 "Courier New", monospace; }
 .chat-record p.ai { margin-left: auto; color: var(--text); border-color: var(--line); }
 .chat-record small, .generated-chair small { position: absolute; left: 18px; bottom: 16px; color: var(--faint); font: 8px "Courier New", monospace; text-transform: uppercase; }
+.chat-record-video { overflow: hidden; padding: 0; background: #000; }
+.chat-record-video::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.075) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0,0,0,.05), transparent 18%, transparent 78%, rgba(0,0,0,.7));
+  background-size: 12.5% 12.5%, 12.5% 12.5%, 100% 100%;
+  pointer-events: none;
+}
+.chat-record-video::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 8px;
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: inset 0 0 70px rgba(0,0,0,.52);
+  pointer-events: none;
+}
+.chat-record-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(1) invert(1) contrast(1.22) brightness(.88);
+  transform: scale(1.018);
+}
+.record-overlay { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
+.record-overlay span, .record-overlay b, .record-overlay i { position: absolute; padding: 4px 6px; color: #efefeb; background: #050605; font: 7px/1.2 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.record-overlay span { left: 14px; top: 14px; color: #b8493e; }
+.record-overlay b { right: 14px; top: 14px; font-weight: 400; }
+.record-overlay i { left: 14px; bottom: 14px; color: #8e928d; font-style: normal; }
 .experiment-study > strong { grid-column: 1 / -1; padding-top: 13px; border-top: 1px solid var(--line); color: var(--text); font: 300 clamp(17px, 1.45vw, 23px)/1.2 "Helvetica Neue", sans-serif; }
 .chair-mark { position: absolute; inset: 20% 16% 20%; }
 .chair-mark i { position: absolute; left: 26%; top: 12%; width: 48%; height: 38%; border: 1px solid var(--text); border-radius: 48% 48% 12% 12%; transform: skewY(-8deg); }

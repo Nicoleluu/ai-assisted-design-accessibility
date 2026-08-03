@@ -116,7 +116,12 @@ const precedents = [
 
 function ExperimentVisual() {
   return <div className="experiment-study">
-    <div className="chat-record"><span>SCREEN RECORD / WORKSHOP</span>{["I want to design a chair.", "What kind of chair?", "Something simple and modern.", "Here is a complete concept."].map((line, i) => <p key={line} className={i % 2 ? "ai" : "person"}>{line}</p>)}<small>Replace with participant recording</small></div>
+    <div className="chat-record chat-record-video">
+      <video autoPlay muted loop playsInline preload="auto" aria-label="A scrolling AI chatbot conversation about designing a chair" onLoadedMetadata={event => { event.currentTarget.playbackRate = 1.15; }}>
+        <source src="/canvas-02-chat-scroll.mov" type="video/quicktime" />
+      </video>
+      <div className="record-overlay"><span>REC 02 / AI CONVERSATION</span><b>SCROLLING PROCESS RECORD</b><i>GENERATIVE OUTPUT IN PROGRESS</i></div>
+    </div>
     <div className="generated-chair"><span>GENERATED OUTCOME</span><div className="chair-mark"><i /><b /></div><small>Replace with generated chair</small></div>
     <strong>An object was generated. What design process occurred?</strong>
   </div>;
