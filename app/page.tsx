@@ -469,7 +469,7 @@ function LensesVisual() {
     const fieldMap = [[-390,20],[-300,225],[0,235],[315,210],[390,-20]];
     const viewMap = [[-430,-235],[-220,-300],[0,-325],[220,-300],[430,-235]];
     const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
-    let activeLens = -1;
+    let activeLenses = new Set<number>();
     let pinnedLens = -1;
     let interactionPaused = false;
     Object.entries(links).forEach(([lensKey, related]) => {
@@ -508,16 +508,21 @@ function LensesVisual() {
       targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : index === 10 ? 115 : -80));
 
       const activate = () => {
-        if (index >= 5) return;
-        activeLens = index;
-        setSelected(index);
-        const related = new Set([index, 10, ...(links[index] || [])]);
+        if (index >= 5 && index < 11) return;
+        const connectedLenses = index < 5
+          ? [index]
+          : Object.keys(links).map(Number).filter(lens => links[lens].includes(index));
+        activeLenses = new Set(connectedLenses);
+        setSelected(index < 5 ? index : null);
+        const related = index < 5
+          ? new Set([index, 10, ...(links[index] || [])])
+          : new Set([index, 10, ...connectedLenses]);
         elements.forEach((card, cardIndex) => card.classList.toggle("is-related", related.has(cardIndex)));
         elements.forEach((card, cardIndex) => card.classList.toggle("is-dimmed", !related.has(cardIndex)));
       };
       const clear = () => {
         if (pinnedLens >= 0) return;
-        activeLens = -1;
+        activeLenses = new Set();
         setSelected(null);
         elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
       };
@@ -526,7 +531,7 @@ function LensesVisual() {
       element.addEventListener("focus", () => { interactionPaused = true; activate(); });
       element.addEventListener("blur", () => { interactionPaused = false; clear(); });
       element.addEventListener("click", () => {
-        if (index >= 5) return;
+        if (index >= 5 && index < 11) return;
         pinnedLens = pinnedLens === index ? -1 : index;
         if (pinnedLens >= 0) activate(); else clear();
       });
@@ -565,7 +570,7 @@ function LensesVisual() {
         line.setAttribute("y1", String((-sourcePosition.y * .5 + .5) * stageHeight));
         line.setAttribute("x2", String((targetPosition.x * .5 + .5) * stageWidth));
         line.setAttribute("y2", String((-targetPosition.y * .5 + .5) * stageHeight));
-        line.classList.toggle("is-visible", lens === activeLens);
+        line.classList.toggle("is-visible", activeLenses.has(lens));
       });
       renderer.render(scene, camera);
       frame = requestAnimationFrame(animate);

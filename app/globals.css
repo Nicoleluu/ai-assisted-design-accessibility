@@ -520,12 +520,14 @@ li:nth-child(even)::before { left: 12px; }
 .lens-three-card.is-center { --element-color: #C06225; width: 154px; height: 168px; padding-top: 13px; color: #f7e5d9; background: linear-gradient(145deg, rgba(100,47,14,.96), rgba(29,12,3,.99)); border-color: rgba(192,98,37,.92); box-shadow: inset 0 0 25px rgba(192,98,37,.12), 0 0 12px rgba(192,98,37,.42), 0 0 36px rgba(192,98,37,.18); }
 .lens-three-card.is-center::before { border-color: rgba(192,98,37,.2); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #f3d8c7; }.lens-three-card.is-center .periodic-family { color: rgba(240,205,181,.58); }
 .lens-three-card.is-center .periodic-detail { color: #f8e9df; background: rgba(31,13,4,.99); border-color: rgba(192,98,37,.82); box-shadow: 0 0 24px rgba(192,98,37,.24); }
-.lens-three-card.is-view { --element-color: #718684; width: 118px; height: 138px; color: #e1e8e7; background: linear-gradient(145deg, rgba(31,39,39,.94), rgba(7,10,10,.98)); border-color: rgba(113,134,132,.78); box-shadow: inset 0 0 18px rgba(113,134,132,.08), 0 0 8px rgba(113,134,132,.28), 0 0 24px rgba(113,134,132,.1); }
-.lens-three-card.is-view::before { border-color: rgba(113,134,132,.14); }
-.lens-three-card.is-view .periodic-name { color: #bdcac9; }
-.lens-three-card.is-view .periodic-family { color: rgba(179,195,193,.5); }
-.lens-three-card.is-view .periodic-detail { color: #e5ebea; background: rgba(8,12,12,.98); border-color: rgba(113,134,132,.72); box-shadow: 0 0 22px rgba(113,134,132,.18); }
-.lens-three-card.is-related { color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
+.lens-three-card.is-view { --element-color: #C2C39C; width: 118px; height: 138px; color: #f0f0dc; background: linear-gradient(145deg, rgba(59,60,42,.94), rgba(12,13,8,.98)); border-color: rgba(194,195,156,.82); box-shadow: inset 0 0 18px rgba(194,195,156,.09), 0 0 8px rgba(194,195,156,.3), 0 0 24px rgba(194,195,156,.12); }
+.lens-three-card.is-view::before { border-color: rgba(194,195,156,.16); }
+.lens-three-card.is-view .periodic-name { color: #dadbc0; }
+.lens-three-card.is-view .periodic-family { color: rgba(218,219,192,.54); }
+.lens-three-card.is-view .periodic-detail { color: #f0f0df; background: rgba(14,15,9,.98); border-color: rgba(194,195,156,.76); box-shadow: 0 0 22px rgba(194,195,156,.2); }
+.lens-three-card.is-related { z-index: 9998 !important; color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
+.lens-three-card:hover, .lens-three-card:focus { z-index: 9999 !important; }
+.lens-three-card.is-related .periodic-detail, .lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { z-index: 10000 !important; }
 .lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(118,54,15,.97), rgba(35,14,4,.99)); }
 .lens-three-card.is-dimmed { opacity: .14; }
 .lens-definition { position: absolute; z-index: 4; left: 22px; right: 22px; bottom: 18px; display: grid; grid-template-columns: minmax(150px,.5fr) 1.5fr; gap: 24px; padding-top: 9px; border-top: 1px solid #252825; pointer-events: none; }
@@ -538,7 +540,7 @@ li:nth-child(even)::before { left: 12px; }
 .lens-map-key span:nth-child(1)::before { background: #9CB9B7; border-color: #9CB9B7; }
 .lens-map-key span:nth-child(2)::before { background: #fff; border-color: #fff; }
 .lens-map-key span:nth-child(3)::before { background: #C06225; border-color: #C06225; }
-.lens-map-key span:nth-child(4)::before { background: #718684; border-color: #718684; }
+.lens-map-key span:nth-child(4)::before { background: #C2C39C; border-color: #C2C39C; }
 
 .canvas-lineage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
 .canvas-lineage .canvas-copy { display: grid; grid-template-columns: .8fr 1.2fr; gap: 5vw; max-width: none; align-items: end; }.canvas-lineage .canvas-label { grid-column: 1/-1; margin-bottom: 0; }.canvas-lineage .statement { margin: 0; }.canvas-lineage .visual-placeholder { min-height: 50vh; }
