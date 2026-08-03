@@ -510,15 +510,18 @@ li:nth-child(even)::before { left: 12px; }
 .lens-three-card.is-related .periodic-full { display: block; }
 .lens-three-card.is-related .periodic-name { opacity: 0; }
 .lens-three-card.is-related .periodic-detail { opacity: 1; transform: translate(-50%, 0); }
-.lens-three-card.is-field { --element-color: #9b9b9b; width: 122px; height: 142px; color: #d2d2d2; background: linear-gradient(145deg, rgba(28,28,28,.92), rgba(5,5,5,.97)); border-color: rgba(155,155,155,.62); box-shadow: inset 0 0 18px rgba(255,255,255,.035), 0 0 8px rgba(180,180,180,.18), 0 0 23px rgba(180,180,180,.07); }
-.lens-three-card.is-field::before { border-color: rgba(190,190,190,.08); }
-.lens-three-card.is-field .periodic-name { color: #bcbcbc; }.lens-three-card.is-field .periodic-family { color: rgba(185,185,185,.4); }
-.lens-three-card.is-field .periodic-detail { color: #d5d5d5; background: rgba(8,8,8,.98); border-color: rgba(160,160,160,.58); box-shadow: 0 0 22px rgba(180,180,180,.12); }
-.lens-three-card.is-center { --element-color: #fff; width: 154px; height: 168px; padding-top: 13px; color: #fff; background: linear-gradient(145deg, rgba(67,67,67,.95), rgba(13,13,13,.99)); border-color: rgba(255,255,255,.9); box-shadow: inset 0 0 25px rgba(255,255,255,.09), 0 0 12px rgba(255,255,255,.36), 0 0 36px rgba(255,255,255,.16); }
-.lens-three-card.is-center::before { border-color: rgba(255,255,255,.16); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #ededed; }.lens-three-card.is-center .periodic-family { color: rgba(230,230,230,.55); }
-.lens-three-card.is-center .periodic-detail { color: #f6f6f6; background: rgba(15,15,15,.99); border-color: rgba(255,255,255,.75); box-shadow: 0 0 24px rgba(255,255,255,.2); }
+.lens-three-card.is-lens { --element-color: #9CB9B7; color: #e4efee; background: linear-gradient(145deg, rgba(42,57,56,.94), rgba(8,13,13,.98)); border-color: rgba(156,185,183,.78); box-shadow: inset 0 0 18px rgba(156,185,183,.08), 0 0 8px rgba(156,185,183,.3), 0 0 25px rgba(156,185,183,.12); }
+.lens-three-card.is-lens::before { border-color: rgba(156,185,183,.14); }.lens-three-card.is-lens .periodic-name { color: #c8d9d8; }.lens-three-card.is-lens .periodic-family { color: rgba(187,209,207,.5); }
+.lens-three-card.is-lens .periodic-detail { color: #e1e9e8; background: rgba(9,14,14,.98); border-color: rgba(156,185,183,.68); box-shadow: 0 0 22px rgba(156,185,183,.18); }
+.lens-three-card.is-field { --element-color: #fff; width: 122px; height: 142px; color: #fff; background: linear-gradient(145deg, rgba(54,54,54,.94), rgba(8,8,8,.98)); border-color: rgba(255,255,255,.82); box-shadow: inset 0 0 18px rgba(255,255,255,.07), 0 0 8px rgba(255,255,255,.3), 0 0 23px rgba(255,255,255,.12); }
+.lens-three-card.is-field::before { border-color: rgba(255,255,255,.13); }
+.lens-three-card.is-field .periodic-name { color: #eee; }.lens-three-card.is-field .periodic-family { color: rgba(235,235,235,.5); }
+.lens-three-card.is-field .periodic-detail { color: #f4f4f4; background: rgba(10,10,10,.98); border-color: rgba(255,255,255,.7); box-shadow: 0 0 22px rgba(255,255,255,.18); }
+.lens-three-card.is-center { --element-color: #C06225; width: 154px; height: 168px; padding-top: 13px; color: #f7e5d9; background: linear-gradient(145deg, rgba(100,47,14,.96), rgba(29,12,3,.99)); border-color: rgba(192,98,37,.92); box-shadow: inset 0 0 25px rgba(192,98,37,.12), 0 0 12px rgba(192,98,37,.42), 0 0 36px rgba(192,98,37,.18); }
+.lens-three-card.is-center::before { border-color: rgba(192,98,37,.2); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #f3d8c7; }.lens-three-card.is-center .periodic-family { color: rgba(240,205,181,.58); }
+.lens-three-card.is-center .periodic-detail { color: #f8e9df; background: rgba(31,13,4,.99); border-color: rgba(192,98,37,.82); box-shadow: 0 0 24px rgba(192,98,37,.24); }
 .lens-three-card.is-related { color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
-.lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(82,82,82,.97), rgba(17,17,17,.99)); }
+.lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(118,54,15,.97), rgba(35,14,4,.99)); }
 .lens-three-card.is-dimmed { opacity: .14; }
 .lens-definition { position: absolute; z-index: 4; left: 22px; right: 22px; bottom: 18px; display: grid; grid-template-columns: minmax(150px,.5fr) 1.5fr; gap: 24px; padding-top: 9px; border-top: 1px solid #252825; pointer-events: none; }
 .lens-definition b { color: #d7d7d7; font: 8px "Courier New", monospace; text-transform: uppercase; }
