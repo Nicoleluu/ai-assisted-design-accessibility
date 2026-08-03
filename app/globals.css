@@ -504,7 +504,58 @@ li:nth-child(even)::before { left: 12px; }
 .archive-categories { display: none; }
 .archive-ribbon { min-height: 140px; padding: 12px 0 16px; overflow: hidden; }.archive-ribbon-track { display: flex; align-items: center; gap: 18px; width: max-content; padding: 8px 0; animation: archive-marquee 34s linear infinite; will-change: transform; }.archive-ribbon.paused .archive-ribbon-track { animation-play-state: paused; }.archive-ribbon button { flex: 0 0 176px; height: 102px; padding: 0; color: var(--muted); background: transparent; border: 0; cursor: pointer; transition: transform .28s ease, margin .28s ease; }.archive-ribbon button i { position: relative; display: block; height: 74px; background: repeating-linear-gradient(135deg,#1b1e1b 0 8px,#0d100e 8px 16px); }.archive-ribbon button i::after { content: attr(data-index); position: absolute; left: 6px; bottom: 5px; color: var(--muted); font: 7px "Courier New", monospace; }.archive-ribbon button span { display: block; margin-top: 7px; color: var(--muted); font: 7px "Courier New", monospace; text-transform: uppercase; }.archive-ribbon button.active { z-index: 3; margin: 0 24px; transform: scale(1.28); }.archive-ribbon button.active span { color: var(--text); }
 @keyframes archive-marquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
-.precedent-record { padding: 6px 4vw 0; animation: archive-info-in .2s ease both; }.precedent-record header { display: grid; grid-template-columns: 190px 1fr; align-items: end; gap: 18px; padding-bottom: 6px; }.precedent-record header span { color: var(--accent); font: 7px "Courier New", monospace; text-transform: uppercase; }.precedent-record h2 { margin: 0; font: 300 clamp(22px,2.2vw,36px) "Helvetica Neue", sans-serif; }.precedent-sections { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; }.precedent-sections section { min-height: 126px; padding: 10px 0 4px; }.precedent-sections section > span { color: var(--accent); font: 7px "Courier New", monospace; }.precedent-sections h3 { margin: 5px 0 8px; color: var(--text); font: 400 9px "Courier New", monospace; text-transform: uppercase; }.precedent-sections p { margin: 0; color: #a9aba7; font: 9px/1.32 "Helvetica Neue", sans-serif; }.precedent-connection { max-width: 780px; margin: 10px 0 0; color: var(--text); font: 300 14px/1.25 "Helvetica Neue", sans-serif; }
+.precedent-record { position: relative; height: 390px; margin: 0 4vw; animation: archive-info-in .2s ease both; overflow: hidden; }
+.precedent-record header span, .precedent-sections section > span { color: var(--accent); font: 7px "Courier New", monospace; text-transform: uppercase; }
+.precedent-record h2 { margin: 0; font: 300 clamp(25px,2.7vw,44px) "Helvetica Neue", sans-serif; }
+.precedent-sections h3 { margin: 5px 0 7px; color: var(--text); font: 400 8px "Courier New", monospace; text-transform: uppercase; }
+.precedent-sections p { margin: 0; color: #a9aba7; font: 8.5px/1.32 "Helvetica Neue", sans-serif; }
+.precedent-connection { margin: 0; color: var(--text); font: 300 13px/1.25 "Helvetica Neue", sans-serif; }
+.precedent-media { pointer-events: none; }
+.media-frame { margin: 0; }
+.media-frame div { min-height: 100%; background: repeating-linear-gradient(135deg,#1b1e1b 0 8px,#0d100e 8px 16px); }
+.media-frame figcaption { margin-top: 5px; color: var(--faint); font: 7px "Courier New", monospace; text-transform: uppercase; }
+
+/* AI Now: institutional report layout with one dominant publication image. */
+.precedent-layout-institution { display: grid; grid-template-columns: .72fr 1fr 1fr .95fr; grid-template-rows: 88px 1fr 48px; gap: 12px 24px; }
+.precedent-layout-institution header { grid-column: 1 / 4; align-self: end; }.precedent-layout-institution header span { display: block; margin-bottom: 8px; }
+.precedent-layout-institution .precedent-sections { display: contents; }.precedent-layout-institution .precedent-section { align-self: start; }.precedent-layout-institution .precedent-section-1 { grid-column: 1; }.precedent-layout-institution .precedent-section-2 { grid-column: 2; }.precedent-layout-institution .precedent-section-3 { grid-column: 3; }.precedent-layout-institution .precedent-section-4 { grid-column: 2 / 4; grid-row: 3; }
+.precedent-layout-institution .precedent-media { grid-column: 4; grid-row: 1 / 4; }.precedent-layout-institution .media-frame, .precedent-layout-institution .media-frame div { height: 330px; }
+.precedent-layout-institution .precedent-connection { grid-column: 1; grid-row: 3; }
+
+/* NotebookLM: information surrounds a central source window. */
+.precedent-layout-sources { display: grid; grid-template-columns: .72fr 1.25fr .72fr; grid-template-rows: 74px 1fr 92px; gap: 10px 28px; }
+.precedent-layout-sources header { grid-column: 1 / 4; display: flex; align-items: end; justify-content: space-between; }.precedent-layout-sources header span { order: 2; }
+.precedent-layout-sources .precedent-sections { display: contents; }.precedent-layout-sources .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-sources .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-sources .precedent-section-3 { grid-column: 1; grid-row: 3; }.precedent-layout-sources .precedent-section-4 { grid-column: 3; grid-row: 3; }
+.precedent-layout-sources .precedent-media { grid-column: 2; grid-row: 2 / 4; }.precedent-layout-sources .media-frame, .precedent-layout-sources .media-frame div { height: 270px; }
+.precedent-layout-sources .precedent-connection { position: absolute; left: 35%; right: 35%; bottom: 4px; text-align: center; }
+
+/* AI Design Guide: modular editorial mosaic. */
+.precedent-layout-mosaic { display: grid; grid-template-columns: .8fr 1fr .72fr 1fr; grid-template-rows: 72px 130px 130px; gap: 14px 18px; }
+.precedent-layout-mosaic header { grid-column: 1 / 3; }.precedent-layout-mosaic header span { display: block; margin-bottom: 7px; }
+.precedent-layout-mosaic .precedent-sections { display: contents; }.precedent-layout-mosaic .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-mosaic .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-mosaic .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-mosaic .precedent-section-4 { grid-column: 4; grid-row: 2 / 4; }
+.precedent-layout-mosaic .precedent-media { display: contents; }.precedent-layout-mosaic .media-frame-1 { grid-column: 2; grid-row: 2; }.precedent-layout-mosaic .media-frame-2 { grid-column: 3; grid-row: 3; }.precedent-layout-mosaic .media-frame, .precedent-layout-mosaic .media-frame div { height: 105px; }
+.precedent-layout-mosaic .precedent-connection { grid-column: 1; grid-row: 3; align-self: end; }
+
+/* Duolingo: bold learning product page with one clear interaction image. */
+.precedent-layout-practice { display: grid; grid-template-columns: 1.2fr .78fr .78fr; grid-template-rows: 95px 1fr 72px; gap: 14px 30px; }
+.precedent-layout-practice header { grid-column: 1 / 4; display: flex; justify-content: space-between; align-items: start; }.precedent-layout-practice h2 { font-size: clamp(40px,4.8vw,78px); line-height: .9; }
+.precedent-layout-practice .precedent-sections { display: contents; }.precedent-layout-practice .precedent-section-1 { grid-column: 2; grid-row: 2; }.precedent-layout-practice .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-practice .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-practice .precedent-section-4 { grid-column: 3; grid-row: 3; }
+.precedent-layout-practice .precedent-media { grid-column: 1; grid-row: 2 / 4; }.precedent-layout-practice .media-frame, .precedent-layout-practice .media-frame div { height: 235px; }
+.precedent-layout-practice .precedent-connection { position: absolute; left: 0; bottom: 0; max-width: 31%; }
+
+/* PAIR: a diagrammatic field with offset guidebook fragments. */
+.precedent-layout-guidebook { display: grid; grid-template-columns: .75fr 1.1fr .85fr; grid-template-rows: 74px 1fr 96px; gap: 12px 26px; }
+.precedent-layout-guidebook header { grid-column: 2; text-align: center; z-index: 2; }.precedent-layout-guidebook h2 { font-size: clamp(31px,3.4vw,56px); }
+.precedent-layout-guidebook .precedent-sections { display: contents; }.precedent-layout-guidebook .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-guidebook .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-guidebook .precedent-section-3 { grid-column: 1; grid-row: 3; }.precedent-layout-guidebook .precedent-section-4 { grid-column: 3; grid-row: 3; }
+.precedent-layout-guidebook .precedent-media { display: contents; }.precedent-layout-guidebook .media-frame-1 { grid-column: 2; grid-row: 2; transform: rotate(-2deg); }.precedent-layout-guidebook .media-frame-2 { position: absolute; width: 145px; right: 20%; bottom: 8px; transform: rotate(3deg); }.precedent-layout-guidebook .media-frame-1 div { height: 178px; }.precedent-layout-guidebook .media-frame-2 div { height: 86px; }
+.precedent-layout-guidebook .precedent-connection { position: absolute; left: 34%; right: 34%; bottom: 2px; text-align: center; }
+
+/* Data & Society: policy editorial, with a softened report field behind the argument. */
+.precedent-layout-participation { display: grid; grid-template-columns: .72fr 1.2fr 1fr .72fr; grid-template-rows: 86px 1fr 112px; gap: 10px 24px; }
+.precedent-layout-participation header { grid-column: 2 / 4; z-index: 2; }.precedent-layout-participation header span { display: block; margin-bottom: 7px; }
+.precedent-layout-participation .precedent-sections { display: contents; position: relative; z-index: 2; }.precedent-layout-participation .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-participation .precedent-section-2 { grid-column: 4; grid-row: 2; }.precedent-layout-participation .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-participation .precedent-section-4 { grid-column: 3 / 5; grid-row: 3; }
+.precedent-layout-participation .precedent-media { grid-column: 2 / 4; grid-row: 2; opacity: .42; filter: blur(4px); }.precedent-layout-participation .media-frame, .precedent-layout-participation .media-frame div { height: 170px; }
+.precedent-layout-participation .precedent-connection { position: absolute; left: 24%; right: 24%; top: 155px; z-index: 3; font-size: 17px; text-align: center; }
 @keyframes archive-info-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 .canvas-argument { grid-template-columns: .82fr 1.18fr; }.canvas-argument h1 { font-size: clamp(42px, 5.2vw, 82px); }.canvas-argument .visual-placeholder { min-height: 72vh; }.canvas-argument .visual-note { display: block; }

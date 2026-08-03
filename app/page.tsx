@@ -121,6 +121,8 @@ const precedents = [
   {
     name: "AI Now Institute",
     category: "Critical AI and public interest",
+    layout: "institution",
+    media: ["Selected publication cover"],
     sections: [
       ["Who They Are", "An independent research institute studying artificial intelligence in the public interest, with attention to power, inequality, accountability, labor, and institutions."],
       ["What They Do", "AI Now examines the companies, infrastructures, resources, policies, and social conditions that determine how AI is developed and who can participate."],
@@ -132,6 +134,8 @@ const precedents = [
   {
     name: "NotebookLM",
     category: "AI supported learning tool",
+    layout: "sources",
+    media: ["Source and response interface"],
     sections: [
       ["What It Is", "An AI research and learning platform developed by Google. Users build a personal knowledge environment from documents, websites, videos, audio, and notes."],
       ["What It Does", "NotebookLM helps users question, organize, and understand selected sources through cited responses, study guides, mind maps, audio overviews, flashcards, and quizzes."],
@@ -143,6 +147,8 @@ const precedents = [
   {
     name: "AI Design Guide",
     category: "Design learning",
+    layout: "mosaic",
+    media: ["Learning path interface", "Guide and resource detail"],
     sections: [
       ["What It Is", "A learning platform created by designer Romina Kavcic that provides practical resources for designers working with AI and agentic design tools."],
       ["What It Does", "It organizes guides, prompts, templates, tool reviews, design system references, and interactive resources for professional design workflows."],
@@ -154,6 +160,8 @@ const precedents = [
   {
     name: "Duolingo",
     category: "AI supported learning tool",
+    layout: "practice",
+    media: ["AI Roleplay conversation"],
     sections: [
       ["What It Is", "A digital education platform that teaches languages through short interactive lessons, curriculum design, learning science, personalization, and game mechanics."],
       ["What It Does", "Duolingo uses a structured path that introduces skills gradually, responds to mistakes, adjusts difficulty, and provides repeated practice."],
@@ -165,6 +173,8 @@ const precedents = [
   {
     name: "People + AI Guidebook",
     category: "Human centered AI design",
+    layout: "guidebook",
+    media: ["Guidebook pages", "Feedback and control diagram"],
     sections: [
       ["Who It Is", "Google’s People + AI Research team studies relationships between people and artificial intelligence through research, tools, and design frameworks."],
       ["What It Does", "PAIR helps designers create AI products around human needs, addressing control, trust, explainability, feedback, data, and system failure."],
@@ -176,6 +186,8 @@ const precedents = [
   {
     name: "Data & Society",
     category: "Critical AI and public participation",
+    layout: "participation",
+    media: ["Policy brief cover"],
     sections: [
       ["Who They Are", "An independent nonprofit research institute studying the social implications of data, automation, and artificial intelligence through the experiences of affected people and communities."],
       ["What They Do", "Data & Society produces research, policy guidance, public programs, and educational resources. It studies technology within existing social conditions and asks who participates, whose knowledge is valued, and who is affected."],
@@ -437,9 +449,10 @@ function CommunityArchive() {
       const itemIndex = loopIndex % precedents.length;
       return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => setSelected(itemIndex)} onMouseLeave={() => setSelected(null)} onFocus={() => setSelected(itemIndex)} onBlur={() => setSelected(null)}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
     })}</div></div>
-    {selected !== null && <div className="precedent-record">
+    {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
-      <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
+      <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section className={`precedent-section precedent-section-${index + 1}`} key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
+      <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}><div aria-hidden="true" /><figcaption>{label} / image to add</figcaption></figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}
   </div>;
