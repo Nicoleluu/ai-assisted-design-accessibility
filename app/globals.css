@@ -187,10 +187,10 @@ li:nth-child(even)::before { left: 12px; }
 .visual-note { position: absolute; z-index: 5; left: 18px; right: 18px; bottom: 16px; padding-top: 10px; border-top: 1px solid var(--line-soft); background: linear-gradient(transparent, var(--panel) 30%); font: 9px/1.35 "Courier New", monospace !important; color: var(--muted) !important; }
 
 /* Each canvas has a content specific composition. */
-.canvas-question { display: grid; place-items: center; padding: 0; overflow: hidden; background: #000; }
+.canvas-question { display: grid; grid-template-columns: 1fr; place-items: center; padding: 0; overflow: hidden; background: #000; }
 .canvas-question::before { display: none; }
 .canvas-question::after { display: none; }
-.hero-pdf { display: block; width: 100%; height: 100svh; object-fit: contain; background: #000; }
+.hero-pdf { display: block; width: 100vw; max-width: none; height: 100svh; object-fit: cover; object-position: center; background: #000; }
 .canvas-question .canvas-copy { position: absolute; z-index: 4; left: 48.2%; top: 9.5%; width: 28.4%; max-width: none; height: 65%; padding: 4.8vh 2.4vw 2.2vh; display: flex; flex-direction: column; color: #111; background: #e9e7e1; box-shadow: 0 20px 55px rgba(0,0,0,.42); }
 .canvas-question .canvas-copy::before { content: ""; position: absolute; left: 50%; top: -14px; width: 54px; height: 28px; transform: translateX(-50%); background: #070807; border-radius: 2px 2px 0 0; box-shadow: 0 4px 0 #252625; }
 .canvas-question .canvas-copy::after { content: "●\A●\A●"; white-space: pre; position: absolute; left: 2.1vw; top: 16%; color: #111; font: 16px/5.9 "Arial", sans-serif; }
