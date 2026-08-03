@@ -532,14 +532,16 @@ li:nth-child(even)::before { left: 12px; }
 .lens-three-card.is-related { z-index: 9998 !important; color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
 .lens-three-card:hover, .lens-three-card:focus { z-index: 9999 !important; }
 .lens-three-card.is-related .periodic-detail, .lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { z-index: 10000 !important; }
-.lens-three-card:is(.is-related, :hover, :focus) { width: 190px; height: 210px; overflow: hidden; padding: 12px 14px; background-color: #0b0c0b; transform: scale(1); }
+.lens-three-card:is(.is-related, :hover, :focus) { width: 190px; height: 210px; overflow: hidden; padding: 12px 14px; background-color: #0b0c0b; transform: scale(1); translate: -34px -34px; }
+.lens-three-card.is-view:is(.is-related, :hover, :focus) { translate: -36px -36px; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-symbol { min-height: 52px; margin-top: 17px; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-full { max-width: 158px; font-size: 13px; line-height: 1.05; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-detail { left: 14px; right: 14px; top: auto; bottom: 28px; width: auto; min-height: 48px; display: flex; align-items: flex-start; padding: 0; opacity: 1; background: transparent; border: 0; box-shadow: none; transform: none; font-size: 9px; line-height: 1.3; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-family { bottom: 10px; }
 .lens-three-card.is-center:is(.is-related, :hover, :focus) { width: 210px; height: 230px; }
 .lens-three-card.is-center:is(.is-related, :hover, :focus) .periodic-symbol { margin-top: 18px; font-size: 38px; }
-.lens-three-card.is-related:not(:hover, :focus) { width: 140px; height: 160px; padding: 10px 11px; }
+.lens-three-card.is-related:not(:hover, :focus) { width: 140px; height: 160px; padding: 10px 11px; translate: -9px -9px; }
+.lens-three-card.is-view.is-related:not(:hover, :focus) { translate: -11px -11px; }
 .lens-three-card.is-related:not(:hover, :focus) .periodic-symbol { min-height: 40px; margin-top: 13px; }
 .lens-three-card.is-related:not(:hover, :focus) .periodic-full { max-width: 116px; font-size: 10px; line-height: 1.02; }
 .lens-three-card.is-related:not(:hover, :focus) .periodic-detail { left: 11px; right: 11px; bottom: 24px; min-height: 38px; font-size: 7px; line-height: 1.22; }
