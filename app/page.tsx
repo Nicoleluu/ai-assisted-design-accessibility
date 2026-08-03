@@ -72,13 +72,6 @@ const canvases: Canvas[] = [
     visual: "A moving horizontal precedent archive centers and explains one project at a time.",
   },
   {
-    id: "argument",
-    act: "Argument",
-    title: "AI can make design production more available without making design knowledge accessible.",
-    statement: "Meaningful accessibility requires opportunities to investigate, experiment, understand, question, evaluate, imagine, and take responsibility for design decisions.",
-    visual: "The generated object expands from one answer into a field of informed possibilities.",
-  },
-  {
     id: "capstone",
     act: "Direction",
     title: "A potential capstone could investigate AI as a guide rather than the designer.",
@@ -471,11 +464,6 @@ function CommunityArchive() {
   </div>;
 }
 
-function ArgumentVisual() {
-  const layers = ["People", "Context", "Research", "Materials", "Tests", "Alternatives", "Failures", "Iterations", "Decisions", "Responsibility"];
-  return <div className="argument-field"><div className="object-core"><span>ONE GENERATED ANSWER</span><div className="chair-mark"><i /><b /></div></div>{layers.map((x, i) => <button key={x} style={{ "--angle": `${i * 36}deg`, "--radius": `${32 + (i % 3) * 7}%` } as React.CSSProperties}>{x}</button>)}<strong>A FIELD OF INFORMED POSSIBILITIES</strong></div>;
-}
-
 function CapstoneVisual() {
   const stages = ["Learner", "Questions and intentions", "People, materials, context", "AI supported inquiry", "Sketching and experiments", "Critique and reflection", "Learner decisions"];
   const notes = ["Exploratory interviews", "Workshops and observation", "Situated research", "Prototype interaction roles", "Physical exercises", "Study reasoning and transfer", "No universal process"];
@@ -495,7 +483,6 @@ function VisualContent({ id }: { id: string }) {
   if (id === "lenses") return <LensesVisual />;
   if (id === "lineage") return <LineageVisual />;
   if (id === "community") return <CommunityArchive />;
-  if (id === "argument") return <ArgumentVisual />;
   if (id === "capstone") return <CapstoneVisual />;
   return <ReturnVisual />;
 }
