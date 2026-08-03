@@ -436,8 +436,8 @@ function LensesVisual() {
     "How people interpret, question, and make informed choices with AI.",
     "How computation can support exploration without replacing judgment."
   ];
-  const symbols = ["Da", "Dl", "Sl", "Ha", "Ep", "Pd", "De", "Hc", "Al", "Cd", "AD", "Ab", "Ac", "Ap", "Po", "Ar"];
-  const items = [...lensData.map(([name]) => name), ...fields, "AI supported learning for physical product design", ...accessibilityViews.map(([name]) => name)];
+  const symbols = ["Da", "Dl", "Sl", "Ha", "Ep", "Pd", "De", "Hc", "Al", "Cd", "Ab", "Ac", "Ap", "Po", "Ar"];
+  const items = [...lensData.map(([name]) => name), ...fields, ...accessibilityViews.map(([name]) => name)];
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -454,39 +454,34 @@ function LensesVisual() {
     const group = new THREE.Group();
     scene.add(group);
 
-    const links: Record<number, number[]> = {
-      0: [5, 7, 9, 11, 14, 15],
-      1: [6, 8, 11, 13],
-      2: [5, 6, 7, 12, 13, 15],
-      3: [7, 8, 9, 11, 15],
-      4: [6, 7, 8, 12, 13, 14]
-    };
+    const relationshipGroups = [
+      [0, 1, 2, 3, 4],
+      [5, 6, 7, 8, 9],
+      [10, 11, 12, 13, 14]
+    ];
     const objects: CSS3DObject[] = [];
     const elements: HTMLButtonElement[] = [];
     const targets = [[], [], []] as THREE.Vector3[][];
     const lensMap = [[-340,-125],[-115,-175],[120,-115],[-250,125],[220,130]];
     const fieldMap = [[-485,20],[-375,225],[0,235],[395,210],[485,-20]];
     const viewMap = [[-550,-235],[-280,-300],[0,-325],[280,-300],[550,-235]];
-    const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
-    let activeLenses = new Set<number>();
+    const groupLines: Array<{ groupIndex: number; members: number[]; line: SVGPolylineElement }> = [];
+    let activeGroup = -1;
     let pinnedLens = -1;
     let interactionPaused = false;
-    Object.entries(links).forEach(([lensKey, related]) => {
-      const lens = Number(lensKey);
-      [...related, 10].forEach(target => {
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.classList.add("lens-relationship-line");
-        linksRef.current?.appendChild(line);
-        linkElements.push({ lens, source: lens, target, line });
-      });
+    relationshipGroups.forEach((members, groupIndex) => {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+      line.classList.add("lens-relationship-line");
+      linksRef.current?.appendChild(line);
+      groupLines.push({ groupIndex, members, line });
     });
 
     items.forEach((label, index) => {
       const element = document.createElement("button");
       element.type = "button";
-      element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : index === 10 ? "is-center" : "is-view"}`;
-      const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : index === 10 ? "The open center where the five research lenses and five fields meet." : accessibilityViews[index - 11][1];
-      const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : index === 10 ? "Central inquiry" : "Accessibility view";
+      element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : "is-view"}`;
+      const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : accessibilityViews[index - 10][1];
+      const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : "Accessibility view";
       element.innerHTML = `<span class="periodic-number">${String(index + 1).padStart(2, "0")}</span><strong class="periodic-symbol"><i class="periodic-short">${symbols[index]}</i><i class="periodic-full">${label}</i></strong><b class="periodic-name">${label}</b><small class="periodic-family">${family}</small><em class="periodic-detail">${detail}</em>`;
       element.setAttribute("aria-label", label);
       const object = new CSS3DObject(element);
@@ -498,29 +493,22 @@ function LensesVisual() {
       targets[0].push(new THREE.Vector3((Math.random() - .5) * 1100, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
       if (index < 5) targets[1].push(new THREE.Vector3(lensMap[index][0], lensMap[index][1], 40));
       else if (index < 10) targets[1].push(new THREE.Vector3(fieldMap[index - 5][0], fieldMap[index - 5][1], -55));
-      else if (index === 10) targets[1].push(new THREE.Vector3(0, 0, 110));
-      else targets[1].push(new THREE.Vector3(viewMap[index - 11][0], viewMap[index - 11][1], -105));
-      const cluster = index < 5 ? index : index < 10 ? index - 5 : index === 10 ? 2 : index - 11;
+      else targets[1].push(new THREE.Vector3(viewMap[index - 10][0], viewMap[index - 10][1], -105));
+      const cluster = index < 5 ? index : index < 10 ? index - 5 : index - 10;
       const angle = cluster * Math.PI * 2 / 5 - Math.PI / 2;
-      const radius = index < 5 ? 260 : index < 10 ? 425 : index === 10 ? 0 : 560;
-      const offsetAngle = index > 10 ? angle + Math.PI / 5 : angle;
-      targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : index === 10 ? 115 : -80));
+      const radius = index < 5 ? 260 : index < 10 ? 425 : 560;
+      const offsetAngle = index >= 10 ? angle + Math.PI / 5 : angle;
+      targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : -80));
 
       const activate = () => {
-        if (index >= 5 && index < 11) return;
-        const connectedLenses = index < 5
-          ? [index]
-          : Object.keys(links).map(Number).filter(lens => links[lens].includes(index));
-        activeLenses = new Set(connectedLenses);
-        const related = index < 5
-          ? new Set([index, 10, ...(links[index] || [])])
-          : new Set([index, 10, ...connectedLenses]);
+        activeGroup = index < 5 ? 0 : index < 10 ? 1 : 2;
+        const related = new Set(relationshipGroups[activeGroup]);
         elements.forEach((card, cardIndex) => card.classList.toggle("is-related", related.has(cardIndex)));
         elements.forEach((card, cardIndex) => card.classList.toggle("is-dimmed", !related.has(cardIndex)));
       };
       const clear = () => {
         if (pinnedLens >= 0) return;
-        activeLenses = new Set();
+        activeGroup = -1;
         elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
       };
       element.addEventListener("pointerenter", () => { interactionPaused = true; activate(); });
@@ -528,7 +516,6 @@ function LensesVisual() {
       element.addEventListener("focus", () => { interactionPaused = true; activate(); });
       element.addEventListener("blur", () => { interactionPaused = false; clear(); });
       element.addEventListener("click", () => {
-        if (index >= 5 && index < 11) return;
         pinnedLens = pinnedLens === index ? -1 : index;
         if (pinnedLens >= 0) activate(); else clear();
       });
@@ -558,16 +545,14 @@ function LensesVisual() {
       const stageWidth = mount.clientWidth;
       const stageHeight = mount.clientHeight;
       linksRef.current?.setAttribute("viewBox", `0 0 ${stageWidth} ${stageHeight}`);
-      const sourcePosition = new THREE.Vector3();
-      const targetPosition = new THREE.Vector3();
-      linkElements.forEach(({ lens, source, target, line }) => {
-        objects[source].getWorldPosition(sourcePosition).project(camera);
-        objects[target].getWorldPosition(targetPosition).project(camera);
-        line.setAttribute("x1", String((sourcePosition.x * .5 + .5) * stageWidth));
-        line.setAttribute("y1", String((-sourcePosition.y * .5 + .5) * stageHeight));
-        line.setAttribute("x2", String((targetPosition.x * .5 + .5) * stageWidth));
-        line.setAttribute("y2", String((-targetPosition.y * .5 + .5) * stageHeight));
-        line.classList.toggle("is-visible", activeLenses.has(lens));
+      const projectedPosition = new THREE.Vector3();
+      groupLines.forEach(({ groupIndex, members, line }) => {
+        const points = [...members, members[0]].map(member => {
+          objects[member].getWorldPosition(projectedPosition).project(camera);
+          return `${(projectedPosition.x * .5 + .5) * stageWidth},${(-projectedPosition.y * .5 + .5) * stageHeight}`;
+        }).join(" ");
+        line.setAttribute("points", points);
+        line.classList.toggle("is-visible", activeGroup === groupIndex);
       });
       renderer.render(scene, camera);
       frame = requestAnimationFrame(animate);
@@ -586,14 +571,14 @@ function LensesVisual() {
       window.clearInterval(cycle);
       observer.disconnect();
       mount.removeEventListener("pointermove", onPointerMove);
-      linkElements.forEach(({ line }) => line.remove());
+      groupLines.forEach(({ line }) => line.remove());
       renderer.domElement.remove();
     };
   }, []);
 
   return <div className="lenses-three-map">
     <svg ref={linksRef} className="lens-relationship-lines" aria-hidden="true" />
-    <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive relationship map of five research lenses, five intersecting fields, and five views of accessibility" />
+    <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive map with three relationship groups: research lenses, intersecting fields, and views of accessibility" />
   </div>;
 }
 
