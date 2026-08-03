@@ -125,14 +125,14 @@ const precedents = [
     logo: "/archive-ai-now.png",
     category: "Critical AI and public interest",
     layout: "institution",
-    media: ["Selected publication cover"],
+    media: ["Beyond Impact Lingo essay"],
     sections: [
       ["Who They Are", "An independent research institute studying artificial intelligence in the public interest, with attention to power, inequality, accountability, labor, and institutions."],
       ["What They Do", "AI Now examines the companies, infrastructures, resources, policies, and social conditions that determine how AI is developed and who can participate."],
-      ["Selected Work", "A New AI Lexicon: Power examines how expensive computing, education, funding, and institutional support limit meaningful participation even when code is publicly available."],
-      ["Relationship to My Project", "It helps me distinguish access to an AI tool from access to the knowledge, methods, critique, materials, examples, and mentorship needed to use it meaningfully."],
+      ["Selected Work", "Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub, 2026, critiques vague claims such as democratization and AI for good. It calls for evidence, attention to infrastructure, community knowledge, and alternatives built around specific local needs."],
+      ["Relationship to My Project", "The essay helps me question what accessible AI actually promises and who defines it. Accessing Design similarly moves beyond the claim that an available chatbot democratizes design by asking what knowledge, context, agency, and community support are required for meaningful participation."],
     ],
-    connection: "Availability does not automatically create meaningful participation.",
+    connection: "Accessibility must be made concrete through evidence, context, and the needs of actual communities.",
   },
   {
     name: "NotebookLM",
