@@ -489,7 +489,7 @@ li:nth-child(even)::before { left: 12px; }
 .lens-controls { position: absolute; left: 3%; right: 3%; bottom: 53px; display: grid; grid-template-columns: repeat(5,1fr); }
 .lens-controls button { min-height: 42px; padding: 5px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); font: 7px/1.2 "Courier New", monospace; text-transform: uppercase; cursor: pointer; }.lens-controls button.active { color: var(--text); background: #171a17; border-color: var(--accent); }
 .lenses-map > p { position: absolute; left: 3%; right: 3%; bottom: 4px; display: flex; gap: 14px; margin: 0; color: var(--muted); font: 8px/1.3 "Courier New", monospace; }.lenses-map > p b { min-width: 130px; color: var(--accent); font-weight: 400; text-transform: uppercase; }
-.lenses-three-map { position: absolute; left: 50%; top: 50%; width: 92%; height: 88%; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 47%, rgba(255,255,255,.035), transparent 43%); transform: translate(-50%,-48%); }
+.lenses-three-map { position: absolute; inset: 6% 4%; width: auto; height: auto; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 47%, rgba(255,255,255,.035), transparent 43%); }
 .lenses-three-mount { position: absolute; inset: 0; cursor: crosshair; }
 .lens-relationship-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .lens-relationship-line { stroke: #d0d0d0; stroke-width: 1; opacity: 0; transition: opacity .22s; }
