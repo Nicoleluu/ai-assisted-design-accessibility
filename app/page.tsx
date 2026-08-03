@@ -600,34 +600,25 @@ function LensesVisual() {
 
 function LineageVisual() {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<string | null>(null);
-  const activeRef = useRef<string | null>(null);
+  const [active, setActive] = useState(false);
+  const activeRef = useRef(false);
   const design = [
-    ["Apprenticeship", "Before 1900", "Knowledge moves through observation, repetition, and practice."],
-    ["Studio education", "1919 onward", "Projects and studio culture organize learning around making."],
-    ["Critique", "Twentieth century", "Judgment develops through discussion, feedback, and revision."],
-    ["Learning through making", "Twentieth century", "Materials, prototypes, and consequences become teachers."],
-    ["Design manuals", "Mid twentieth century", "Methods travel through diagrams and reproducible guidance."],
-    ["Online education", "1990s onward", "Design instruction begins to reach beyond the physical studio."],
+    ["Apprenticeship", "Before 1900"], ["Studio education", "1919 onward"],
+    ["Critique", "Twentieth century"], ["Learning through making", "Twentieth century"],
+    ["Design methods", "Mid twentieth century"], ["Online design education", "1990s onward"],
   ];
   const computation = [
-    ["Programmed instruction", "1950s", "Learning is divided into sequenced prompts and responses."],
-    ["Computer assisted learning", "1960s onward", "Software begins to deliver practice and feedback."],
-    ["Intelligent tutors", "1970s onward", "Systems model performance and adapt instruction to the learner."],
-    ["Online courses", "1990s onward", "Digital networks allow instruction to scale beyond classrooms."],
-    ["Conversational tutors", "2010s onward", "Learning becomes responsive through natural language dialogue."],
-    ["Generative AI", "2020s", "Systems can immediately produce explanations, answers, and artifacts."],
+    ["Programmed instruction", "1950s"], ["Computer assisted learning", "1960s onward"],
+    ["Intelligent tutors", "1970s onward"], ["Online learning platforms", "1990s onward"],
+    ["Conversational interfaces", "2010s onward"], ["Generative AI chatbots", "2020s"],
   ];
   const readings = [
-    ["Paulo Freire", "Pedagogy of the Oppressed", "1970", "Education should develop agency rather than position the learner as a passive receiver.", "design-2", "computation-0"],
-    ["Seymour Papert", "Mindstorms", "1980", "Computational media can support learning through construction, play, and reflection.", "design-3", "computation-1"],
-    ["Donald Schön", "The Reflective Practitioner", "1983", "Design knowledge develops through reflection within uncertain acts of practice.", "design-2", "design-1"],
-    ["Lucy Suchman", "Plans and Situated Actions", "1987", "Human action emerges through situated interaction rather than fixed plans alone.", "design-3", "computation-2"],
-    ["Jean Lave and Etienne Wenger", "Situated Learning", "1991", "Learning happens through participation in communities, practices, and real situations.", "design-0", "design-3"],
+    ["Paulo Freire", "Critical pedagogy and learner participation"],
+    ["Seymour Papert", "Constructionism and learning by making"],
+    ["Donald Schön", "Reflective practice"],
+    ["Lucy Suchman", "Situated action"],
+    ["Jean Lave and Etienne Wenger", "Situated learning and communities of practice"],
   ];
-  const designPositions = [[27,84],[31,70],[25,57],[30,44],[26,31],[29,18]];
-  const computationPositions = [[73,84],[69,70],[75,57],[70,44],[74,31],[71,18]];
-  const readingPositions = [[49,75],[53,62],[47,49],[52,36],[48,23]];
 
   useEffect(() => { activeRef.current = active; }, [active]);
 
@@ -644,7 +635,7 @@ function LineageVisual() {
     mount.appendChild(renderer.domElement);
 
     const makeCurrent = (center: number, color: number, seedOffset: number) => {
-      const count = 28;
+      const count = 18;
       const positions = new Float32Array(count * 3);
       const seeds = Array.from({ length: count }, (_, i) => ({
         x: center + Math.sin(i * 2.73 + seedOffset) * width * .055,
@@ -659,7 +650,7 @@ function LineageVisual() {
       scene.add(points);
       return { geometry, positions, seeds };
     };
-    const currents = [makeCurrent(width * .28, 0x9CB9B7, .7), makeCurrent(width * .72, 0xd8d8d3, 2.1)];
+    const currents = [makeCurrent(width * .25, 0x9CB9B7, .7), makeCurrent(width * .75, 0xd8d8d3, 2.1)];
 
     let frame = 0;
     const start = performance.now();
@@ -697,43 +688,17 @@ function LineageVisual() {
     };
   }, []);
 
-  const renderNodes = (items: string[][], positions: number[][], lane: string) => items.map(([title, date, description], index) => {
-    const key = `${lane}-${index}`;
-    return <button
-      key={key}
-      className={`history-node history-node-${lane} ${active === key ? "is-active" : ""}`}
-      style={{ left: `${positions[index][0]}%`, top: `${positions[index][1]}%` }}
-      onMouseEnter={() => setActive(key)} onMouseLeave={() => setActive(null)}
-      onFocus={() => setActive(key)} onBlur={() => setActive(null)}
-    ><i /><span>{title}</span>{active === key && <strong><em>{date}</em>{description}</strong>}</button>;
-  });
-
-  const activeReading = active?.startsWith("reading-") ? Number(active.split("-")[1]) : null;
-  const readingLines = activeReading !== null ? readings[activeReading].slice(4) as string[] : [];
-  const findPosition = (key: string) => {
-    const [lane, indexText] = key.split("-");
-    const source = lane === "design" ? designPositions : computationPositions;
-    return source[Number(indexText)];
-  };
-
   return <div className="lineage-field">
     <div ref={mountRef} className="lineage-three" aria-hidden="true" />
-    <div className="history-lane-label history-lane-design">Learning design</div>
-    <div className="history-lane-label history-lane-readings">Related readings</div>
-    <div className="history-lane-label history-lane-computation">Learning with computational systems</div>
-    <svg className={`history-reading-links ${activeReading !== null ? "is-visible" : ""}`} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-      {activeReading !== null && readingLines.map(key => {
-        const end = findPosition(key);
-        const start = readingPositions[activeReading];
-        return <line key={key} x1={start[0]} y1={start[1]} x2={end[0]} y2={end[1]} />;
-      })}
-    </svg>
-    {renderNodes(design, designPositions, "design")}
-    {renderNodes(computation, computationPositions, "computation")}
-    {readings.map(([author, title, year, description], index) => {
-      const key = `reading-${index}`;
-      return <button key={key} className={`history-reading ${active === key ? "is-active" : ""}`} style={{ left: `${readingPositions[index][0]}%`, top: `${readingPositions[index][1]}%` }} onMouseEnter={() => setActive(key)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(key)} onBlur={() => setActive(null)} aria-label={`${author}, ${title}`}><i /><span>{author}</span>{active === key && <strong><em>{year}</em><b>{title}</b>{description}</strong>}</button>;
-    })}
+    <span className="history-era history-era-past">Past</span><span className="history-era history-era-present">Present</span>
+    {[{ lane: "design", title: "How design learning evolved", subtitle: "From apprenticeship to online education", items: design }, { lane: "computation", title: "How computational learning evolved", subtitle: "From programmed instruction to generative AI", items: computation }].map(group => <section className={`history-column history-column-${group.lane}`} key={group.lane}>
+      <header><h2>{group.title}</h2><p>{group.subtitle}</p></header>
+      <div className="history-track"><i className="history-rail" />{group.items.map(([title,date]) => <div className="history-step" key={title}><i /><span>{title}</span><em>{date}</em></div>)}</div>
+    </section>)}
+    <div className={`history-readings-anchor ${active ? "is-active" : ""}`} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} onFocus={() => setActive(true)} onBlur={() => setActive(false)}>
+      <button>Related readings</button>
+      {active && <div className="history-readings-panel">{readings.map(([author, idea]) => <article key={author}><strong>{author}</strong><span>{idea}</span></article>)}</div>}
+    </div>
   </div>;
 }
 
@@ -851,7 +816,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two histories of learning</h1><p className="lineage-question">What might an AI learning environment for physical product design become?</p><LineageVisual /></aside> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two Evolutions in Learning</h1><LineageVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
