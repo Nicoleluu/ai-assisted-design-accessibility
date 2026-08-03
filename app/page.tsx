@@ -202,8 +202,9 @@ function ForceProcessWeb() {
       const angle = tick * .22;
       const cosine = Math.cos(angle);
       const sine = Math.sin(angle);
-      const dx = node.x - width / 2;
-      const dy = node.y - height / 2;
+      const displayScale = .62;
+      const dx = (node.x - width / 2) * displayScale;
+      const dy = (node.y - height / 2) * displayScale;
       const floatAngle = tick * (.34 + (index % 7) * .035) + index * 1.618;
       const floatRadius = 3 + (index % 5) * .9;
       return {
