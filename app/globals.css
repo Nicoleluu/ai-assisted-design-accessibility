@@ -694,8 +694,8 @@ li:nth-child(even)::before { left: 12px; }
 .precedent-layout-guidebook .precedent-section-4 { grid-column: 3; grid-row: 3; }
 .precedent-layout-guidebook .media-frame-1 { grid-column: 2; grid-row: 3; }
 .precedent-layout-guidebook .media-frame-2 { position: absolute; width: 125px; right: 25%; bottom: 2vh; }
-.precedent-layout-guidebook .media-frame-1 div { height: min(15vh,130px); }
-.precedent-layout-guidebook .media-frame-2 div { height: 72px; }
+.precedent-layout-guidebook .media-frame-1 div, .precedent-layout-guidebook .media-frame-1 img { height: min(15vh,130px); }
+.precedent-layout-guidebook .media-frame-2 div, .precedent-layout-guidebook .media-frame-2 img { height: 72px; }
 .precedent-layout-guidebook .precedent-connection { position: static; grid-column: 2; grid-row: 1; align-self: end; }
 
 .precedent-layout-participation { grid-template-columns: .72fr 1.2fr 1fr .72fr; grid-template-rows: 1fr 150px 1fr; }
