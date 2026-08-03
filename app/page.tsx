@@ -457,6 +457,7 @@ function LensesVisual() {
     const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
     let activeLens = -1;
     let pinnedLens = -1;
+    let interactionPaused = false;
     Object.entries(links).forEach(([lensKey, related]) => {
       const lens = Number(lensKey);
       [...related, 10].forEach(target => {
@@ -504,10 +505,10 @@ function LensesVisual() {
         setSelected(null);
         elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
       };
-      element.addEventListener("pointerenter", activate);
-      element.addEventListener("pointerleave", clear);
-      element.addEventListener("focus", activate);
-      element.addEventListener("blur", clear);
+      element.addEventListener("pointerenter", () => { interactionPaused = true; activate(); });
+      element.addEventListener("pointerleave", () => { interactionPaused = false; clear(); });
+      element.addEventListener("focus", () => { interactionPaused = true; activate(); });
+      element.addEventListener("blur", () => { interactionPaused = false; clear(); });
       element.addEventListener("click", () => {
         if (index >= 5) return;
         pinnedLens = pinnedLens === index ? -1 : index;
@@ -519,7 +520,7 @@ function LensesVisual() {
     let pointerX = 0;
     let pointerY = 0;
     let frame = 0;
-    const cycle = window.setInterval(() => { mode = (mode + 1) % targets.length; }, 6500);
+    const cycle = window.setInterval(() => { if (!interactionPaused) mode = (mode + 1) % targets.length; }, 6500);
     const onPointerMove = (event: PointerEvent) => {
       const bounds = mount.getBoundingClientRect();
       pointerX = (event.clientX - bounds.left) / bounds.width - .5;
@@ -527,12 +528,14 @@ function LensesVisual() {
     };
     mount.addEventListener("pointermove", onPointerMove);
     const animate = (time: number) => {
-      objects.forEach((object, index) => {
-        object.position.lerp(targets[mode][index], .035);
-        object.rotation.y += (0 - object.rotation.y) * .05;
-      });
-      group.rotation.y += (pointerX * .12 + Math.sin(time * .00022) * .035 - group.rotation.y) * .025;
-      group.rotation.x += (-pointerY * .08 + Math.cos(time * .00018) * .02 - group.rotation.x) * .025;
+      if (!interactionPaused) {
+        objects.forEach((object, index) => {
+          object.position.lerp(targets[mode][index], .035);
+          object.rotation.y += (0 - object.rotation.y) * .05;
+        });
+        group.rotation.y += (pointerX * .12 + Math.sin(time * .00022) * .035 - group.rotation.y) * .025;
+        group.rotation.x += (-pointerY * .08 + Math.cos(time * .00018) * .02 - group.rotation.x) * .025;
+      }
       group.updateMatrixWorld(true);
       const stageWidth = mount.clientWidth;
       const stageHeight = mount.clientHeight;
