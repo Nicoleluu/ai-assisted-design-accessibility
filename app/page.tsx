@@ -632,8 +632,10 @@ function CommunityArchive() {
       <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}>
         {precedents[selected].name === "Data & Society"
           ? <img src="/archive-data-society-research-areas.png" alt="Data and Society research areas, including AI Civics, Democracy in the Age of AI, and Participation, Agency, and Algorithmic Accountability" />
-          : <div aria-hidden="true" />}
-        <figcaption>{precedents[selected].name === "Data & Society" ? label : `${label} / image to add`}</figcaption>
+          : precedents[selected].name === "AI Now Institute"
+            ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
+            : <div aria-hidden="true" />}
+        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" ? label : `${label} / image to add`}</figcaption>
       </figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}
