@@ -122,6 +122,7 @@ const accessibilityViews = [
 const precedents = [
   {
     name: "AI Now Institute",
+    logo: "/archive-ai-now.png",
     category: "Critical AI and public interest",
     layout: "institution",
     media: ["Selected publication cover"],
@@ -135,6 +136,7 @@ const precedents = [
   },
   {
     name: "NotebookLM",
+    logo: "/archive-notebooklm.png",
     category: "AI supported learning tool",
     layout: "sources",
     media: ["Source and response interface"],
@@ -148,6 +150,7 @@ const precedents = [
   },
   {
     name: "AI Design Guide",
+    logo: "/archive-ai-design-guide.png",
     category: "Design learning",
     layout: "mosaic",
     media: ["Learning path interface", "Guide and resource detail"],
@@ -161,6 +164,7 @@ const precedents = [
   },
   {
     name: "Duolingo",
+    logo: "/archive-duolingo.png",
     category: "AI supported learning tool",
     layout: "practice",
     media: ["AI Roleplay conversation"],
@@ -174,6 +178,7 @@ const precedents = [
   },
   {
     name: "People + AI Guidebook",
+    logo: "/archive-people-ai.png",
     category: "Human centered AI design",
     layout: "guidebook",
     media: ["Guidebook pages", "Feedback and control diagram"],
@@ -187,6 +192,7 @@ const precedents = [
   },
   {
     name: "Data & Society",
+    logo: "/archive-data-society.png",
     category: "Critical AI and public participation",
     layout: "participation",
     media: ["Policy brief cover"],
@@ -618,7 +624,7 @@ function CommunityArchive() {
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
-      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
+      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i><span>{item.name}</span></button>;
     })}</div></div>
     {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
