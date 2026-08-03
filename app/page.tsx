@@ -458,9 +458,9 @@ function CommunityArchive() {
   const archiveLoop = [...precedents, ...precedents];
   return <div className={`community-archive ${selected !== null ? "has-selection" : ""}`}>
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
-    <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
+    <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
-      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onMouseLeave={closeProject} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
+      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
     })}</div></div>
     {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
