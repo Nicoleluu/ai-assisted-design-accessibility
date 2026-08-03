@@ -599,9 +599,113 @@ function LensesVisual() {
 }
 
 function LineageVisual() {
-  const design = ["Apprenticeship", "Studio education", "Critique", "Learning through making", "Design manuals", "Online education"];
-  const computation = ["Programmed instruction", "Computer assisted learning", "Intelligent tutors", "Online courses", "Conversational tutors", "Generative AI"];
-  return <div className="lineage-study"><div className="trajectory trajectory-design"><b>LEARNING DESIGN</b>{design.map((x, i) => <button key={x}><span>{String(i + 1).padStart(2, "0")}</span>{x}</button>)}</div><div className="trajectory trajectory-computation"><b>LEARNING WITH COMPUTATIONAL SYSTEMS</b>{computation.map((x, i) => <button key={x}><span>{String(i + 1).padStart(2, "0")}</span>{x}</button>)}</div><div className="convergence"><span>UNRESOLVED</span><strong>What might an AI learning environment for physical product design become?</strong></div></div>;
+  const mountRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState<string | null>(null);
+  const design = [
+    ["Apprenticeship", "Knowledge moves through observation and practice."],
+    ["Studio education", "Projects organize learning around making."],
+    ["Critique", "Judgment develops through discussion and revision."],
+    ["Learning through making", "Materials and prototypes become teachers."],
+    ["Design manuals", "Methods travel through reproducible guidance."],
+    ["Online education", "Design instruction reaches beyond the studio."],
+  ];
+  const computation = [
+    ["Programmed instruction", "Learning is divided into sequenced responses."],
+    ["Computer assisted learning", "Software delivers practice and feedback."],
+    ["Intelligent tutors", "Systems adapt to learner performance."],
+    ["Online courses", "Instruction scales beyond classrooms."],
+    ["Conversational tutors", "Learning becomes responsive and dialogic."],
+    ["Generative AI", "Systems can produce answers and artifacts immediately."],
+  ];
+  const designPositions = [[8,31],[23,23],[38,30],[53,20],[68,29],[82,24]];
+  const computationPositions = [[8,72],[23,80],[38,70],[53,82],[68,72],[82,78]];
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+    const width = mount.clientWidth;
+    const height = mount.clientHeight;
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(0, width, height, 0, -20, 20);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    mount.appendChild(renderer.domElement);
+
+    const toPoints = (positions: number[][]) => positions.map(([x,y]) => new THREE.Vector3(x / 100 * width, y / 100 * height, 0));
+    const designCurve = new THREE.CatmullRomCurve3(toPoints(designPositions));
+    const computationCurve = new THREE.CatmullRomCurve3(toPoints(computationPositions));
+    const curves = [designCurve, computationCurve];
+    const colors = [0x9CB9B7, 0xd8d8d3];
+
+    curves.forEach((curve, index) => {
+      const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(160));
+      const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: colors[index], transparent: true, opacity: .42 }));
+      scene.add(line);
+      const glow = new THREE.Line(geometry.clone(), new THREE.LineBasicMaterial({ color: colors[index], transparent: true, opacity: .1 }));
+      glow.scale.set(1, 1.035, 1);
+      scene.add(glow);
+    });
+
+    const particleGeometry = new THREE.SphereGeometry(4, 18, 18);
+    const particles = curves.flatMap((curve, curveIndex) => [0, .32, .64].map((offset) => {
+      const mesh = new THREE.Mesh(particleGeometry, new THREE.MeshBasicMaterial({ color: colors[curveIndex], transparent: true, opacity: .9 }));
+      scene.add(mesh);
+      return { mesh, curve, offset };
+    }));
+    const mergeCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(width * .82, height * .24, 0),
+      new THREE.Vector3(width * .88, height * .48, 0),
+      new THREE.Vector3(width * .82, height * .78, 0),
+    ]);
+    const mergeLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(mergeCurve.getPoints(80)), new THREE.LineBasicMaterial({ color: 0xC06225, transparent: true, opacity: .5 }));
+    scene.add(mergeLine);
+
+    let frame = 0;
+    const start = performance.now();
+    const animate = (now: number) => {
+      const time = (now - start) * .000045;
+      particles.forEach(({ mesh, curve, offset }) => mesh.position.copy(curve.getPoint((time + offset) % 1)));
+      renderer.render(scene, camera);
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    const observer = new ResizeObserver(() => {
+      const w = mount.clientWidth;
+      const h = mount.clientHeight;
+      camera.right = w;
+      camera.top = h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+    observer.observe(mount);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, []);
+
+  const renderNodes = (items: string[][], positions: number[][], lane: string) => items.map(([title, description], index) => {
+    const key = `${lane}-${index}`;
+    return <button
+      key={key}
+      className={`history-node history-node-${lane} ${active === key ? "is-active" : ""}`}
+      style={{ left: `${positions[index][0]}%`, top: `${positions[index][1]}%` }}
+      onMouseEnter={() => setActive(key)} onMouseLeave={() => setActive(null)}
+      onFocus={() => setActive(key)} onBlur={() => setActive(null)}
+    ><i /><span>{title}</span>{active === key && <strong>{description}</strong>}</button>;
+  });
+
+  return <div className="lineage-field">
+    <div ref={mountRef} className="lineage-three" aria-hidden="true" />
+    <div className="history-lane-label history-lane-design">Design learning</div>
+    <div className="history-lane-label history-lane-computation">Computational learning</div>
+    {renderNodes(design, designPositions, "design")}
+    {renderNodes(computation, computationPositions, "computation")}
+    <div className="history-convergence"><span>?</span><strong>AI supported design learning</strong><small>Can AI guide a learner without replacing the design process?</small></div>
+  </div>;
 }
 
 function CommunityArchive() {
@@ -718,7 +822,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two histories of learning</h1><LineageVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
