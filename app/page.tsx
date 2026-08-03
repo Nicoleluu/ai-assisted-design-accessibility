@@ -164,7 +164,7 @@ function SituatedCanvas() {
   return <div className="situated-canvas">
     <p>Where a person lives and what surrounds them can influence which forms of design knowledge, education, mentorship, and material experience are available.</p>
     <iframe
-      src="https://nicoleluu.github.io/design-resources-nyc/?v=93e2a1a"
+      src="https://nicoleluu.github.io/design-resources-nyc/?v=fa1f52c"
       title="Design resources in New York City"
       loading="eager"
     />
