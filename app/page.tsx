@@ -442,14 +442,27 @@ function LineageVisual() {
 
 function CommunityArchive() {
   const [selected, setSelected] = useState<number | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const keepOpen = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+  const openProject = (index: number) => {
+    keepOpen();
+    setSelected(index);
+  };
+  const closeProject = () => {
+    keepOpen();
+    closeTimer.current = setTimeout(() => setSelected(null), 420);
+  };
   const archiveLoop = [...precedents, ...precedents];
   return <div className={`community-archive ${selected !== null ? "has-selection" : ""}`}>
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
-      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => setSelected(itemIndex)} onMouseLeave={() => setSelected(null)} onFocus={() => setSelected(itemIndex)} onBlur={() => setSelected(null)}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
+      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onMouseLeave={closeProject} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")} /><span>{item.name}</span></button>;
     })}</div></div>
-    {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`}>
+    {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
       <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section className={`precedent-section precedent-section-${index + 1}`} key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
       <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}><div aria-hidden="true" /><figcaption>{label} / image to add</figcaption></figure>)}</div>
