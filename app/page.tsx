@@ -624,7 +624,7 @@ function CommunityArchive() {
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
-      return <button key={`${item.name}-${loopIndex}`} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i><span>{item.name}</span></button>;
+      return <button key={`${item.name}-${loopIndex}`} aria-label={item.name} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i></button>;
     })}</div></div>
     {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
@@ -649,7 +649,6 @@ function CommunityArchive() {
                     alt={index === 0 ? "People and AI Guidebook chapters" : "People and AI Guidebook summary of evidence worksheet"}
                   />
             : <div aria-hidden="true" />}
-        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" || precedents[selected].name === "NotebookLM" || precedents[selected].name === "Duolingo" || precedents[selected].name === "AI Design Guide" || precedents[selected].name === "People + AI Guidebook" ? label : `${label} / image to add`}</figcaption>
       </figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}

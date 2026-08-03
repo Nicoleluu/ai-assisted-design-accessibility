@@ -711,6 +711,34 @@ li:nth-child(even)::before { left: 12px; }
 .precedent-layout-participation .precedent-section-3 { padding-right: min(21vw,300px); }
 .precedent-layout-participation .precedent-section-4 { padding-left: min(21vw,300px); }
 .precedent-layout-participation .precedent-connection { position: static; grid-column: 2 / 4; grid-row: 1; align-self: end; font-size: 15px; }
+
+/* Archive image-forward refinement */
+.archive-ribbon button { height: 82px; }
+.archive-ribbon button span,
+.media-frame figcaption { display: none; }
+.precedent-layout-institution .media-frame,
+.precedent-layout-institution .media-frame div,
+.precedent-layout-institution .media-frame img { height: min(23vh,205px); }
+.precedent-layout-sources .precedent-media { width: min(34vw,560px); justify-self: center; }
+.precedent-layout-sources .media-frame,
+.precedent-layout-sources .media-frame div,
+.precedent-layout-sources .media-frame img { height: min(22vh,195px); }
+.precedent-layout-mosaic .media-frame,
+.precedent-layout-mosaic .media-frame div,
+.precedent-layout-mosaic .media-frame img { height: min(19vh,170px); }
+.precedent-layout-practice .precedent-media { width: min(34vw,570px); }
+.precedent-layout-practice .media-frame,
+.precedent-layout-practice .media-frame div,
+.precedent-layout-practice .media-frame img { height: min(22vh,195px); }
+.precedent-layout-guidebook .media-frame-2 { width: 190px; right: 21%; bottom: 1.5vh; }
+.precedent-layout-guidebook .media-frame-1 div,
+.precedent-layout-guidebook .media-frame-1 img { height: min(20vh,180px); }
+.precedent-layout-guidebook .media-frame-2 div,
+.precedent-layout-guidebook .media-frame-2 img { height: 106px; }
+.precedent-layout-participation .precedent-media { width: min(50vw,720px); }
+.precedent-layout-participation .media-frame,
+.precedent-layout-participation .media-frame div,
+.precedent-layout-participation .media-frame img { height: min(21vh,188px); }
 @keyframes archive-info-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 .canvas-argument { grid-template-columns: .82fr 1.18fr; }.canvas-argument h1 { font-size: clamp(42px, 5.2vw, 82px); }.canvas-argument .visual-placeholder { min-height: 72vh; }.canvas-argument .visual-note { display: block; }
