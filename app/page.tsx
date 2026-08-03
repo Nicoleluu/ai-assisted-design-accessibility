@@ -634,8 +634,10 @@ function CommunityArchive() {
           ? <img src="/archive-data-society-research-areas.png" alt="Data and Society research areas, including AI Civics, Democracy in the Age of AI, and Participation, Agency, and Algorithmic Accountability" />
           : precedents[selected].name === "AI Now Institute"
             ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
+            : precedents[selected].name === "NotebookLM"
+              ? <img src="/archive-notebooklm-interface.png" alt="NotebookLM interface showing sources, chat, and learning tools including audio overview, mind map, flashcards, and quiz" />
             : <div aria-hidden="true" />}
-        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" ? label : `${label} / image to add`}</figcaption>
+        <figcaption>{precedents[selected].name === "Data & Society" || precedents[selected].name === "AI Now Institute" || precedents[selected].name === "NotebookLM" ? label : `${label} / image to add`}</figcaption>
       </figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}

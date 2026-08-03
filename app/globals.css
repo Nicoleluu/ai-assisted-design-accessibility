@@ -662,7 +662,7 @@ li:nth-child(even)::before { left: 12px; }
 .precedent-layout-sources .precedent-section-3 { grid-column: 1; grid-row: 3; }
 .precedent-layout-sources .precedent-section-4 { grid-column: 3; grid-row: 3; }
 .precedent-layout-sources .precedent-media { grid-column: 2; grid-row: 3; }
-.precedent-layout-sources .media-frame, .precedent-layout-sources .media-frame div { height: min(17vh,150px); }
+.precedent-layout-sources .media-frame, .precedent-layout-sources .media-frame div, .precedent-layout-sources .media-frame img { height: min(17vh,150px); }
 .precedent-layout-sources .precedent-connection { position: static; grid-column: 2; grid-row: 1; align-self: end; text-align: center; }
 
 .precedent-layout-mosaic { grid-template-columns: .8fr 1fr .72fr 1fr; grid-template-rows: 1fr 150px 1fr; }
