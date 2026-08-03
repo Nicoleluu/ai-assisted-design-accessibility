@@ -567,16 +567,16 @@ li:nth-child(even)::before { left: 12px; }
 .canvas-lineage .navigation-hint { display: none; }
 .lineage-only-stage { position: absolute; inset: 0; min-height: 100vh !important; border: 0 !important; background: #000; overflow: hidden; }
 .lineage-only-stage::before, .lineage-only-stage::after { display: none !important; }
-.lineage-field-title { position: absolute; z-index: 20; top: 7vh; left: 50%; margin: 0; transform: translateX(-50%); color: #e8e8e4; font: 300 clamp(30px,3.2vw,52px)/1 "Helvetica Neue",Arial,sans-serif; letter-spacing: -.05em; white-space: nowrap; }
-.lineage-archive { position: absolute; inset: 17vh 4vw 5vh; display: grid; grid-template-columns: minmax(0,1fr) 20vw minmax(0,1fr); gap: 2vw; }
+.lineage-field-title { position: absolute; z-index: 20; top: 10vh; left: 50%; margin: 0; transform: translateX(-50%); color: #e8e8e4; font: 300 clamp(30px,3.2vw,52px)/1 "Helvetica Neue",Arial,sans-serif; letter-spacing: -.05em; white-space: nowrap; }
+.lineage-archive { position: absolute; inset: 23vh 4vw 4vh; display: grid; grid-template-columns: minmax(0,1fr) 20vw minmax(0,1fr); gap: 2vw; }
 .history-stack { position: relative; min-width: 0; }
 .history-stack-design { grid-column: 1; }
 .history-stack-computation { grid-column: 3; }
 .history-empty-center { grid-column: 2; grid-row: 1; pointer-events: none; }
-.history-stack > header { height: 8vh; }
+.history-stack > header { height: 6vh; }
 .history-stack h2 { margin: 0 0 6px; color: #eee; font: 400 clamp(15px,1.35vw,22px)/1.1 "Helvetica Neue",Arial,sans-serif; }
 .history-stack header p { margin: 0; color: #666; font: 300 clamp(9px,.7vw,11px)/1.2 "Helvetica Neue",Arial,sans-serif; }
-.history-folder-list { position: relative; height: calc(100% - 8vh); margin-top: 3vh; }
+.history-folder-list { position: relative; height: calc(100% - 6vh); margin-top: 2vh; }
 .history-folder { position: absolute; left: 0; width: 100%; height: clamp(76px,8vh,96px); padding: 20px 22px 14px 58px; overflow: visible; color: #ecece8; background: #080909; border: 1px solid #303331; text-align: left; cursor: pointer; box-shadow: 0 -8px 22px rgba(0,0,0,.72); transition: height .28s ease,transform .28s ease,background .28s ease,opacity .2s ease; }
 .history-folder-tab { position: absolute; top: -18px; left: 0; width: 38%; height: 18px; background: #080909; border: 1px solid #303331; border-bottom: 0; }
 .history-folder-number { position: absolute; top: 22px; left: 20px; color: #6f716f; font: 8px "Courier New",monospace; }
