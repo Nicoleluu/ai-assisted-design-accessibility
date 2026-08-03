@@ -136,6 +136,17 @@ function CompressionVisual() {
   </div>;
 }
 
+function CompressionCanvas() {
+  const steps = ["Request", "Prompt", "Generated proposal", "Finished image"];
+  const questions = ["Who investigated the context?", "Who evaluated the quality?", "Who made the design decisions?", "What did the learner take away?"];
+  return <div className="compression-canvas">
+    <p className="compression-support">AI can move rapidly from request to result. Opportunities for research, judgment, experimentation, and learning can disappear.</p>
+    <div className="linear-path">{steps.map((step, i) => <div key={step}><span>0{i + 1}</span><b>{step}</b><em>{questions[i]}</em></div>)}</div>
+    <h1>Design is not a one direction sequence.</h1>
+    <div className="process-web">{processTerms.map((term, index) => <button key={term} style={{ "--x": `${8 + (index * 37) % 82}%`, "--y": `${10 + (index * 47) % 78}%` } as React.CSSProperties}>{term}</button>)}</div>
+  </div>;
+}
+
 function InvestigationVisual() {
   const nodes = ["Person", "AI chatbot", "Design process", "Generated outcome"];
   return <div className="investigation-system">{nodes.map((node, i) => <div key={node} className={`system-node node-${i + 1}`}><span>0{i + 1}</span><b>{node}</b></div>)}<i className="link-one" /><i className="link-two" /><strong>How do chatbots shape the design process of people without formal design training?</strong><small>How might AI support learning without making important decisions for the learner?</small></div>;
@@ -246,7 +257,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
