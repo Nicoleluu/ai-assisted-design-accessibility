@@ -490,35 +490,40 @@ li:nth-child(even)::before { left: 12px; }
 .lenses-three-map { position: relative; width: 100%; height: 100%; min-height: 72vh; overflow: hidden; background: radial-gradient(circle at 50% 47%, rgba(255,255,255,.035), transparent 43%); }
 .lenses-three-mount { position: absolute; inset: 0; cursor: crosshair; }
 .lens-relationship-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.lens-relationship-line { stroke: var(--accent); stroke-width: 1; opacity: 0; transition: opacity .22s; }
+.lens-relationship-line { stroke: #d0d0d0; stroke-width: 1; opacity: 0; transition: opacity .22s; }
 .lens-relationship-line.is-visible { opacity: .48; }
 .lenses-three-stage { overflow: visible !important; }
-.lens-three-card { --element-color: #35ead9; position: relative; width: 122px; height: 142px; display: block; padding: 9px 10px 10px; overflow: visible; color: #dffefa; background: linear-gradient(145deg, rgba(13,54,52,.9), rgba(2,16,16,.96)); border: 1px solid rgba(53,234,217,.72); box-shadow: inset 0 0 18px rgba(53,234,217,.08), 0 0 8px rgba(53,234,217,.32), 0 0 25px rgba(53,234,217,.13); font-family: "Courier New", monospace; text-align: center; text-transform: none; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s; backdrop-filter: blur(8px); }
-.lens-three-card::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(53,234,217,.12); pointer-events: none; }
+.lens-three-card { --element-color: #e8e8e8; position: relative; width: 122px; height: 142px; display: block; padding: 9px 10px 10px; overflow: visible; color: #f0f0f0; background: linear-gradient(145deg, rgba(45,45,45,.92), rgba(9,9,9,.97)); border: 1px solid rgba(232,232,232,.7); box-shadow: inset 0 0 18px rgba(255,255,255,.06), 0 0 8px rgba(255,255,255,.25), 0 0 25px rgba(255,255,255,.1); font-family: "Courier New", monospace; text-align: center; text-transform: none; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s; backdrop-filter: blur(8px); }
+.lens-three-card::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255,255,255,.1); pointer-events: none; }
 .lens-three-card .periodic-number { position: absolute; top: 8px; right: 9px; color: var(--element-color); font-size: 7px; letter-spacing: .1em; }
-.lens-three-card .periodic-symbol { display: block; margin-top: 18px; color: #f1fffd; font: 500 34px/1 "Helvetica Neue", sans-serif; letter-spacing: -.04em; text-shadow: 0 0 5px var(--element-color), 0 0 14px var(--element-color); }
-.lens-three-card .periodic-name { display: block; margin-top: 7px; color: #c8f8f2; font-size: 7px; line-height: 1.16; font-weight: 400; text-transform: uppercase; }
-.lens-three-card .periodic-family { position: absolute; left: 8px; right: 8px; bottom: 8px; color: rgba(177,240,233,.56); font: 6px/1 "Courier New", monospace; text-transform: uppercase; }
-.lens-three-card .periodic-detail { position: absolute; z-index: 8; left: 50%; top: calc(100% + 10px); width: 180px; padding: 11px 12px; opacity: 0; color: #dffefa; background: rgba(4,16,16,.97); border: 1px solid rgba(53,234,217,.72); box-shadow: 0 0 22px rgba(53,234,217,.22); font: normal 9px/1.35 "Helvetica Neue", sans-serif; text-align: left; text-transform: none; pointer-events: none; transform: translate(-50%, -5px); transition: opacity .2s, transform .2s; }
+.lens-three-card .periodic-symbol { display: grid; place-items: center; min-height: 42px; margin-top: 18px; color: #f4f4f4; font: 500 34px/1 "Helvetica Neue", sans-serif; letter-spacing: -.04em; text-shadow: 0 0 5px var(--element-color), 0 0 14px rgba(255,255,255,.5); }
+.lens-three-card .periodic-symbol i { font-style: normal; }
+.lens-three-card .periodic-full { display: none; max-width: 100px; font-size: 12px; line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; }
+.lens-three-card:hover .periodic-short, .lens-three-card:focus .periodic-short { display: none; }
+.lens-three-card:hover .periodic-full, .lens-three-card:focus .periodic-full { display: block; }
+.lens-three-card:hover .periodic-name, .lens-three-card:focus .periodic-name { opacity: 0; }
+.lens-three-card .periodic-name { display: block; margin-top: 7px; color: #d8d8d8; font-size: 7px; line-height: 1.16; font-weight: 400; text-transform: uppercase; transition: opacity .18s; }
+.lens-three-card .periodic-family { position: absolute; left: 8px; right: 8px; bottom: 8px; color: rgba(220,220,220,.52); font: 6px/1 "Courier New", monospace; text-transform: uppercase; }
+.lens-three-card .periodic-detail { position: absolute; z-index: 8; left: 50%; top: calc(100% + 10px); width: 180px; padding: 11px 12px; opacity: 0; color: #ededed; background: rgba(12,12,12,.98); border: 1px solid rgba(235,235,235,.65); box-shadow: 0 0 22px rgba(255,255,255,.16); font: normal 9px/1.35 "Helvetica Neue", sans-serif; text-align: left; text-transform: none; pointer-events: none; transform: translate(-50%, -5px); transition: opacity .2s, transform .2s; }
 .lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { opacity: 1; transform: translate(-50%, 0); }
-.lens-three-card.is-field { --element-color: #90a8ff; width: 122px; height: 142px; color: #e6eaff; background: linear-gradient(145deg, rgba(28,34,63,.9), rgba(7,10,22,.96)); border-color: rgba(144,168,255,.68); box-shadow: inset 0 0 18px rgba(144,168,255,.07), 0 0 8px rgba(144,168,255,.25), 0 0 23px rgba(144,168,255,.1); }
-.lens-three-card.is-field::before { border-color: rgba(144,168,255,.12); }
-.lens-three-card.is-field .periodic-name { color: #d8defd; }.lens-three-card.is-field .periodic-family { color: rgba(196,205,255,.48); }
-.lens-three-card.is-field .periodic-detail { color: #e7eaff; background: rgba(8,11,24,.97); border-color: rgba(144,168,255,.7); box-shadow: 0 0 22px rgba(144,168,255,.18); }
-.lens-three-card.is-center { --element-color: #ff675c; width: 154px; height: 168px; padding-top: 13px; color: #fff0ed; background: linear-gradient(145deg, rgba(104,28,24,.94), rgba(31,6,5,.98)); border-color: rgba(255,103,92,.88); box-shadow: inset 0 0 25px rgba(255,103,92,.1), 0 0 12px rgba(255,103,92,.4), 0 0 36px rgba(255,103,92,.18); }
-.lens-three-card.is-center::before { border-color: rgba(255,103,92,.18); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #ffe3df; }.lens-three-card.is-center .periodic-family { color: rgba(255,211,207,.58); }
-.lens-three-card.is-center .periodic-detail { color: #fff1ee; background: rgba(31,6,5,.98); border-color: rgba(255,103,92,.8); box-shadow: 0 0 24px rgba(255,103,92,.22); }
+.lens-three-card.is-field { --element-color: #9b9b9b; width: 122px; height: 142px; color: #d2d2d2; background: linear-gradient(145deg, rgba(28,28,28,.92), rgba(5,5,5,.97)); border-color: rgba(155,155,155,.62); box-shadow: inset 0 0 18px rgba(255,255,255,.035), 0 0 8px rgba(180,180,180,.18), 0 0 23px rgba(180,180,180,.07); }
+.lens-three-card.is-field::before { border-color: rgba(190,190,190,.08); }
+.lens-three-card.is-field .periodic-name { color: #bcbcbc; }.lens-three-card.is-field .periodic-family { color: rgba(185,185,185,.4); }
+.lens-three-card.is-field .periodic-detail { color: #d5d5d5; background: rgba(8,8,8,.98); border-color: rgba(160,160,160,.58); box-shadow: 0 0 22px rgba(180,180,180,.12); }
+.lens-three-card.is-center { --element-color: #fff; width: 154px; height: 168px; padding-top: 13px; color: #fff; background: linear-gradient(145deg, rgba(67,67,67,.95), rgba(13,13,13,.99)); border-color: rgba(255,255,255,.9); box-shadow: inset 0 0 25px rgba(255,255,255,.09), 0 0 12px rgba(255,255,255,.36), 0 0 36px rgba(255,255,255,.16); }
+.lens-three-card.is-center::before { border-color: rgba(255,255,255,.16); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #ededed; }.lens-three-card.is-center .periodic-family { color: rgba(230,230,230,.55); }
+.lens-three-card.is-center .periodic-detail { color: #f6f6f6; background: rgba(15,15,15,.99); border-color: rgba(255,255,255,.75); box-shadow: 0 0 24px rgba(255,255,255,.2); }
 .lens-three-card.is-related { color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
-.lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(125,32,27,.96), rgba(39,7,6,.99)); }
+.lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(82,82,82,.97), rgba(17,17,17,.99)); }
 .lens-three-card.is-dimmed { opacity: .14; }
 .lens-definition { position: absolute; z-index: 4; left: 22px; right: 22px; bottom: 18px; display: grid; grid-template-columns: minmax(150px,.5fr) 1.5fr; gap: 24px; padding-top: 9px; border-top: 1px solid #252825; pointer-events: none; }
-.lens-definition b { color: var(--accent); font: 8px "Courier New", monospace; text-transform: uppercase; }
+.lens-definition b { color: #d7d7d7; font: 8px "Courier New", monospace; text-transform: uppercase; }
 .lens-definition span { color: var(--text); font: 300 12px/1.3 "Helvetica Neue", sans-serif; }
 .lens-definition.is-idle span { color: var(--faint); }
 .lens-map-key { position: absolute; z-index: 4; top: 18px; right: 20px; display: flex; gap: 18px; pointer-events: none; }
 .lens-map-key span { color: var(--faint); font: 7px "Courier New", monospace; text-transform: uppercase; }
 .lens-map-key span::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border: 1px solid #4b4e49; }
-.lens-map-key span:first-child::before { border-color: var(--accent); }.lens-map-key span:last-child::before { background: var(--accent); border-color: var(--accent); }
+.lens-map-key span:first-child::before { border-color: #d7d7d7; }.lens-map-key span:last-child::before { background: #d7d7d7; border-color: #d7d7d7; }
 
 .canvas-lineage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
 .canvas-lineage .canvas-copy { display: grid; grid-template-columns: .8fr 1.2fr; gap: 5vw; max-width: none; align-items: end; }.canvas-lineage .canvas-label { grid-column: 1/-1; margin-bottom: 0; }.canvas-lineage .statement { margin: 0; }.canvas-lineage .visual-placeholder { min-height: 50vh; }

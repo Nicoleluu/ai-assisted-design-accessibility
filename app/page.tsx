@@ -473,7 +473,7 @@ function LensesVisual() {
       element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : "is-center"}`;
       const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : "The open center where the five research lenses and five fields meet.";
       const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : "Central inquiry";
-      element.innerHTML = `<span class="periodic-number">${String(index + 1).padStart(2, "0")}</span><strong class="periodic-symbol">${symbols[index]}</strong><b class="periodic-name">${label}</b><small class="periodic-family">${family}</small><em class="periodic-detail">${detail}</em>`;
+      element.innerHTML = `<span class="periodic-number">${String(index + 1).padStart(2, "0")}</span><strong class="periodic-symbol"><i class="periodic-short">${symbols[index]}</i><i class="periodic-full">${label}</i></strong><b class="periodic-name">${label}</b><small class="periodic-family">${family}</small><em class="periodic-detail">${detail}</em>`;
       element.setAttribute("aria-label", label);
       const object = new CSS3DObject(element);
       object.position.set((Math.random() - .5) * 900, (Math.random() - .5) * 520, (Math.random() - .5) * 420);
