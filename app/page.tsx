@@ -121,7 +121,7 @@ const precedents = [
   { name: "AI Now Institute", category: "Critical AI", detail: "Public interest research that helps frame the institutional and social consequences of AI." },
   { name: "Data and Society", category: "Critical AI", detail: "Research that connects technology to social structures, communities, and lived experience." },
   { name: "NotebookLM", category: "AI Learning Tool", detail: "A functional precedent for AI interaction organized around learning and source based inquiry." },
-  { name: "Conversational Tutors", category: "AI Learning Tool", detail: "Systems that use dialogue to guide understanding rather than only deliver information." },
+  { name: "Duolingo", category: "AI Learning Tool", detail: "A learning platform that combines structured progression, adaptive practice, feedback, and AI supported conversation." },
   { name: "AI Design Guide", category: "Design Learning", detail: "A practical learning library that helps designers understand and apply agentic AI through guides, prompts, tools, and structured learning paths." },
 ];
 
