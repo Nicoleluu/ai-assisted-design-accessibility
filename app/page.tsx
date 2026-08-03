@@ -428,7 +428,6 @@ function ResourceMap() {
 function LensesVisual() {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const linksRef = useRef<SVGSVGElement | null>(null);
-  const [selected, setSelected] = useState<number | null>(null);
   const fields = ["Physical product design", "Design education", "Human computer interaction", "AI literacy", "Computational design"];
   const fieldDescriptions = [
     "How objects respond to people, materials, manufacturing, and use.",
@@ -465,9 +464,9 @@ function LensesVisual() {
     const objects: CSS3DObject[] = [];
     const elements: HTMLButtonElement[] = [];
     const targets = [[], [], []] as THREE.Vector3[][];
-    const lensMap = [[-275,-125],[-90,-175],[100,-115],[-200,125],[175,130]];
-    const fieldMap = [[-390,20],[-300,225],[0,235],[315,210],[390,-20]];
-    const viewMap = [[-430,-235],[-220,-300],[0,-325],[220,-300],[430,-235]];
+    const lensMap = [[-340,-125],[-115,-175],[120,-115],[-250,125],[220,130]];
+    const fieldMap = [[-485,20],[-375,225],[0,235],[395,210],[485,-20]];
+    const viewMap = [[-550,-235],[-280,-300],[0,-325],[280,-300],[550,-235]];
     const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
     let activeLenses = new Set<number>();
     let pinnedLens = -1;
@@ -496,14 +495,14 @@ function LensesVisual() {
       objects.push(object);
       elements.push(element);
 
-      targets[0].push(new THREE.Vector3((Math.random() - .5) * 860, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
+      targets[0].push(new THREE.Vector3((Math.random() - .5) * 1100, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
       if (index < 5) targets[1].push(new THREE.Vector3(lensMap[index][0], lensMap[index][1], 40));
       else if (index < 10) targets[1].push(new THREE.Vector3(fieldMap[index - 5][0], fieldMap[index - 5][1], -55));
       else if (index === 10) targets[1].push(new THREE.Vector3(0, 0, 110));
       else targets[1].push(new THREE.Vector3(viewMap[index - 11][0], viewMap[index - 11][1], -105));
       const cluster = index < 5 ? index : index < 10 ? index - 5 : index === 10 ? 2 : index - 11;
       const angle = cluster * Math.PI * 2 / 5 - Math.PI / 2;
-      const radius = index < 5 ? 215 : index < 10 ? 340 : index === 10 ? 0 : 465;
+      const radius = index < 5 ? 260 : index < 10 ? 425 : index === 10 ? 0 : 560;
       const offsetAngle = index > 10 ? angle + Math.PI / 5 : angle;
       targets[2].push(new THREE.Vector3(Math.cos(offsetAngle) * radius, Math.sin(offsetAngle) * radius * .66, index < 5 ? 75 : index === 10 ? 115 : -80));
 
@@ -513,7 +512,6 @@ function LensesVisual() {
           ? [index]
           : Object.keys(links).map(Number).filter(lens => links[lens].includes(index));
         activeLenses = new Set(connectedLenses);
-        setSelected(index < 5 ? index : null);
         const related = index < 5
           ? new Set([index, 10, ...(links[index] || [])])
           : new Set([index, 10, ...connectedLenses]);
@@ -523,7 +521,6 @@ function LensesVisual() {
       const clear = () => {
         if (pinnedLens >= 0) return;
         activeLenses = new Set();
-        setSelected(null);
         elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
       };
       element.addEventListener("pointerenter", () => { interactionPaused = true; activate(); });
@@ -597,10 +594,6 @@ function LensesVisual() {
   return <div className="lenses-three-map">
     <svg ref={linksRef} className="lens-relationship-lines" aria-hidden="true" />
     <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive relationship map of five research lenses, five intersecting fields, and five views of accessibility" />
-    <div className={`lens-definition ${selected === null ? "is-idle" : ""}`}>
-      {selected === null ? <><b>Five research lenses</b><span>Hover a lens to reveal its question and relationships.</span></> : <><b>{lensData[selected][0]}</b><span>{lensData[selected][1]}</span></>}
-    </div>
-    <div className="lens-map-key"><span>Research lens</span><span>Intersecting field</span><span>Central inquiry</span><span>Accessibility view</span></div>
   </div>;
 }
 
@@ -704,11 +697,11 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><LensesVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
-      <p className="navigation-hint">Tab for next canvas&nbsp;&nbsp;&nbsp;Shift and Tab for previous&nbsp;&nbsp;&nbsp;Scroll is also available</p>
+      {canvas.id !== "lenses" && <p className="navigation-hint">Tab for next canvas&nbsp;&nbsp;&nbsp;Shift and Tab for previous&nbsp;&nbsp;&nbsp;Scroll is also available</p>}
     </section>)}
   </main>;
 }
