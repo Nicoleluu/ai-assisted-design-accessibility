@@ -94,7 +94,13 @@ const canvases: Canvas[] = [
   },
 ];
 
-const processTerms = ["observe", "research", "frame", "ask", "sketch", "compare", "prototype", "test", "fail", "revise", "judge", "decide", "reflect"];
+const processTerms = [
+  "observe", "research", "interview", "context", "frame", "question", "sketch", "compare",
+  "prototype", "test", "fail", "revise", "critique", "judge", "decide", "reflect",
+  "wood", "metal", "textile", "ceramic", "plastic", "joinery", "casting", "weaving",
+  "ergonomics", "accessibility", "sustainability", "culture", "function", "form", "system", "service",
+  "minimalism", "speculation", "participation", "responsibility"
+];
 const mapResources = ["school", "museum", "exhibition", "studio", "mentor", "workshop", "maker space", "materials", "design company", "employment", "event", "affordable education"];
 const lensData = [
   ["Design agency", "Can the learner direct and take responsibility for decisions?"],
@@ -143,7 +149,146 @@ function CompressionCanvas() {
     <p className="compression-support">AI can move rapidly from request to result. Opportunities for research, judgment, experimentation, and learning can disappear.</p>
     <div className="linear-path">{steps.map((step, i) => <div key={step}><span>0{i + 1}</span><b>{step}</b><em>{questions[i]}</em></div>)}</div>
     <h1>Design is not a one direction sequence.</h1>
-    <div className="process-web">{processTerms.map((term, index) => <button key={term} style={{ "--x": `${8 + (index * 37) % 82}%`, "--y": `${10 + (index * 47) % 78}%` } as React.CSSProperties}>{term}</button>)}</div>
+    <ForceProcessWeb />
+  </div>;
+}
+
+function ForceProcessWeb() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    type Node = { x: number; y: number; vx: number; vy: number; term: string };
+    type Link = { source: number; target: number };
+    let width = 1;
+    let height = 1;
+    let frame = 0;
+    let active = -1;
+    let pointer = { x: -1000, y: -1000 };
+    let nodes: Node[] = [];
+    const links: Link[] = processTerms.slice(1).map((_, index) => ({ source: index + 1, target: Math.floor(index / 2) }));
+
+    const reset = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      nodes = processTerms.map((term, index) => {
+        const angle = index * 2.399963;
+        const radius = Math.sqrt(index + 1) * Math.min(width, height) * .045;
+        return { x: width / 2 + Math.cos(angle) * radius, y: height / 2 + Math.sin(angle) * radius, vx: 0, vy: 0, term };
+      });
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+      let nearest = -1;
+      let distance = 34;
+      nodes.forEach((node, index) => {
+        const current = Math.hypot(node.x - pointer.x, node.y - pointer.y);
+        if (current < distance) { distance = current; nearest = index; }
+      });
+      active = nearest;
+    };
+    const onPointerLeave = () => { active = -1; pointer = { x: -1000, y: -1000 }; };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          let dx = b.x - a.x;
+          let dy = b.y - a.y;
+          const squared = Math.max(80, dx * dx + dy * dy);
+          const force = 34 / squared;
+          dx *= force;
+          dy *= force;
+          a.vx -= dx; a.vy -= dy;
+          b.vx += dx; b.vy += dy;
+        }
+      }
+
+      links.forEach(link => {
+        const a = nodes[link.source];
+        const b = nodes[link.target];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const pull = (distance - 58) * .0009;
+        a.vx += dx * pull; a.vy += dy * pull;
+        b.vx -= dx * pull; b.vy -= dy * pull;
+      });
+
+      nodes.forEach(node => {
+        node.vx += (width / 2 - node.x) * .00022;
+        node.vy += (height / 2 - node.y) * .00022;
+        node.vx *= .92; node.vy *= .92;
+        node.x = Math.max(18, Math.min(width - 18, node.x + node.vx));
+        node.y = Math.max(18, Math.min(height - 18, node.y + node.vy));
+      });
+
+      context.lineWidth = 1;
+      context.strokeStyle = "rgba(233,233,228,.13)";
+      links.forEach(link => {
+        context.beginPath();
+        context.moveTo(nodes[link.source].x, nodes[link.source].y);
+        context.lineTo(nodes[link.target].x, nodes[link.target].y);
+        context.stroke();
+      });
+
+      nodes.forEach((node, index) => {
+        const selected = index === active;
+        const radius = selected ? 12 : 3.5;
+        if (selected) {
+          context.beginPath();
+          context.arc(node.x, node.y, 25, 0, Math.PI * 2);
+          context.fillStyle = "rgba(255,255,255,.06)";
+          context.fill();
+        }
+        context.beginPath();
+        context.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        context.fillStyle = selected ? "#f0f0eb" : "rgba(233,233,228,.58)";
+        context.fill();
+        if (selected) {
+          context.font = '500 15px "Helvetica Neue", Arial, sans-serif';
+          context.textAlign = "center";
+          context.textBaseline = "bottom";
+          context.fillStyle = "#f0f0eb";
+          context.fillText(node.term, node.x, node.y - 18);
+        }
+      });
+
+      frame = requestAnimationFrame(draw);
+    };
+
+    const observer = new ResizeObserver(reset);
+    observer.observe(canvas);
+    canvas.addEventListener("pointermove", onPointerMove);
+    canvas.addEventListener("pointerleave", onPointerLeave);
+    reset();
+    draw();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      canvas.removeEventListener("pointermove", onPointerMove);
+      canvas.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, []);
+
+  return <div className="force-process-web">
+    <canvas ref={canvasRef} aria-label="Interactive network of design processes, materials, methods, styles, and concerns" />
+    <span className="force-hint">Move through the field</span>
+    <ul className="sr-only">{processTerms.map(term => <li key={term}>{term}</li>)}</ul>
   </div>;
 }
 
