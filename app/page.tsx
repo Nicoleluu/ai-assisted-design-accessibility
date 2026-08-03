@@ -599,106 +599,41 @@ function LensesVisual() {
 }
 
 function LineageVisual() {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
-  const activeRef = useRef(false);
   const design = [
-    ["Apprenticeship", "Before 1900"], ["Studio education", "1919 onward"],
-    ["Critique", "Twentieth century"], ["Learning through making", "Twentieth century"],
-    ["Design methods", "Mid twentieth century"], ["Online design education", "1990s onward"],
+    ["Apprenticeship", "Design knowledge passed through observation, repetition, and direct work beside an experienced maker.", "Lave and Wenger, Situated Learning"],
+    ["Studio education", "Schools organized design learning around projects, workshops, materials, and shared critique.", "Bauhaus preliminary course and workshops"],
+    ["Critique culture", "Learners explained decisions, received feedback, compared alternatives, and revised their work.", "The studio critique"],
+    ["Learning through making", "Sketching, prototyping, testing, and reflection made knowledge emerge through action.", "Donald Schön, The Reflective Practitioner"],
+    ["Design methods", "Research, ideation, evaluation, and iteration became visible as teachable methods.", "Design process and methods manuals"],
+    ["Online design learning", "Courses and communities widened access while often separating learning from materials, peers, and local context.", "Tutorials, courses, and distributed communities"],
   ];
   const computation = [
-    ["Programmed instruction", "1950s"], ["Computer assisted learning", "1960s onward"],
-    ["Intelligent tutors", "1970s onward"], ["Online learning platforms", "1990s onward"],
-    ["Conversational interfaces", "2010s onward"], ["Generative AI chatbots", "2020s"],
+    ["Programmed instruction", "Teaching machines broke knowledge into sequenced prompts and supplied immediate feedback.", "B. F. Skinner's teaching machine"],
+    ["Computer assisted learning", "Networked systems combined lessons, exercises, discussion, and feedback on a shared computer.", "PLATO"],
+    ["Intelligent tutoring", "Software began modeling a learner's progress and adapting practice or explanations.", "Intelligent tutoring systems"],
+    ["Constructionist computing", "Learners used computation to make, test, and revise artifacts rather than only receive instruction.", "Seymour Papert, Mindstorms"],
+    ["Conversational learning", "Chat interfaces made questions easier to ask and explanations more responsive to the learner.", "Conversational tutors"],
+    ["Generative AI chatbots", "General chatbots can produce explanations and finished artifacts instantly, sometimes compressing inquiry and judgment.", "General purpose generative AI"],
   ];
-  const readings = [
-    ["Paulo Freire", "Critical pedagogy and learner participation"],
-    ["Seymour Papert", "Constructionism and learning by making"],
-    ["Donald Schön", "Reflective practice"],
-    ["Lucy Suchman", "Situated action"],
-    ["Jean Lave and Etienne Wenger", "Situated learning and communities of practice"],
+  const groups = [
+    { lane: "design", title: "How people learned design", subtitle: "From apprenticeship to online education", items: design },
+    { lane: "computation", title: "How people learned with computers", subtitle: "From programmed instruction to generative AI", items: computation },
   ];
 
-  useEffect(() => { activeRef.current = active; }, [active]);
-
-  useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return;
-    const width = mount.clientWidth;
-    const height = mount.clientHeight;
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(0, width, height, 0, -20, 20);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(width, height);
-    mount.appendChild(renderer.domElement);
-
-    const makeCurrent = (center: number, color: number, seedOffset: number) => {
-      const count = 18;
-      const positions = new Float32Array(count * 3);
-      const seeds = Array.from({ length: count }, (_, i) => ({
-        x: center + Math.sin(i * 2.73 + seedOffset) * width * .055,
-        y: ((i * 83 + seedOffset * 137) % 997) / 997 * height,
-        phase: i * 1.71 + seedOffset,
-        speed: .018 + (i % 7) * .0026,
-      }));
-      const geometry = new THREE.BufferGeometry();
-      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      const material = new THREE.PointsMaterial({ color, size: 3.2, transparent: true, opacity: .42, sizeAttenuation: false });
-      const points = new THREE.Points(geometry, material);
-      scene.add(points);
-      return { geometry, positions, seeds };
-    };
-    const currents = [makeCurrent(width * .25, 0x9CB9B7, .7), makeCurrent(width * .75, 0xd8d8d3, 2.1)];
-
-    let frame = 0;
-    const start = performance.now();
-    const animate = (now: number) => {
-      if (!activeRef.current) {
-        const elapsed = (now - start) * .001;
-        currents.forEach(({ geometry, positions, seeds }, currentIndex) => {
-          seeds.forEach((seed, i) => {
-            const y = (seed.y - elapsed * height * seed.speed + height) % height;
-            positions[i * 3] = seed.x + Math.sin(elapsed * .42 + seed.phase) * width * (.008 + currentIndex * .001);
-            positions[i * 3 + 1] = y;
-            positions[i * 3 + 2] = 0;
-          });
-          geometry.attributes.position.needsUpdate = true;
-        });
-      }
-      renderer.render(scene, camera);
-      frame = requestAnimationFrame(animate);
-    };
-    frame = requestAnimationFrame(animate);
-    const observer = new ResizeObserver(() => {
-      const w = mount.clientWidth;
-      const h = mount.clientHeight;
-      camera.right = w;
-      camera.top = h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    });
-    observer.observe(mount);
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      renderer.dispose();
-      renderer.domElement.remove();
-    };
-  }, []);
-
-  return <div className="lineage-field">
-    <div ref={mountRef} className="lineage-three" aria-hidden="true" />
-    <span className="history-era history-era-past">Past</span><span className="history-era history-era-present">Present</span>
-    {[{ lane: "design", title: "How design learning evolved", subtitle: "From apprenticeship to online education", items: design }, { lane: "computation", title: "How computational learning evolved", subtitle: "From programmed instruction to generative AI", items: computation }].map(group => <section className={`history-column history-column-${group.lane}`} key={group.lane}>
+  return <div className="lineage-archive">
+    {groups.map(group => <section className={`history-stack history-stack-${group.lane}`} key={group.lane}>
       <header><h2>{group.title}</h2><p>{group.subtitle}</p></header>
-      <div className="history-track"><i className="history-rail" />{group.items.map(([title,date]) => <div className="history-step" key={title}><i /><span>{title}</span><em>{date}</em></div>)}</div>
+      <div className="history-folder-list">
+        {group.items.map(([title, description, reference], index) => <button className="history-folder" key={title} style={{ top: `${index * 11.5}%`, zIndex: index + 1 }}>
+          <i className="history-folder-tab" aria-hidden="true" />
+          <span className="history-folder-number">{String(index + 1).padStart(2, "0")}</span>
+          <strong>{title}</strong>
+          <span className="history-folder-detail">{description}</span>
+          <em>{reference}</em>
+        </button>)}
+      </div>
     </section>)}
-    <div className={`history-readings-anchor ${active ? "is-active" : ""}`} onMouseEnter={() => setActive(true)} onMouseLeave={() => setActive(false)} onFocus={() => setActive(true)} onBlur={() => setActive(false)}>
-      <button>Related readings</button>
-      {active && <div className="history-readings-panel">{readings.map(([author, idea]) => <article key={author}><strong>{author}</strong><span>{idea}</span></article>)}</div>}
-    </div>
+    <div className="history-empty-center" aria-hidden="true" />
   </div>;
 }
 
@@ -816,7 +751,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two Evolutions in Learning</h1><LineageVisual /></aside> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two Histories of Learning</h1><LineageVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
