@@ -100,6 +100,13 @@ const processTerms = [
   "wood", "metal", "textile", "ceramic", "plastic", "joinery", "casting", "weaving",
   "ergonomics", "accessibility", "sustainability", "culture", "function", "form", "system", "service",
   "minimalism", "speculation", "participation", "responsibility"
+  , "user research", "field study", "ideation", "co design", "mapping", "storyboarding",
+  "modeling", "rendering", "simulation", "iteration", "fabrication", "repair", "maintenance",
+  "assembly", "disassembly", "modularity", "scale", "proportion", "color", "texture", "pattern",
+  "typography", "interface", "affordance", "behavior", "emotion", "ethics", "equity", "inclusion",
+  "circularity", "life cycle", "systems thinking", "biomimicry", "craft", "manufacturing", "coding",
+  "sensing", "documentation", "visualization", "material testing", "scenario", "workshop", "survey",
+  "analysis", "synthesis", "constraint", "opportunity", "community", "collaboration"
 ];
 const mapResources = ["school", "museum", "exhibition", "studio", "mentor", "workshop", "maker space", "materials", "design company", "employment", "event", "affordable education"];
 const lensData = [
@@ -168,6 +175,7 @@ function ForceProcessWeb() {
     let height = 1;
     let frame = 0;
     let tick = 0;
+    let previousTime = 0;
     let active = -1;
     let pointer = { x: -1000, y: -1000 };
     let nodes: Node[] = [];
@@ -201,8 +209,10 @@ function ForceProcessWeb() {
     };
     const onPointerLeave = () => { active = -1; pointer = { x: -1000, y: -1000 }; };
 
-    const draw = () => {
-      tick += .012;
+    const draw = (time = 0) => {
+      const elapsed = previousTime ? Math.min(32, time - previousTime) : 16;
+      previousTime = time;
+      tick += elapsed * .001;
       context.clearRect(0, 0, width, height);
 
       for (let i = 0; i < nodes.length; i++) {
@@ -231,14 +241,22 @@ function ForceProcessWeb() {
         b.vx -= dx * pull; b.vy -= dy * pull;
       });
 
-      nodes.forEach(node => {
+      nodes.forEach((node, index) => {
         const centerX = width / 2 - node.x;
         const centerY = height / 2 - node.y;
-        node.vx += centerX * .00022 - centerY * .00011 + Math.sin(tick + node.y * .012) * .0018;
-        node.vy += centerY * .00022 + centerX * .00011 + Math.cos(tick * .83 + node.x * .01) * .0018;
-        node.vx *= .955; node.vy *= .955;
+        node.vx += centerX * .00028 + Math.sin(tick * 1.3 + index * .67) * .018;
+        node.vy += centerY * .00028 + Math.cos(tick * 1.1 + index * .53) * .018;
+        node.vx *= .96; node.vy *= .96;
         node.x = Math.max(18, Math.min(width - 18, node.x + node.vx));
         node.y = Math.max(18, Math.min(height - 18, node.y + node.vy));
+
+        const dx = node.x - width / 2;
+        const dy = node.y - height / 2;
+        const rotation = elapsed * .00016;
+        const cosine = Math.cos(rotation);
+        const sine = Math.sin(rotation);
+        node.x = width / 2 + dx * cosine - dy * sine;
+        node.y = height / 2 + dx * sine + dy * cosine;
       });
 
       context.lineWidth = 1;
@@ -280,7 +298,7 @@ function ForceProcessWeb() {
     canvas.addEventListener("pointermove", onPointerMove);
     canvas.addEventListener("pointerleave", onPointerLeave);
     reset();
-    draw();
+    frame = requestAnimationFrame(draw);
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
