@@ -419,7 +419,7 @@ li:nth-child(even)::before { left: 12px; }
 .canvas-compression { display: block; padding: 0; overflow: hidden; }
 .canvas-compression .navigation-hint { display: none; }
 .compression-canvas { position: absolute; inset: 0; background: #000; }
-.compression-canvas .linear-path { position: absolute; left: clamp(44px, 6vw, 96px); bottom: 20vh; width: min(34vw, 560px); }
+.compression-canvas .linear-path { position: absolute; left: clamp(44px, 6vw, 96px); bottom: 22vh; width: min(34vw, 560px); }
 .compression-canvas h1 { position: absolute; left: clamp(44px, 6vw, 96px); bottom: 5vh; width: min(36vw, 600px); margin: 0; font-size: clamp(35px, 4vw, 65px); font-weight: 300; line-height: .98; letter-spacing: -.045em; }
 .compression-support { position: absolute; z-index: 4; top: 10vh; right: clamp(42px, 6vw, 96px); width: min(43vw, 700px); margin: 0; color: #b8bbb6; font-size: clamp(18px, 1.7vw, 28px); font-weight: 300; line-height: 1.3; letter-spacing: -.02em; }
 .force-process-web { position: absolute; left: 50vw; right: 8vw; top: 28vh; bottom: 14vh; overflow: hidden; cursor: crosshair; }
