@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { CSS3DObject, CSS3DRenderer } from "three/addons/renderers/CSS3DRenderer.js";
 
 type Canvas = {
   id: string;
@@ -417,13 +419,154 @@ function ResourceMap() {
 }
 
 function LensesVisual() {
-  const [selected, setSelected] = useState(0);
+  const mountRef = useRef<HTMLDivElement | null>(null);
+  const linksRef = useRef<SVGSVGElement | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
   const fields = ["Physical product design", "Design education", "Human computer interaction", "AI literacy", "Computational design"];
-  return <div className="lenses-map">
-    <div className="territories">{fields.map((field, i) => <span key={field} className={`territory territory-${i + 1}`}>{field}</span>)}</div>
-    <strong>AI supported learning<br />for physical product design</strong>
-    <div className="lens-controls">{lensData.map(([name], i) => <button key={name} className={selected === i ? "active" : ""} onMouseEnter={() => setSelected(i)} onFocus={() => setSelected(i)}>{name}</button>)}</div>
-    <p><b>{lensData[selected][0]}</b>{lensData[selected][1]}</p>
+  const items = [...lensData.map(([name]) => name), ...fields, "AI supported learning for physical product design"];
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+    const width = mount.clientWidth;
+    const height = mount.clientHeight;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, width / height, 1, 3000);
+    camera.position.z = 1050;
+    const renderer = new CSS3DRenderer();
+    renderer.setSize(width, height);
+    renderer.domElement.className = "lenses-three-stage";
+    mount.appendChild(renderer.domElement);
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const links: Record<number, number[]> = { 0: [5, 7, 9], 1: [6, 8], 2: [5, 6, 7], 3: [7, 8, 9], 4: [6, 7, 8] };
+    const objects: CSS3DObject[] = [];
+    const elements: HTMLButtonElement[] = [];
+    const targets = [[], [], []] as THREE.Vector3[][];
+    const lensMap = [[-275,-125],[-90,-175],[100,-115],[-200,125],[175,130]];
+    const fieldMap = [[-390,20],[-300,225],[0,235],[315,210],[390,-20]];
+    const linkElements: Array<{ lens: number; source: number; target: number; line: SVGLineElement }> = [];
+    let activeLens = -1;
+    let pinnedLens = -1;
+    Object.entries(links).forEach(([lensKey, related]) => {
+      const lens = Number(lensKey);
+      [...related, 10].forEach(target => {
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.classList.add("lens-relationship-line");
+        linksRef.current?.appendChild(line);
+        linkElements.push({ lens, source: lens, target, line });
+      });
+    });
+
+    items.forEach((label, index) => {
+      const element = document.createElement("button");
+      element.type = "button";
+      element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : "is-center"}`;
+      element.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span><b>${label}</b>`;
+      element.setAttribute("aria-label", label);
+      const object = new CSS3DObject(element);
+      object.position.set((Math.random() - .5) * 900, (Math.random() - .5) * 520, (Math.random() - .5) * 420);
+      group.add(object);
+      objects.push(object);
+      elements.push(element);
+
+      targets[0].push(new THREE.Vector3((Math.random() - .5) * 860, (Math.random() - .5) * 470, (Math.random() - .5) * 320));
+      if (index < 5) targets[1].push(new THREE.Vector3(lensMap[index][0], lensMap[index][1], 40));
+      else if (index < 10) targets[1].push(new THREE.Vector3(fieldMap[index - 5][0], fieldMap[index - 5][1], -55));
+      else targets[1].push(new THREE.Vector3(0, 0, 110));
+      const cluster = index < 5 ? index : index < 10 ? index - 5 : 2;
+      const angle = cluster * Math.PI * 2 / 5 - Math.PI / 2;
+      const radius = index < 5 ? 230 : index < 10 ? 390 : 0;
+      targets[2].push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius * .68, index < 5 ? 75 : -80));
+
+      const activate = () => {
+        if (index >= 5) return;
+        activeLens = index;
+        setSelected(index);
+        const related = new Set([index, 10, ...(links[index] || [])]);
+        elements.forEach((card, cardIndex) => card.classList.toggle("is-related", related.has(cardIndex)));
+        elements.forEach((card, cardIndex) => card.classList.toggle("is-dimmed", !related.has(cardIndex)));
+      };
+      const clear = () => {
+        if (pinnedLens >= 0) return;
+        activeLens = -1;
+        setSelected(null);
+        elements.forEach(card => card.classList.remove("is-related", "is-dimmed"));
+      };
+      element.addEventListener("pointerenter", activate);
+      element.addEventListener("pointerleave", clear);
+      element.addEventListener("focus", activate);
+      element.addEventListener("blur", clear);
+      element.addEventListener("click", () => {
+        if (index >= 5) return;
+        pinnedLens = pinnedLens === index ? -1 : index;
+        if (pinnedLens >= 0) activate(); else clear();
+      });
+    });
+
+    let mode = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    let frame = 0;
+    const cycle = window.setInterval(() => { mode = (mode + 1) % targets.length; }, 6500);
+    const onPointerMove = (event: PointerEvent) => {
+      const bounds = mount.getBoundingClientRect();
+      pointerX = (event.clientX - bounds.left) / bounds.width - .5;
+      pointerY = (event.clientY - bounds.top) / bounds.height - .5;
+    };
+    mount.addEventListener("pointermove", onPointerMove);
+    const animate = (time: number) => {
+      objects.forEach((object, index) => {
+        object.position.lerp(targets[mode][index], .035);
+        object.rotation.y += (0 - object.rotation.y) * .05;
+      });
+      group.rotation.y += (pointerX * .12 + Math.sin(time * .00022) * .035 - group.rotation.y) * .025;
+      group.rotation.x += (-pointerY * .08 + Math.cos(time * .00018) * .02 - group.rotation.x) * .025;
+      group.updateMatrixWorld(true);
+      const stageWidth = mount.clientWidth;
+      const stageHeight = mount.clientHeight;
+      linksRef.current?.setAttribute("viewBox", `0 0 ${stageWidth} ${stageHeight}`);
+      const sourcePosition = new THREE.Vector3();
+      const targetPosition = new THREE.Vector3();
+      linkElements.forEach(({ lens, source, target, line }) => {
+        objects[source].getWorldPosition(sourcePosition).project(camera);
+        objects[target].getWorldPosition(targetPosition).project(camera);
+        line.setAttribute("x1", String((sourcePosition.x * .5 + .5) * stageWidth));
+        line.setAttribute("y1", String((-sourcePosition.y * .5 + .5) * stageHeight));
+        line.setAttribute("x2", String((targetPosition.x * .5 + .5) * stageWidth));
+        line.setAttribute("y2", String((-targetPosition.y * .5 + .5) * stageHeight));
+        line.classList.toggle("is-visible", lens === activeLens);
+      });
+      renderer.render(scene, camera);
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    const observer = new ResizeObserver(() => {
+      const nextWidth = mount.clientWidth;
+      const nextHeight = mount.clientHeight;
+      camera.aspect = nextWidth / nextHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nextWidth, nextHeight);
+    });
+    observer.observe(mount);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearInterval(cycle);
+      observer.disconnect();
+      mount.removeEventListener("pointermove", onPointerMove);
+      linkElements.forEach(({ line }) => line.remove());
+      renderer.domElement.remove();
+    };
+  }, []);
+
+  return <div className="lenses-three-map">
+    <svg ref={linksRef} className="lens-relationship-lines" aria-hidden="true" />
+    <div ref={mountRef} className="lenses-three-mount" aria-label="Interactive relationship map of five research lenses and five intersecting fields" />
+    <div className={`lens-definition ${selected === null ? "is-idle" : ""}`}>
+      {selected === null ? <><b>Five research lenses</b><span>Hover a lens to reveal its question and relationships.</span></> : <><b>{lensData[selected][0]}</b><span>{lensData[selected][1]}</span></>}
+    </div>
+    <div className="lens-map-key"><span>Research lens</span><span>Intersecting field</span><span>Central inquiry</span></div>
   </div>;
 }
 
