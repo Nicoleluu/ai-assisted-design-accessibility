@@ -169,7 +169,7 @@ function ForceProcessWeb() {
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    type Node = { x: number; y: number; vx: number; vy: number; term: string };
+    type Node = { x: number; y: number; anchorX: number; anchorY: number; vx: number; vy: number; term: string };
     type Link = { source: number; target: number };
     let width = 1;
     let height = 1;
@@ -191,8 +191,10 @@ function ForceProcessWeb() {
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       nodes = processTerms.map((term, index) => {
         const angle = index * 2.399963;
-        const radius = Math.sqrt(index + 1) * Math.min(width, height) * .045;
-        return { x: width / 2 + Math.cos(angle) * radius, y: height / 2 + Math.sin(angle) * radius, vx: 0, vy: 0, term };
+        const radius = Math.sqrt((index + .6) / processTerms.length) * Math.min(width, height) * .39;
+        const anchorX = width / 2 + Math.cos(angle) * radius;
+        const anchorY = height / 2 + Math.sin(angle) * radius;
+        return { x: anchorX, y: anchorY, anchorX, anchorY, vx: 0, vy: 0, term };
       });
     };
 
@@ -237,7 +239,7 @@ function ForceProcessWeb() {
           let dx = b.x - a.x;
           let dy = b.y - a.y;
           const squared = Math.max(80, dx * dx + dy * dy);
-          const force = 34 / squared;
+          const force = 16 / squared;
           dx *= force;
           dy *= force;
           a.vx -= dx; a.vy -= dy;
@@ -251,36 +253,19 @@ function ForceProcessWeb() {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const distance = Math.max(1, Math.hypot(dx, dy));
-        const pull = (distance - 58) * .0009;
+        const pull = (distance - 58) * .00042;
         a.vx += dx * pull; a.vy += dy * pull;
         b.vx -= dx * pull; b.vy -= dy * pull;
       });
 
       nodes.forEach((node, index) => {
-        const centerX = width / 2 - node.x;
-        const centerY = height / 2 - node.y;
-        node.vx += centerX * .00028 + Math.sin(tick * 1.3 + index * .67) * .018;
-        node.vy += centerY * .00028 + Math.cos(tick * 1.1 + index * .53) * .018;
-        node.vx *= .96; node.vy *= .96;
+        const anchorPullX = node.anchorX - node.x;
+        const anchorPullY = node.anchorY - node.y;
+        node.vx += anchorPullX * .00115 + Math.sin(tick * 1.3 + index * .67) * .018;
+        node.vy += anchorPullY * .00115 + Math.cos(tick * 1.1 + index * .53) * .018;
+        node.vx *= .945; node.vy *= .945;
         node.x += node.vx;
         node.y += node.vy;
-
-        const dx = node.x - width / 2;
-        const dy = node.y - height / 2;
-        const distance = Math.max(1, Math.hypot(dx, dy));
-        const boundary = Math.min(width, height) * .455;
-        if (distance > boundary) {
-          const nx = dx / distance;
-          const ny = dy / distance;
-          node.x = width / 2 + nx * boundary;
-          node.y = height / 2 + ny * boundary;
-          const outwardVelocity = node.vx * nx + node.vy * ny;
-          if (outwardVelocity > 0) {
-            node.vx -= outwardVelocity * nx * 1.4;
-            node.vy -= outwardVelocity * ny * 1.4;
-          }
-        }
-
       });
 
       context.lineWidth = 1;
