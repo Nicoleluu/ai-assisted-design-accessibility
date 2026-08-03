@@ -195,7 +195,7 @@ const precedents = [
     logo: "/archive-data-society.png",
     category: "Critical AI and public participation",
     layout: "participation",
-    media: ["Policy brief cover"],
+    media: ["Research areas"],
     sections: [
       ["Who They Are", "An independent nonprofit research institute studying the social implications of data, automation, and artificial intelligence through the experiences of affected people and communities."],
       ["What They Do", "Data & Society produces research, policy guidance, public programs, and educational resources. It studies technology within existing social conditions and asks who participates, whose knowledge is valued, and who is affected."],
@@ -629,7 +629,12 @@ function CommunityArchive() {
     {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
       <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section className={`precedent-section precedent-section-${index + 1}`} key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
-      <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}><div aria-hidden="true" /><figcaption>{label} / image to add</figcaption></figure>)}</div>
+      <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}>
+        {precedents[selected].name === "Data & Society"
+          ? <img src="/archive-data-society-research-areas.png" alt="Data and Society research areas, including AI Civics, Democracy in the Age of AI, and Participation, Agency, and Algorithmic Accountability" />
+          : <div aria-hidden="true" />}
+        <figcaption>{precedents[selected].name === "Data & Society" ? label : `${label} / image to add`}</figcaption>
+      </figure>)}</div>
       <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}
   </div>;
