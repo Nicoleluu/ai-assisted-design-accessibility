@@ -167,6 +167,7 @@ function ForceProcessWeb() {
     let width = 1;
     let height = 1;
     let frame = 0;
+    let tick = 0;
     let active = -1;
     let pointer = { x: -1000, y: -1000 };
     let nodes: Node[] = [];
@@ -201,6 +202,7 @@ function ForceProcessWeb() {
     const onPointerLeave = () => { active = -1; pointer = { x: -1000, y: -1000 }; };
 
     const draw = () => {
+      tick += .012;
       context.clearRect(0, 0, width, height);
 
       for (let i = 0; i < nodes.length; i++) {
@@ -230,9 +232,11 @@ function ForceProcessWeb() {
       });
 
       nodes.forEach(node => {
-        node.vx += (width / 2 - node.x) * .00022;
-        node.vy += (height / 2 - node.y) * .00022;
-        node.vx *= .92; node.vy *= .92;
+        const centerX = width / 2 - node.x;
+        const centerY = height / 2 - node.y;
+        node.vx += centerX * .00022 - centerY * .00011 + Math.sin(tick + node.y * .012) * .0018;
+        node.vy += centerY * .00022 + centerX * .00011 + Math.cos(tick * .83 + node.x * .01) * .0018;
+        node.vx *= .955; node.vy *= .955;
         node.x = Math.max(18, Math.min(width - 18, node.x + node.vx));
         node.y = Math.max(18, Math.min(height - 18, node.y + node.vy));
       });
