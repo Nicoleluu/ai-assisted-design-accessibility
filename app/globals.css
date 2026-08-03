@@ -493,14 +493,23 @@ li:nth-child(even)::before { left: 12px; }
 .lens-relationship-line { stroke: var(--accent); stroke-width: 1; opacity: 0; transition: opacity .22s; }
 .lens-relationship-line.is-visible { opacity: .48; }
 .lenses-three-stage { overflow: visible !important; }
-.lens-three-card { width: 156px; min-height: 76px; display: grid; grid-template-columns: 24px 1fr; align-items: start; gap: 7px; padding: 10px; color: var(--muted); background: rgba(7,9,8,.88); border: 1px solid #343734; font-family: "Courier New", monospace; text-align: left; text-transform: uppercase; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s; backdrop-filter: blur(7px); }
-.lens-three-card span { color: var(--accent); font-size: 7px; }
-.lens-three-card b { font-size: 9px; line-height: 1.25; font-weight: 400; }
-.lens-three-card.is-field { width: 174px; min-height: 86px; color: #8d908b; border-color: #252825; background: rgba(11,13,12,.72); }
-.lens-three-card.is-center { width: 210px; min-height: 105px; place-items: center; grid-template-columns: 1fr; padding: 18px; color: var(--text); background: rgba(146,43,35,.9); border-color: var(--accent); text-align: center; }
-.lens-three-card.is-center span { display: none; }.lens-three-card.is-center b { font-size: 11px; line-height: 1.35; }
-.lens-three-card.is-related { color: var(--text); border-color: var(--accent); background: rgba(22,23,21,.96); transform: scale(1.13); }
-.lens-three-card.is-center.is-related { background: rgba(146,43,35,.96); }
+.lens-three-card { --element-color: #35ead9; position: relative; width: 122px; height: 142px; display: block; padding: 9px 10px 10px; overflow: visible; color: #dffefa; background: linear-gradient(145deg, rgba(13,54,52,.9), rgba(2,16,16,.96)); border: 1px solid rgba(53,234,217,.72); box-shadow: inset 0 0 18px rgba(53,234,217,.08), 0 0 8px rgba(53,234,217,.32), 0 0 25px rgba(53,234,217,.13); font-family: "Courier New", monospace; text-align: center; text-transform: none; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s; backdrop-filter: blur(8px); }
+.lens-three-card::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(53,234,217,.12); pointer-events: none; }
+.lens-three-card .periodic-number { position: absolute; top: 8px; right: 9px; color: var(--element-color); font-size: 7px; letter-spacing: .1em; }
+.lens-three-card .periodic-symbol { display: block; margin-top: 18px; color: #f1fffd; font: 500 34px/1 "Helvetica Neue", sans-serif; letter-spacing: -.04em; text-shadow: 0 0 5px var(--element-color), 0 0 14px var(--element-color); }
+.lens-three-card .periodic-name { display: block; margin-top: 7px; color: #c8f8f2; font-size: 7px; line-height: 1.16; font-weight: 400; text-transform: uppercase; }
+.lens-three-card .periodic-family { position: absolute; left: 8px; right: 8px; bottom: 8px; color: rgba(177,240,233,.56); font: 6px/1 "Courier New", monospace; text-transform: uppercase; }
+.lens-three-card .periodic-detail { position: absolute; z-index: 8; left: 50%; top: calc(100% + 10px); width: 180px; padding: 11px 12px; opacity: 0; color: #dffefa; background: rgba(4,16,16,.97); border: 1px solid rgba(53,234,217,.72); box-shadow: 0 0 22px rgba(53,234,217,.22); font: normal 9px/1.35 "Helvetica Neue", sans-serif; text-align: left; text-transform: none; pointer-events: none; transform: translate(-50%, -5px); transition: opacity .2s, transform .2s; }
+.lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { opacity: 1; transform: translate(-50%, 0); }
+.lens-three-card.is-field { --element-color: #90a8ff; width: 122px; height: 142px; color: #e6eaff; background: linear-gradient(145deg, rgba(28,34,63,.9), rgba(7,10,22,.96)); border-color: rgba(144,168,255,.68); box-shadow: inset 0 0 18px rgba(144,168,255,.07), 0 0 8px rgba(144,168,255,.25), 0 0 23px rgba(144,168,255,.1); }
+.lens-three-card.is-field::before { border-color: rgba(144,168,255,.12); }
+.lens-three-card.is-field .periodic-name { color: #d8defd; }.lens-three-card.is-field .periodic-family { color: rgba(196,205,255,.48); }
+.lens-three-card.is-field .periodic-detail { color: #e7eaff; background: rgba(8,11,24,.97); border-color: rgba(144,168,255,.7); box-shadow: 0 0 22px rgba(144,168,255,.18); }
+.lens-three-card.is-center { --element-color: #ff675c; width: 154px; height: 168px; padding-top: 13px; color: #fff0ed; background: linear-gradient(145deg, rgba(104,28,24,.94), rgba(31,6,5,.98)); border-color: rgba(255,103,92,.88); box-shadow: inset 0 0 25px rgba(255,103,92,.1), 0 0 12px rgba(255,103,92,.4), 0 0 36px rgba(255,103,92,.18); }
+.lens-three-card.is-center::before { border-color: rgba(255,103,92,.18); }.lens-three-card.is-center .periodic-symbol { margin-top: 25px; font-size: 42px; }.lens-three-card.is-center .periodic-name { padding: 0 8px; color: #ffe3df; }.lens-three-card.is-center .periodic-family { color: rgba(255,211,207,.58); }
+.lens-three-card.is-center .periodic-detail { color: #fff1ee; background: rgba(31,6,5,.98); border-color: rgba(255,103,92,.8); box-shadow: 0 0 24px rgba(255,103,92,.22); }
+.lens-three-card.is-related { color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
+.lens-three-card.is-center.is-related { background: linear-gradient(145deg, rgba(125,32,27,.96), rgba(39,7,6,.99)); }
 .lens-three-card.is-dimmed { opacity: .14; }
 .lens-definition { position: absolute; z-index: 4; left: 22px; right: 22px; bottom: 18px; display: grid; grid-template-columns: minmax(150px,.5fr) 1.5fr; gap: 24px; padding-top: 9px; border-top: 1px solid #252825; pointer-events: none; }
 .lens-definition b { color: var(--accent); font: 8px "Courier New", monospace; text-transform: uppercase; }

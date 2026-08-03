@@ -423,6 +423,14 @@ function LensesVisual() {
   const linksRef = useRef<SVGSVGElement | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const fields = ["Physical product design", "Design education", "Human computer interaction", "AI literacy", "Computational design"];
+  const fieldDescriptions = [
+    "How objects respond to people, materials, manufacturing, and use.",
+    "How design knowledge, critique, and process can be taught.",
+    "How people understand, direct, and collaborate with computational systems.",
+    "How people interpret, question, and make informed choices with AI.",
+    "How computation can support exploration without replacing judgment."
+  ];
+  const symbols = ["Da", "Dl", "Sl", "Ha", "Ep", "Pd", "De", "Hc", "Al", "Cd", "AD"];
   const items = [...lensData.map(([name]) => name), ...fields, "AI supported learning for physical product design"];
 
   useEffect(() => {
@@ -463,7 +471,9 @@ function LensesVisual() {
       const element = document.createElement("button");
       element.type = "button";
       element.className = `lens-three-card ${index < 5 ? "is-lens" : index < 10 ? "is-field" : "is-center"}`;
-      element.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span><b>${label}</b>`;
+      const detail = index < 5 ? lensData[index][1] : index < 10 ? fieldDescriptions[index - 5] : "The open center where the five research lenses and five fields meet.";
+      const family = index < 5 ? "Research lens" : index < 10 ? "Intersecting field" : "Central inquiry";
+      element.innerHTML = `<span class="periodic-number">${String(index + 1).padStart(2, "0")}</span><strong class="periodic-symbol">${symbols[index]}</strong><b class="periodic-name">${label}</b><small class="periodic-family">${family}</small><em class="periodic-detail">${detail}</em>`;
       element.setAttribute("aria-label", label);
       const object = new CSS3DObject(element);
       object.position.set((Math.random() - .5) * 900, (Math.random() - .5) * 520, (Math.random() - .5) * 420);
