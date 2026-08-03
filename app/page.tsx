@@ -173,6 +173,17 @@ const precedents = [
     ],
     connection: "The learner and the system should distribute control without removing human responsibility.",
   },
+  {
+    name: "Data & Society",
+    category: "Critical AI and public participation",
+    sections: [
+      ["Who They Are", "An independent nonprofit research institute studying the social implications of data, automation, and artificial intelligence through the experiences of affected people and communities."],
+      ["What They Do", "Data & Society produces research, policy guidance, public programs, and educational resources. It studies technology within existing social conditions and asks who participates, whose knowledge is valued, and who is affected."],
+      ["Selected Work", "Democratizing AI: Principles for Meaningful Public Participation by Michele Gilman, 2023, argues that affected people need real influence throughout AI design and deployment, not symbolic feedback after decisions are made."],
+      ["Relationship to My Project", "Entering a prompt may look like participation while the system still makes most design decisions. This precedent defines meaningful participation through the knowledge, support, and agency to understand and influence a process."],
+    ],
+    connection: "Participation means more than providing an initial input. A person must be able to understand, influence, and take responsibility for the process.",
+  },
 ];
 
 function ExperimentVisual() {
@@ -418,7 +429,7 @@ function LineageVisual() {
 }
 
 function CommunityArchive() {
-  const [selected, setSelected] = useState(4);
+  const [selected, setSelected] = useState(5);
   return <div className="community-archive">
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
     <div className="archive-ribbon">{precedents.map((item, i) => <button key={item.name} className={selected === i ? "active" : ""} onClick={() => setSelected(i)} onMouseEnter={() => setSelected(i)}><i data-index={String(i + 1).padStart(2, "0")} /><span>{item.name}</span></button>)}</div>
