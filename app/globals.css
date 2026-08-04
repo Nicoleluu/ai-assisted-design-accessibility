@@ -568,20 +568,20 @@ li:nth-child(even)::before { left: 12px; }
 .lens-relationship-lines { position: absolute; z-index: 1; inset: 0 0 26px; width: 100%; height: auto; overflow: visible; pointer-events: none; }
 .lens-relationship-line { stroke: #d0d0d0; stroke-width: 1; opacity: 0; transition: opacity .22s; }
 .lens-relationship-line.is-visible { opacity: .48; }
-.lens-relationship-caption { position: absolute; z-index: 4; left: 50%; bottom: 2px; margin: 0; opacity: 0; color: rgba(205,205,205,.46); font: 400 clamp(9px,.66vw,12px)/1.2 "Helvetica Neue",Arial,sans-serif; letter-spacing: .035em; text-align: center; white-space: nowrap; pointer-events: none; transform: translate(-50%,5px); transition: opacity .2s ease, transform .2s ease; }
+.lens-relationship-caption { position: absolute; z-index: 4; left: 50%; bottom: 2px; margin: 0; opacity: 0; color: rgba(225,225,225,.72); font: 400 clamp(16px,1.05vw,20px)/1.2 "Helvetica Neue",Arial,sans-serif; letter-spacing: .025em; text-align: center; white-space: nowrap; pointer-events: none; transform: translate(-50%,5px); transition: opacity .2s ease, transform .2s ease; }
 .lens-relationship-caption.is-visible { opacity: 1; transform: translate(-50%,0); }
 .lenses-three-stage { overflow: visible !important; }
 .lens-three-card { --element-color: #e8e8e8; position: relative; width: 122px; height: 142px; display: block; padding: 9px 10px 10px; overflow: visible; color: #f0f0f0; background: linear-gradient(145deg, rgba(45,45,45,.92), rgba(9,9,9,.97)); border: 1px solid rgba(232,232,232,.7); box-shadow: inset 0 0 18px rgba(255,255,255,.06), 0 0 8px rgba(255,255,255,.25), 0 0 25px rgba(255,255,255,.1); font-family: "Courier New", monospace; text-align: center; text-transform: none; cursor: pointer; transition: opacity .25s, color .25s, border-color .25s, background .25s, transform .25s, box-shadow .25s; backdrop-filter: blur(8px); }
 .lens-three-card::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(255,255,255,.1); pointer-events: none; }
-.lens-three-card .periodic-number { position: absolute; top: 8px; right: 9px; color: var(--element-color); font-size: 7px; letter-spacing: .1em; }
+.lens-three-card .periodic-number { position: absolute; top: 8px; right: 9px; color: var(--element-color); font-size: 9px; letter-spacing: .1em; }
 .lens-three-card .periodic-symbol { display: grid; place-items: center; min-height: 42px; margin-top: 18px; color: #f4f4f4; font: 500 34px/1 "Helvetica Neue", sans-serif; letter-spacing: -.04em; text-shadow: 0 0 5px var(--element-color), 0 0 14px rgba(255,255,255,.5); }
 .lens-three-card .periodic-symbol i { font-style: normal; }
 .lens-three-card .periodic-full { display: none; max-width: 100px; font-size: 12px; line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase; }
 .lens-three-card:hover .periodic-short, .lens-three-card:focus .periodic-short { display: none; }
 .lens-three-card:hover .periodic-full, .lens-three-card:focus .periodic-full { display: block; }
 .lens-three-card:hover .periodic-name, .lens-three-card:focus .periodic-name { opacity: 0; }
-.lens-three-card .periodic-name { display: block; margin-top: 7px; color: #d8d8d8; font-size: 7px; line-height: 1.16; font-weight: 400; text-transform: uppercase; transition: opacity .18s; }
-.lens-three-card .periodic-family { position: absolute; left: 8px; right: 8px; bottom: 8px; color: rgba(220,220,220,.52); font: 6px/1 "Courier New", monospace; text-transform: uppercase; }
+.lens-three-card .periodic-name { display: block; margin-top: 7px; color: #e5e5e5; font-size: 10px; line-height: 1.15; font-weight: 400; text-transform: uppercase; transition: opacity .18s; }
+.lens-three-card .periodic-family { position: absolute; left: 8px; right: 8px; bottom: 8px; color: rgba(230,230,230,.7); font: 8px/1 "Courier New", monospace; text-transform: uppercase; }
 .lens-three-card .periodic-detail { position: absolute; z-index: 8; left: 50%; top: calc(100% + 10px); width: 180px; padding: 11px 12px; opacity: 0; color: #ededed; background: rgba(12,12,12,.98); border: 1px solid rgba(235,235,235,.65); box-shadow: 0 0 22px rgba(255,255,255,.16); font: normal 9px/1.35 "Helvetica Neue", sans-serif; text-align: left; text-transform: none; pointer-events: none; transform: translate(-50%, -5px); transition: opacity .2s, transform .2s; }
 .lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { opacity: 1; transform: translate(-50%, 0); }
 .lens-three-card.is-related .periodic-short { display: none; }
@@ -606,20 +606,20 @@ li:nth-child(even)::before { left: 12px; }
 .lens-three-card.is-related { z-index: 9998 !important; color: #fff; border-color: var(--element-color); transform: scale(1.13); box-shadow: inset 0 0 24px color-mix(in srgb, var(--element-color) 15%, transparent), 0 0 15px color-mix(in srgb, var(--element-color) 62%, transparent), 0 0 45px color-mix(in srgb, var(--element-color) 24%, transparent); }
 .lens-three-card:hover, .lens-three-card:focus { z-index: 9999 !important; }
 .lens-three-card.is-related .periodic-detail, .lens-three-card:hover .periodic-detail, .lens-three-card:focus .periodic-detail { z-index: 10000 !important; }
-.lens-three-card:is(.is-related, :hover, :focus) { width: 190px; height: 210px; overflow: hidden; padding: 12px 14px; background-color: #0b0c0b; transform: scale(1); translate: -34px -34px; }
+.lens-three-card:is(.is-related, :hover, :focus) { width: 220px; height: 240px; overflow: hidden; padding: 14px 16px; background-color: #0b0c0b; transform: scale(1); translate: -49px -49px; }
 .lens-three-card.is-view:is(.is-related, :hover, :focus) { translate: -36px -36px; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-symbol { min-height: 52px; margin-top: 17px; }
-.lens-three-card:is(.is-related, :hover, :focus) .periodic-full { max-width: 158px; font-size: 13px; line-height: 1.05; }
-.lens-three-card:is(.is-related, :hover, :focus) .periodic-detail { left: 14px; right: 14px; top: auto; bottom: 28px; width: auto; min-height: 48px; display: flex; align-items: flex-start; padding: 0; opacity: 1; background: transparent; border: 0; box-shadow: none; transform: none; font-size: 9px; line-height: 1.3; }
+.lens-three-card:is(.is-related, :hover, :focus) .periodic-full { max-width: 188px; font-size: 17px; line-height: 1.06; }
+.lens-three-card:is(.is-related, :hover, :focus) .periodic-detail { left: 16px; right: 16px; top: auto; bottom: 34px; width: auto; min-height: 64px; display: flex; align-items: flex-start; padding: 0; opacity: 1; background: transparent; border: 0; box-shadow: none; transform: none; font-size: 13px; line-height: 1.3; }
 .lens-three-card:is(.is-related, :hover, :focus) .periodic-family { bottom: 10px; }
 .lens-three-card.is-center:is(.is-related, :hover, :focus) { width: 210px; height: 230px; }
 .lens-three-card.is-center:is(.is-related, :hover, :focus) .periodic-symbol { margin-top: 18px; font-size: 38px; }
-.lens-three-card.is-related:not(:hover, :focus) { width: 140px; height: 160px; padding: 10px 11px; translate: -9px -9px; }
+.lens-three-card.is-related:not(:hover, :focus) { width: 176px; height: 198px; padding: 12px 13px; translate: -27px -27px; }
 .lens-three-card.is-view.is-related:not(:hover, :focus) { translate: -11px -11px; }
 .lens-three-card.is-related:not(:hover, :focus) .periodic-symbol { min-height: 40px; margin-top: 13px; }
-.lens-three-card.is-related:not(:hover, :focus) .periodic-full { max-width: 116px; font-size: 10px; line-height: 1.02; }
-.lens-three-card.is-related:not(:hover, :focus) .periodic-detail { left: 11px; right: 11px; bottom: 24px; min-height: 38px; font-size: 7px; line-height: 1.22; }
-.lens-three-card.is-related:not(:hover, :focus) .periodic-family { bottom: 8px; }
+.lens-three-card.is-related:not(:hover, :focus) .periodic-full { max-width: 148px; font-size: 14px; line-height: 1.04; }
+.lens-three-card.is-related:not(:hover, :focus) .periodic-detail { left: 13px; right: 13px; bottom: 30px; min-height: 52px; font-size: 10.5px; line-height: 1.28; }
+.lens-three-card.is-related:not(:hover, :focus) .periodic-family { bottom: 10px; font-size: 7.5px; }
 .lens-three-card.is-center.is-related:not(:hover, :focus) { width: 166px; height: 184px; }
 .lens-three-card.is-center.is-related:not(:hover, :focus) .periodic-symbol { min-height: 44px; margin-top: 14px; font-size: 30px; }
 .lens-three-card:hover, .lens-three-card:focus { z-index: 2147483647 !important; isolation: isolate; }
