@@ -419,12 +419,11 @@ li:nth-child(even)::before { left: 12px; }
 .situated-canvas iframe { position: absolute; left: 7vw; top: 24vh; width: 86vw; height: 63vh; border: 0; background: #000; }
 .compression-study { display: grid; grid-template-columns: .68fr 1.32fr; gap: 14px; padding: 18px 18px 55px; }
 .linear-path { display: flex; flex-direction: column; justify-content: center; }
-.linear-path div { position: relative; min-height: 76px; padding: 21px 18px; border: 1px solid var(--line); color: var(--text); font: 15px "Courier New", monospace; }
+.linear-path div { position: relative; min-height: 112px; padding: 26px 28px; border: 1px solid var(--line); color: var(--text); font: clamp(20px, 1.7vw, 28px) "Courier New", monospace; }
 .linear-path div + div { border-top: 0; }
-.linear-path span { margin-right: 22px; color: var(--accent); font-size: 13px; }
+.linear-path span { margin-right: 32px; color: var(--accent); font-size: clamp(17px, 1.25vw, 21px); }
 .linear-path b { font-weight: 400; text-transform: uppercase; }
-.linear-path em { display: block; max-height: 0; margin: 0 0 0 54px; overflow: hidden; color: var(--muted); font-size: 13px; font-style: normal; line-height: 1.35; opacity: 0; transition: .25s ease; }
-.linear-path div:hover em { max-height: 60px; margin-top: 10px; opacity: 1; }
+.linear-path em { display: block; margin: 14px 0 0 76px; color: #c2c4bf; font-size: clamp(15px, 1.2vw, 19px); font-style: normal; line-height: 1.4; opacity: 1; }
 .process-web { position: relative; border: 1px solid var(--line); cursor: crosshair; }
 .process-web::before, .process-web::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, transparent, rgba(8,10,9,.84) 55%); pointer-events: none; transition: opacity .25s; }
 .process-web:hover::before { opacity: 0; }
