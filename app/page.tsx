@@ -570,27 +570,14 @@ function LensesVisual() {
 
 function CommunityArchive() {
   const [selected, setSelected] = useState<number | null>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const keepOpen = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = null;
-  };
-  const openProject = (index: number) => {
-    keepOpen();
-    setSelected(index);
-  };
-  const closeProject = () => {
-    keepOpen();
-    closeTimer.current = setTimeout(() => setSelected(null), 420);
-  };
   const archiveLoop = [...precedents, ...precedents];
   return <div className={`community-archive ${selected !== null ? "has-selection" : ""}`}>
     <div className="archive-categories"><span>Critical AI and public interest</span><span>Design learning and pedagogy</span><span>AI supported learning tools</span></div>
-    <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
+    <div className={`archive-ribbon ${selected !== null ? "paused" : ""}`}><div className="archive-ribbon-track">{archiveLoop.map((item, loopIndex) => {
       const itemIndex = loopIndex % precedents.length;
-      return <button key={`${item.name}-${loopIndex}`} aria-label={item.name} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i></button>;
+      return <button key={`${item.name}-${loopIndex}`} aria-label={item.name} className={selected === itemIndex ? "active" : ""} onPointerEnter={() => setSelected(itemIndex)} onPointerLeave={() => setSelected(null)} onFocus={() => setSelected(itemIndex)} onBlur={() => setSelected(null)} onClick={event => event.currentTarget.blur()}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i></button>;
     })}</div></div>
-    {selected !== null && <div className="precedent-record precedent-gallery" onMouseEnter={keepOpen} onMouseLeave={closeProject}>
+    {selected !== null && <div className={`precedent-record precedent-gallery precedent-organic-${selected + 1}`}>
       <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2><p>{precedents[selected].summary}</p></header>
       <div className={`precedent-media precedent-media-${precedents[selected].media.length}`}>{precedents[selected].media.map(([src, alt], index) => <figure className={`media-frame media-frame-${index + 1}`} key={src}>
         <img src={src} alt={alt} />
