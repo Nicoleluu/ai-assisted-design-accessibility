@@ -69,8 +69,8 @@ const canvases: Canvas[] = [
     id: "capstone",
     act: "Direction",
     title: "A potential capstone: AI as an educational bridge.",
-    statement: "Support aspiring product designers with limited resources to build design judgment—not only generate outcomes.",
-    visual: "A visual bridge connects unequal access to greater design agency through AI-supported learning.",
+    statement: "Support aspiring product designers with limited resources to build design judgment, not only generate outcomes.",
+    visual: "A visual bridge connects unequal access to greater design agency through AI supported learning.",
   },
   {
     id: "return",
@@ -126,10 +126,10 @@ const precedents = [
   {
     name: "NotebookLM",
     logo: "/archive-notebooklm.png",
-    category: "AI-supported research and learning platform",
+    category: "AI supported research and learning platform",
     summary: "Shows how AI can help people investigate selected sources and build understanding instead of simply generating a finished answer.",
     media: [
-      ["/archive-notebooklm-interface.png", "NotebookLM source-grounded workspace"],
+      ["/archive-notebooklm-interface.png", "NotebookLM source grounded workspace"],
       ["/archive-notebooklm-notebooks.png", "Featured and recent notebooks"],
       ["/archive-notebooklm-formats.png", "NotebookLM learning output formats"],
       ["/archive-notebooklm-presentation.jpg", "A presentation created with NotebookLM"],
@@ -150,7 +150,7 @@ const precedents = [
   {
     name: "People + AI Guidebook",
     logo: "/archive-people-ai.png",
-    category: "Human-centered AI design guidebook",
+    category: "Human centered AI design guidebook",
     summary: "Offers frameworks for balancing automation with human control, helping define an AI that guides learners without replacing their decisions.",
     media: [
       ["/archive-pair-guidebook-chapters.png", "People + AI Guidebook chapters"],
@@ -165,7 +165,7 @@ const precedents = [
     name: "Data & Society",
     logo: "/archive-data-society.png",
     category: "Technology and society research institute",
-    summary: "Shows that meaningful participation requires more than giving input—people need the knowledge and agency to understand and influence the process.",
+    summary: "Shows that meaningful participation requires more than giving input. People need the knowledge and agency to understand and influence the process.",
     media: [
       ["/archive-data-society-research-areas.png", "Data & Society research areas"],
       ["/archive-data-society-panel.png", "Data & Society public discussion"],
@@ -403,15 +403,15 @@ function InvestigationVisual() {
     </svg>
     <div className="triad-dots dots-a" aria-hidden="true" /><div className="triad-dots dots-b" aria-hidden="true" /><div className="triad-dots dots-c" aria-hidden="true" />
     <section className="research-territory territory-target">
-      <header><span>01 / TARGET GROUP</span><h2>Non-designers interested in product design</h2></header>
+      <header><h2>Non designers interested in product design</h2></header>
       <div className="territory-materials">{targetImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="Product design reference selected for the target group" />)}</div>
     </section>
     <section className="research-territory territory-ai">
-      <header><span>02 / AI SYSTEM</span><h2>General-purpose AI chatbot</h2></header>
-      <div className="territory-materials">{aiImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="General-purpose AI system reference" />)}</div>
+      <header><h2>General purpose AI chatbot</h2></header>
+      <div className="territory-materials">{aiImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="General purpose AI system reference" />)}</div>
     </section>
     <section className="research-territory territory-process">
-      <header><span>03 / PROCESS</span><h2>Design, user, and learning processes</h2></header>
+      <header><h2>Design, user, and learning processes</h2></header>
       <div className="territory-materials">{processImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="Design and research process reference" />)}</div>
     </section>
     <div className="triad-center"><p>An educational investigation into the relationship between a target group, general purpose AI chatbots, and the processes through which design is learned and practiced.</p></div>
@@ -619,8 +619,7 @@ function CapstoneVisual() {
 }
 
 function ReturnVisual() {
-  const traces = ["resources", "learning", "context", "materials", "experimentation", "judgment", "agency", "responsibility"];
-  return <div className="return-field"><div className="return-point"><i />ACCESS TO THE TOOL</div><div className="return-traces">{traces.map((x, i) => <span key={x} style={{ "--i": i } as React.CSSProperties}>{x}</span>)}</div><div className="return-point"><i />ACCESS TO DESIGN KNOWLEDGE</div></div>;
+  return <div className="return-field"><div className="return-point"><i /></div><div className="return-traces" /><div className="return-point"><i /></div></div>;
 }
 
 function VisualContent({ id }: { id: string }) {
@@ -670,10 +669,9 @@ export default function Home() {
   return <main className="presentation">
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
       {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "investigation" ? <aside className="visual-placeholder investigation-only-stage"><InvestigationVisual /></aside> : <>
-        <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p>{canvas.id === "capstone" ? <h1 className="capstone-title"><span className="capstone-title-kicker">A potential capstone:</span><span>AI as an educational bridge.</span></h1> : <h1>{canvas.title}</h1>}<p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
-        <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
+        <div className="canvas-copy">{canvas.id === "capstone" ? <h1 className="capstone-title"><span className="capstone-title-kicker">A potential capstone:</span><span>AI as an educational bridge.</span></h1> : <h1>{canvas.title}</h1>}<p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
+        <aside className="visual-placeholder"><VisualContent id={canvas.id} /></aside>
       </>}
-      {canvas.id !== "lenses" && <p className="navigation-hint">Tab for next canvas&nbsp;&nbsp;&nbsp;Shift and Tab for previous&nbsp;&nbsp;&nbsp;Scroll is also available</p>}
     </section>)}
   </main>;
 }

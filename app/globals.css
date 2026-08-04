@@ -147,15 +147,15 @@ li:nth-child(even)::before { left: 12px; }
   background: var(--panel);
   font: 11px/1 "Courier New", monospace;
 }
-.visual-placeholder::before { content: "+"; top: -6px; left: -6px; }
-.visual-placeholder::after { content: "+"; right: -6px; bottom: -6px; }
+.visual-placeholder::before,
+.visual-placeholder::after { display: none; }
 .visual-placeholder span {
   color: var(--muted);
   font: 9px/1.2 "Courier New", Courier, monospace;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-.visual-placeholder span::after { content: " / pending"; color: var(--accent); }
+.visual-placeholder span::after { content: none; }
 .visual-placeholder p {
   max-width: 440px;
   margin: 0;
