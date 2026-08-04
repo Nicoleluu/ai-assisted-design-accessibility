@@ -565,7 +565,6 @@ li:nth-child(even)::before { left: 12px; }
 .archive-ribbon { min-height: 140px; padding: 12px 0 16px; overflow: hidden; }.archive-ribbon-track { display: flex; align-items: center; gap: 18px; width: max-content; padding: 8px 0; animation: archive-marquee 34s linear infinite; will-change: transform; }.archive-ribbon.paused .archive-ribbon-track { animation-play-state: paused; }.archive-ribbon button { flex: 0 0 176px; height: 102px; padding: 0; color: var(--muted); background: transparent; border: 0; cursor: pointer; transition: transform .28s ease, margin .28s ease; }.archive-ribbon button i { position: relative; display: block; height: 74px; background: repeating-linear-gradient(135deg,#1b1e1b 0 8px,#0d100e 8px 16px); }.archive-ribbon button i::after { content: attr(data-index); position: absolute; left: 6px; bottom: 5px; color: var(--muted); font: 7px "Courier New", monospace; }.archive-ribbon button span { display: block; margin-top: 7px; color: var(--muted); font: 7px "Courier New", monospace; text-transform: uppercase; }.archive-ribbon button.active { z-index: 3; margin: 0 24px; transform: scale(1.28); }.archive-ribbon button.active span { color: var(--text); }
 .archive-ribbon button i { display: grid; place-items: center; padding: 10px 18px; background: #090a09; }
 .archive-ribbon button i img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
-.archive-ribbon button:has(img[src*="duolingo"]) i { padding: 4px 42px; }
 @keyframes archive-marquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 9px)); } }
 .precedent-record { position: relative; height: 390px; margin: 0 4vw; animation: archive-info-in .2s ease both; overflow: hidden; }
 .precedent-record header span, .precedent-sections section > span { color: var(--accent); font: 7px "Courier New", monospace; text-transform: uppercase; }
@@ -599,13 +598,6 @@ li:nth-child(even)::before { left: 12px; }
 .precedent-layout-mosaic .precedent-sections { display: contents; }.precedent-layout-mosaic .precedent-section-1 { grid-column: 1; grid-row: 2; }.precedent-layout-mosaic .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-mosaic .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-mosaic .precedent-section-4 { grid-column: 4; grid-row: 2 / 4; }
 .precedent-layout-mosaic .precedent-media { display: contents; }.precedent-layout-mosaic .media-frame-1 { grid-column: 2; grid-row: 2; }.precedent-layout-mosaic .media-frame-2 { grid-column: 3; grid-row: 3; }.precedent-layout-mosaic .media-frame, .precedent-layout-mosaic .media-frame div { height: 105px; }
 .precedent-layout-mosaic .precedent-connection { grid-column: 1; grid-row: 3; align-self: end; }
-
-/* Duolingo: bold learning product page with one clear interaction image. */
-.precedent-layout-practice { display: grid; grid-template-columns: 1.2fr .78fr .78fr; grid-template-rows: 95px 1fr 72px; gap: 14px 30px; }
-.precedent-layout-practice header { grid-column: 1 / 4; display: flex; justify-content: space-between; align-items: start; }.precedent-layout-practice h2 { font-size: clamp(40px,4.8vw,78px); line-height: .9; }
-.precedent-layout-practice .precedent-sections { display: contents; }.precedent-layout-practice .precedent-section-1 { grid-column: 2; grid-row: 2; }.precedent-layout-practice .precedent-section-2 { grid-column: 3; grid-row: 2; }.precedent-layout-practice .precedent-section-3 { grid-column: 2; grid-row: 3; }.precedent-layout-practice .precedent-section-4 { grid-column: 3; grid-row: 3; }
-.precedent-layout-practice .precedent-media { grid-column: 1; grid-row: 2 / 4; }.precedent-layout-practice .media-frame, .precedent-layout-practice .media-frame div { height: 235px; }
-.precedent-layout-practice .precedent-connection { position: absolute; left: 0; bottom: 0; max-width: 31%; }
 
 /* PAIR: a diagrammatic field with offset guidebook fragments. */
 .precedent-layout-guidebook { display: grid; grid-template-columns: .75fr 1.1fr .85fr; grid-template-rows: 74px 1fr 96px; gap: 12px 26px; }

@@ -156,20 +156,6 @@ const precedents = [
     connection: "Guidance must respond to what the learner already knows.",
   },
   {
-    name: "Duolingo",
-    logo: "/archive-duolingo.png",
-    category: "AI supported learning tool",
-    layout: "practice",
-    media: ["AI Roleplay conversation"],
-    sections: [
-      ["What It Is", "A digital education platform that teaches languages through short interactive lessons, curriculum design, learning science, personalization, and game mechanics."],
-      ["What It Does", "Duolingo uses a structured path that introduces skills gradually, responds to mistakes, adjusts difficulty, and provides repeated practice."],
-      ["Selected Feature", "AI Roleplay places learners in real world scenarios, responds to their choices, and provides feedback. The AI creates a space to practice instead of performing the skill for them."],
-      ["Relationship to My Project", "It demonstrates guided practice, feedback, and adaptation. Unlike language learning, design has no single correct answer, so my project must support different processes without fixing the outcome."],
-    ],
-    connection: "AI can create conditions for practice while keeping the learner responsible.",
-  },
-  {
     name: "People + AI Guidebook",
     logo: "/archive-people-ai.png",
     category: "Human centered AI design",
@@ -623,8 +609,6 @@ function CommunityArchive() {
             ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
             : precedents[selected].name === "NotebookLM"
               ? <img src="/archive-notebooklm-interface.png" alt="NotebookLM interface showing sources, chat, and learning tools including audio overview, mind map, flashcards, and quiz" />
-              : precedents[selected].name === "Duolingo"
-                ? <img src="/archive-duolingo-lesson.png" alt="Duolingo Japanese lesson asking which image represents tea" />
               : precedents[selected].name === "AI Design Guide"
                 ? <img
                     src={index === 0 ? "/archive-ai-design-guide-learning-path.png" : "/archive-ai-design-guide-directory.png"}
