@@ -668,11 +668,6 @@ export default function Home() {
   }, []);
 
   return <main className="presentation">
-    <header className={`presentation-header ${activeIndex < 2 ? "hero-active" : ""}`}>
-      <div className="project-name">Accessing Design</div>
-      <div className="acts" aria-label="Presentation structure">{["Question", "Encounter", "Problem", "Position", "Context", "Argument", "Direction", "Return"].map(act => <span key={act} className={canvases[activeIndex].act === act ? "active" : ""}>{act}</span>)}</div>
-      <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
-    </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
       {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "investigation" ? <aside className="visual-placeholder investigation-only-stage"><InvestigationVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p>{canvas.id === "capstone" ? <h1 className="capstone-title"><span className="capstone-title-kicker">A potential capstone:</span><span>AI as an educational bridge.</span></h1> : <h1>{canvas.title}</h1>}<p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
