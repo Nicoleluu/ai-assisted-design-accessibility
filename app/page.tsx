@@ -48,9 +48,8 @@ const canvases: Canvas[] = [
     id: "investigation",
     act: "Problem",
     title: "What am I actually investigating?",
-    statement: "General purpose AI can produce the appearance of a designed object without helping someone develop the knowledge and judgment involved in designing it.",
-    details: ["Person", "General purpose AI chatbot", "Design process", "Generated outcome"],
-    visual: "A four part system locates the project between the learner, chatbot, process, and outcome.",
+    statement: "An educational investigation into the relationship between a target group, general purpose AI chatbots, and the processes through which design is learned and practiced.",
+    visual: "Three connected territories locate the project between its target group, AI system, and process.",
   },
   {
     id: "lenses",
@@ -388,8 +387,31 @@ function ForceProcessWeb() {
 }
 
 function InvestigationVisual() {
-  const nodes = ["Person", "AI chatbot", "Design process", "Generated outcome"];
-  return <div className="investigation-system">{nodes.map((node, i) => <div key={node} className={`system-node node-${i + 1}`}><span>0{i + 1}</span><b>{node}</b></div>)}<i className="link-one" /><i className="link-two" /><strong>How do chatbots shape the design process of people without formal design training?</strong><small>How might AI support learning without making important decisions for the learner?</small></div>;
+  const targetImages = Array.from({ length: 7 }, (_, index) => `/research-learner-${String(index + 1).padStart(2, "0")}.png`);
+  const aiImages = ["/research-ai-system-01.png", "/research-ai-system-02.png"];
+  const processImages = Array.from({ length: 4 }, (_, index) => `/research-process-${String(index + 1).padStart(2, "0")}.png`);
+  return <div className="research-triad">
+    <svg className="triad-lines" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">
+      <path className="triad-edge" d="M500 92 C430 205 305 338 190 520" />
+      <path className="triad-edge" d="M500 92 C578 210 704 345 820 520" />
+      <path className="triad-edge" d="M190 520 C390 565 620 565 820 520" />
+      <path className="triad-inner" d="M500 92 C500 250 500 350 500 430 M190 520 C315 450 400 420 500 430 M820 520 C680 455 600 425 500 430" />
+    </svg>
+    <div className="triad-dots dots-a" aria-hidden="true" /><div className="triad-dots dots-b" aria-hidden="true" /><div className="triad-dots dots-c" aria-hidden="true" />
+    <section className="research-territory territory-target">
+      <header><span>01 / TARGET GROUP</span><h2>Non-designers interested in product design</h2></header>
+      <div className="territory-materials">{targetImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="Product design reference selected for the target group" />)}</div>
+    </section>
+    <section className="research-territory territory-ai">
+      <header><span>02 / AI SYSTEM</span><h2>General-purpose AI chatbot</h2></header>
+      <div className="territory-materials">{aiImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="General-purpose AI system reference" />)}</div>
+    </section>
+    <section className="research-territory territory-process">
+      <header><span>03 / PROCESS</span><h2>Design, user, and learning processes</h2></header>
+      <div className="territory-materials">{processImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="Design and research process reference" />)}</div>
+    </section>
+    <div className="triad-center"><span>EDUCATIONAL / USER-CENTERED</span><strong>AI-assisted<br />design learning</strong></div>
+  </div>;
 }
 
 function ResourceMap() {
