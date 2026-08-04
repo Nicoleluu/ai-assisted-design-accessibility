@@ -22,6 +22,14 @@ const canvases: Canvas[] = [
     visual: "Completed opening composition.",
   },
   {
+    id: "situated",
+    act: "Position",
+    title: "Why is this question situated?",
+    statement: "Where a person lives and what surrounds them can influence which forms of design knowledge, education, mentorship, and material experience are available.",
+    details: ["Location", "Language", "Family support", "Social class", "Prior education", "Time and money"],
+    visual: "An interactive resource map reveals differences in exposure and resource density.",
+  },
+  {
     id: "experiment",
     act: "Encounter",
     title: "Let’s design a physical product.",
@@ -43,14 +51,6 @@ const canvases: Canvas[] = [
     statement: "General purpose AI can produce the appearance of a designed object without helping someone develop the knowledge and judgment involved in designing it.",
     details: ["Person", "General purpose AI chatbot", "Design process", "Generated outcome"],
     visual: "A four part system locates the project between the learner, chatbot, process, and outcome.",
-  },
-  {
-    id: "situated",
-    act: "Position",
-    title: "Why is this question situated?",
-    statement: "Where a person lives and what surrounds them can influence which forms of design knowledge, education, mentorship, and material experience are available.",
-    details: ["Location", "Language", "Family support", "Social class", "Prior education", "Time and money"],
-    visual: "An interactive resource map reveals differences in exposure and resource density.",
   },
   {
     id: "lenses",
