@@ -392,6 +392,9 @@ function InvestigationVisual() {
   const processImages = Array.from({ length: 4 }, (_, index) => `/research-process-${String(index + 1).padStart(2, "0")}.png`);
   return <div className="research-triad">
     <svg className="triad-lines" viewBox="0 0 1000 650" preserveAspectRatio="none" aria-hidden="true">
+      <path className="triad-zone zone-target" d="M500 24 C365 38 250 128 265 290 C332 358 668 358 735 290 C750 128 635 38 500 24 Z" />
+      <path className="triad-zone zone-ai" d="M255 274 C118 290 32 404 72 576 C182 640 372 618 478 470 C458 370 372 292 255 274 Z" />
+      <path className="triad-zone zone-process" d="M745 274 C882 290 968 404 928 576 C818 640 628 618 522 470 C542 370 628 292 745 274 Z" />
       <path className="triad-edge" d="M500 92 C430 205 305 338 190 520" />
       <path className="triad-edge" d="M500 92 C578 210 704 345 820 520" />
       <path className="triad-edge" d="M190 520 C390 565 620 565 820 520" />
@@ -410,7 +413,7 @@ function InvestigationVisual() {
       <header><span>03 / PROCESS</span><h2>Design, user, and learning processes</h2></header>
       <div className="territory-materials">{processImages.map((src, index) => <img key={src} className={`material-${index + 1}`} src={src} alt="Design and research process reference" />)}</div>
     </section>
-    <div className="triad-center"><span>EDUCATIONAL / USER-CENTERED</span><strong>AI-assisted<br />design learning</strong></div>
+    <div className="triad-center"><p>An educational investigation into the relationship between a target group, general purpose AI chatbots, and the processes through which design is learned and practiced.</p></div>
   </div>;
 }
 
@@ -672,7 +675,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "investigation" ? <aside className="visual-placeholder investigation-only-stage"><InvestigationVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
