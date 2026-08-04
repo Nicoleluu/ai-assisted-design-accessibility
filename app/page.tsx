@@ -60,13 +60,6 @@ const canvases: Canvas[] = [
     visual: "A conceptual relationship map connects five research lenses to five intersecting fields.",
   },
   {
-    id: "lineage",
-    act: "Context",
-    title: "The project sits between two histories of learning.",
-    statement: "One trajectory follows how people learn design. The other follows how people learn with computational systems.",
-    visual: "Two historical trajectories approach one unresolved question about AI learning environments for physical product design.",
-  },
-  {
     id: "community",
     act: "Context",
     title: "Different communities help me understand different parts of the question.",
@@ -598,45 +591,6 @@ function LensesVisual() {
   </div>;
 }
 
-function LineageVisual() {
-  const design = [
-    ["Apprenticeship", "Design knowledge passed through observation, repetition, and direct work beside an experienced maker.", "Lave and Wenger, Situated Learning"],
-    ["Studio education", "Schools organized design learning around projects, workshops, materials, and shared critique.", "Bauhaus preliminary course and workshops"],
-    ["Critique culture", "Learners explained decisions, received feedback, compared alternatives, and revised their work.", "The studio critique"],
-    ["Learning through making", "Sketching, prototyping, testing, and reflection made knowledge emerge through action.", "Donald Schön, The Reflective Practitioner"],
-    ["Design methods", "Research, ideation, evaluation, and iteration became visible as teachable methods.", "Design process and methods manuals"],
-    ["Online design learning", "Courses and communities widened access while often separating learning from materials, peers, and local context.", "Tutorials, courses, and distributed communities"],
-  ];
-  const computation = [
-    ["Programmed instruction", "Teaching machines broke knowledge into sequenced prompts and supplied immediate feedback.", "B. F. Skinner's teaching machine"],
-    ["Computer assisted learning", "Networked systems combined lessons, exercises, discussion, and feedback on a shared computer.", "PLATO"],
-    ["Intelligent tutoring", "Software began modeling a learner's progress and adapting practice or explanations.", "Intelligent tutoring systems"],
-    ["Constructionist computing", "Learners used computation to make, test, and revise artifacts rather than only receive instruction.", "Seymour Papert, Mindstorms"],
-    ["Conversational learning", "Chat interfaces made questions easier to ask and explanations more responsive to the learner.", "Conversational tutors"],
-    ["Generative AI chatbots", "General chatbots can produce explanations and finished artifacts instantly, sometimes compressing inquiry and judgment.", "General purpose generative AI"],
-  ];
-  const groups = [
-    { lane: "design", title: "How people learned design", subtitle: "From apprenticeship to online education", items: design },
-    { lane: "computation", title: "How people learned with computers", subtitle: "From programmed instruction to generative AI", items: computation },
-  ];
-
-  return <div className="lineage-archive">
-    {groups.map(group => <section className={`history-stack history-stack-${group.lane}`} key={group.lane}>
-      <header><h2>{group.title}</h2><p>{group.subtitle}</p></header>
-      <div className="history-folder-list">
-        {group.items.map(([title, description, reference], index) => <button className="history-folder" key={title} style={{ top: `${index * 11.5}%`, zIndex: index + 1 }}>
-          <i className="history-folder-tab" aria-hidden="true" />
-          <span className="history-folder-number">{String(index + 1).padStart(2, "0")}</span>
-          <strong>{title}</strong>
-          <span className="history-folder-detail">{description}</span>
-          <em>{reference}</em>
-        </button>)}
-      </div>
-    </section>)}
-    <div className="history-empty-center" aria-hidden="true" />
-  </div>;
-}
-
 function CommunityArchive() {
   const [selected, setSelected] = useState<number | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -705,7 +659,6 @@ function VisualContent({ id }: { id: string }) {
   if (id === "investigation") return <InvestigationVisual />;
   if (id === "situated") return <ResourceMap />;
   if (id === "lenses") return <LensesVisual />;
-  if (id === "lineage") return <LineageVisual />;
   if (id === "community") return <CommunityArchive />;
   if (id === "capstone") return <CapstoneVisual />;
   return <ReturnVisual />;
@@ -751,7 +704,7 @@ export default function Home() {
       <div className="counter">{String(activeIndex + 1).padStart(2, "0")} / {String(canvases.length).padStart(2, "0")}</div>
     </header>
     {canvases.map((canvas, index) => <section className={`canvas canvas-${canvas.id}`} id={canvas.id} data-index={index} key={canvas.id} ref={element => { sections.current[index] = element; }}>
-      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : canvas.id === "lineage" ? <aside className="visual-placeholder lineage-only-stage"><h1 className="lineage-field-title">Two Histories of Learning</h1><LineageVisual /></aside> : <>
+      {canvas.id === "question" ? <img className="hero-pdf" src="/accessing-design-hero.png" alt="Accessing Design by Nicole Lu. Does access to an AI tool provide access to design?" /> : canvas.id === "experiment" ? <ExperimentVisual /> : canvas.id === "compression" ? <CompressionCanvas /> : canvas.id === "situated" ? <SituatedCanvas /> : canvas.id === "lenses" ? <aside className="visual-placeholder lenses-only-stage"><h1 className="lenses-field-title">Design Accessibility Field</h1><LensesVisual /></aside> : <>
         <div className="canvas-copy"><p className="canvas-label">{String(index + 1).padStart(2, "0")}  {canvas.act}</p><h1>{canvas.title}</h1><p className="statement">{canvas.statement}</p>{canvas.details && <ul>{canvas.details.map(detail => <li key={detail}>{detail}</li>)}</ul>}</div>
         <aside className="visual-placeholder"><VisualContent id={canvas.id} /><p className="visual-note">{canvas.visual}</p></aside>
       </>}
