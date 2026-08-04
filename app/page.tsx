@@ -68,9 +68,9 @@ const canvases: Canvas[] = [
   {
     id: "capstone",
     act: "Direction",
-    title: "A potential capstone could investigate AI as a guide rather than the designer.",
-    statement: "I may investigate an AI supported environment that helps self directed learners develop a design process without immediately generating a finished outcome.",
-    visual: "A provisional system diagram combines future methods, challenges, evidence, and previous experiments.",
+    title: "A potential capstone: AI as an educational bridge.",
+    statement: "Support aspiring product designers with limited resources to build design judgment—not only generate outcomes.",
+    visual: "A visual bridge connects unequal access to greater design agency through AI-supported learning.",
   },
   {
     id: "return",
@@ -615,9 +615,12 @@ function CommunityArchive() {
 }
 
 function CapstoneVisual() {
-  const stages = ["Learner", "Questions and intentions", "People, materials, context", "AI supported inquiry", "Sketching and experiments", "Critique and reflection", "Learner decisions"];
-  const notes = ["Exploratory interviews", "Workshops and observation", "Situated research", "Prototype interaction roles", "Physical exercises", "Study reasoning and transfer", "No universal process"];
-  return <div className="capstone-system"><div className="system-flow">{stages.map((stage, i) => <div key={stage}><span>0{i + 1}</span><b>{stage}</b><small>{notes[i]}</small></div>)}</div><aside><span>OPEN QUESTIONS</span>{["Who is the audience?", "What counts as learning?", "What process should be supported?", "How should AI guide?", "How does the physical world enter?", "Can I build the system?"].map(x => <p key={x}>{x}</p>)}</aside></div>;
+  return <div className="capstone-bridge">
+    <div className="bridge-field bridge-field-limited"><div className="resource-dots sparse">{Array.from({ length: 9 }, (_, i) => <i key={i} />)}</div><span>UNEQUAL ACCESS</span></div>
+    <div className="learning-bridge"><div className="bridge-rail rail-top" /><div className="bridge-rail rail-bottom" /><div className="bridge-steps">{Array.from({ length: 7 }, (_, i) => <i key={i} />)}</div><strong>AI-SUPPORTED<br />LEARNING</strong></div>
+    <div className="bridge-field bridge-field-agency"><div className="resource-dots dense">{Array.from({ length: 25 }, (_, i) => <i key={i} />)}</div><span>DESIGN AGENCY</span></div>
+    <p>Bridge access to the process—not only the outcome.</p>
+  </div>;
 }
 
 function ReturnVisual() {

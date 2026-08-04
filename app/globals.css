@@ -956,6 +956,35 @@ li:nth-child(even)::before { left: 12px; }
 .system-flow { display: flex; flex-direction: column; justify-content: center; }.system-flow div { position: relative; padding: 9px 12px; border: 1px solid var(--line); }.system-flow div + div { border-top: 0; }.system-flow span { color: var(--accent); font: 8px "Courier New", monospace; }.system-flow b { margin-left: 16px; color: var(--text); font: 400 10px "Courier New", monospace; text-transform: uppercase; }.system-flow small { float: right; color: var(--faint); font: 7px "Courier New", monospace; }.system-flow div:nth-child(4) { border-color: var(--accent); background: rgba(157,51,40,.08); }
 .capstone-system aside { padding: 14px; border-left: 1px dashed var(--line); }.capstone-system aside > span { color: var(--accent); font: 7px "Courier New", monospace; }.capstone-system aside p { margin: 17px 0; padding-bottom: 8px; border-bottom: 1px solid var(--line-soft); color: var(--muted); font: 9px/1.25 "Courier New", monospace; }
 
+/* Capstone direction: an educational bridge across unequal resource contexts. */
+.canvas-capstone { grid-template-columns: .72fr 1.28fr; }
+.canvas-capstone .canvas-copy { padding-top: 9vh; }
+.canvas-capstone h1 { max-width: 620px; font-size: clamp(46px,5.5vw,86px); line-height: .98; }
+.canvas-capstone .statement { max-width: 520px; font-size: clamp(17px,1.45vw,23px); }
+.canvas-capstone .visual-placeholder { overflow: hidden; border-radius: 0; background: radial-gradient(circle at 50% 50%,rgba(255,255,255,.045),transparent 45%); }
+.canvas-capstone .visual-note { display: none; }
+.capstone-bridge { position: relative; display: grid; grid-template-columns: 1fr 1.15fr 1fr; align-items: center; gap: 0; min-height: 74vh; padding: 5vh 3vw 9vh; }
+.capstone-bridge::before { content: "EDUCATIONAL PERSPECTIVE"; position: absolute; left: 24px; top: 22px; color: var(--faint); font: 7px "Courier New",monospace; letter-spacing: .18em; }
+.bridge-field { position: relative; z-index: 2; width: 100%; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(8,10,9,.88); }
+.bridge-field::after { content: ""; position: absolute; inset: 12%; border: 1px dashed var(--line-soft); border-radius: 50%; }
+.bridge-field span { position: absolute; z-index: 3; bottom: 15%; color: var(--text); font: 8px "Courier New",monospace; letter-spacing: .14em; }
+.bridge-field-limited { transform: translateX(8%); }
+.bridge-field-agency { transform: translateX(-8%); }
+.resource-dots { position: relative; z-index: 2; display: grid; gap: 10px; }
+.resource-dots.sparse { grid-template-columns: repeat(3,7px); }
+.resource-dots.dense { grid-template-columns: repeat(5,7px); gap: 8px; }
+.resource-dots i { width: 7px; height: 7px; display: block; border: 1px solid var(--muted); border-radius: 50%; }
+.resource-dots.sparse i:nth-child(n+5) { opacity: .22; }
+.resource-dots.dense i { background: var(--text); border-color: var(--text); opacity: .78; }
+.learning-bridge { position: relative; z-index: 4; height: 34%; display: grid; place-items: center; background: rgba(8,10,9,.96); }
+.bridge-rail { position: absolute; left: -8%; right: -8%; height: 1px; background: var(--accent); }
+.rail-top { top: 16%; transform: rotate(-3deg); }.rail-bottom { bottom: 16%; transform: rotate(3deg); }
+.bridge-steps { position: absolute; inset: 17% 2%; display: grid; grid-template-columns: repeat(7,1fr); align-items: center; }
+.bridge-steps i { height: 100%; border-left: 1px solid var(--line); transform: skewY(-5deg); }
+.bridge-steps i:last-child { border-right: 1px solid var(--line); }
+.learning-bridge strong { position: relative; z-index: 2; padding: 14px 18px; color: var(--text); background: var(--background); border: 1px solid var(--accent); font: 9px/1.35 "Courier New",monospace; letter-spacing: .12em; text-align: center; }
+.capstone-bridge > p { position: absolute; left: 12%; right: 12%; bottom: 4vh; margin: 0; color: var(--muted); font: 300 clamp(16px,1.3vw,21px) "Helvetica Neue",sans-serif; text-align: center; }
+
 .canvas-return { grid-template-columns: 1fr; place-items: center; text-align: center; }.canvas-return .canvas-copy { position: relative; z-index: 3; max-width: 1250px; margin-top: -18vh; }.canvas-return h1 { font-size: clamp(50px, 6.8vw, 108px); }.canvas-return .statement { margin-left: auto; margin-right: auto; padding: 0; border: 0; }.canvas-return .visual-placeholder { position: absolute; inset: 12vh 7vw 9vh; min-height: 0; border: 0; background: transparent; }.canvas-return .visual-note { display: none; }
 .return-field { display: grid; grid-template-columns: 1fr 1.8fr 1fr; align-items: end; gap: 20px; padding: 0 4vw 8vh; opacity: .75; }.return-point { color: var(--muted); font: 8px "Courier New", monospace; }.return-point i { display: block; width: 9px; height: 9px; margin: 0 auto 10px; border: 1px solid var(--accent); border-radius: 50%; }.return-traces { position: relative; height: 32vh; border-bottom: 1px solid var(--line); }.return-traces::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }.return-traces span { position: absolute; left: calc(5% + (var(--i) * 12%)); bottom: calc(8% + (var(--i) % 4) * 19%); color: var(--muted); font: 7px "Courier New", monospace; text-transform: uppercase; opacity: .18; transition: .2s; }.return-field:hover .return-traces span { opacity: 1; }
 
@@ -968,5 +997,8 @@ li:nth-child(even)::before { left: 12px; }
   .canvas-community .canvas-copy { display: block; }
   .trajectory button:nth-of-type(even) { display: none; }
   .precedent-record { padding: 0 18px; }.precedent-record header { grid-template-columns: 1fr; }.precedent-sections { grid-template-columns: 1fr 1fr; }.precedent-sections section:nth-child(3) { border-left: 0; }.precedent-connection { font-size: 12px; }
+  .capstone-bridge { min-height: 430px; padding: 48px 14px 72px; }
+  .bridge-field span { font-size: 6px; }
+  .learning-bridge strong { padding: 9px; font-size: 7px; }
   .canvas-return .canvas-copy { margin-top: -25vh; }
 }
