@@ -984,6 +984,8 @@ li:nth-child(even)::before { left: 12px; }
 .bridge-steps i:last-child { border-right: 1px solid var(--line); }
 .learning-bridge strong { position: relative; z-index: 2; padding: 14px 18px; color: var(--text); background: var(--background); border: 1px solid var(--accent); font: 9px/1.35 "Courier New",monospace; letter-spacing: .12em; text-align: center; }
 .capstone-bridge > p { position: absolute; left: 12%; right: 12%; bottom: 4vh; margin: 0; color: var(--muted); font: 300 clamp(16px,1.3vw,21px) "Helvetica Neue",sans-serif; text-align: center; }
+.capstone-bridge-image { width: 100%; height: 100%; min-height: 74vh; margin: 0; display: grid; place-items: center; overflow: hidden; }
+.capstone-bridge-image img { width: 112%; max-width: none; height: 100%; object-fit: contain; filter: contrast(1.08) brightness(.94); }
 
 .canvas-return { grid-template-columns: 1fr; place-items: center; text-align: center; }.canvas-return .canvas-copy { position: relative; z-index: 3; max-width: 1250px; margin-top: -18vh; }.canvas-return h1 { font-size: clamp(50px, 6.8vw, 108px); }.canvas-return .statement { margin-left: auto; margin-right: auto; padding: 0; border: 0; }.canvas-return .visual-placeholder { position: absolute; inset: 12vh 7vw 9vh; min-height: 0; border: 0; background: transparent; }.canvas-return .visual-note { display: none; }
 .return-field { display: grid; grid-template-columns: 1fr 1.8fr 1fr; align-items: end; gap: 20px; padding: 0 4vw 8vh; opacity: .75; }.return-point { color: var(--muted); font: 8px "Courier New", monospace; }.return-point i { display: block; width: 9px; height: 9px; margin: 0 auto 10px; border: 1px solid var(--accent); border-radius: 50%; }.return-traces { position: relative; height: 32vh; border-bottom: 1px solid var(--line); }.return-traces::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }.return-traces span { position: absolute; left: calc(5% + (var(--i) * 12%)); bottom: calc(8% + (var(--i) % 4) * 19%); color: var(--muted); font: 7px "Courier New", monospace; text-transform: uppercase; opacity: .18; transition: .2s; }.return-field:hover .return-traces span { opacity: 1; }
@@ -998,6 +1000,8 @@ li:nth-child(even)::before { left: 12px; }
   .trajectory button:nth-of-type(even) { display: none; }
   .precedent-record { padding: 0 18px; }.precedent-record header { grid-template-columns: 1fr; }.precedent-sections { grid-template-columns: 1fr 1fr; }.precedent-sections section:nth-child(3) { border-left: 0; }.precedent-connection { font-size: 12px; }
   .capstone-bridge { min-height: 430px; padding: 48px 14px 72px; }
+  .capstone-bridge-image { min-height: 430px; }
+  .capstone-bridge-image img { width: 128%; }
   .bridge-field span { font-size: 6px; }
   .learning-bridge strong { padding: 9px; font-size: 7px; }
   .canvas-return .canvas-copy { margin-top: -25vh; }

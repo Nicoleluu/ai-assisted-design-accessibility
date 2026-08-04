@@ -615,12 +615,7 @@ function CommunityArchive() {
 }
 
 function CapstoneVisual() {
-  return <div className="capstone-bridge">
-    <div className="bridge-field bridge-field-limited"><div className="resource-dots sparse">{Array.from({ length: 9 }, (_, i) => <i key={i} />)}</div><span>UNEQUAL ACCESS</span></div>
-    <div className="learning-bridge"><div className="bridge-rail rail-top" /><div className="bridge-rail rail-bottom" /><div className="bridge-steps">{Array.from({ length: 7 }, (_, i) => <i key={i} />)}</div><strong>AI-SUPPORTED<br />LEARNING</strong></div>
-    <div className="bridge-field bridge-field-agency"><div className="resource-dots dense">{Array.from({ length: 25 }, (_, i) => <i key={i} />)}</div><span>DESIGN AGENCY</span></div>
-    <p>Bridge access to the process—not only the outcome.</p>
-  </div>;
+  return <figure className="capstone-bridge-image"><img src="/capstone-educational-bridge.png" alt="Abstract technical map connecting unequal access through AI-supported learning to design agency" /></figure>;
 }
 
 function ReturnVisual() {
