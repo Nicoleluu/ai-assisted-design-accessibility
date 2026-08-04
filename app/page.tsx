@@ -116,72 +116,63 @@ const precedents = [
   {
     name: "AI Now Institute",
     logo: "/archive-ai-now.png",
-    category: "Critical AI and public interest",
-    layout: "institution",
-    media: ["Beyond Impact Lingo essay"],
-    sections: [
-      ["Who They Are", "An independent research institute studying artificial intelligence in the public interest, with attention to power, inequality, accountability, labor, and institutions."],
-      ["What They Do", "AI Now examines the companies, infrastructures, resources, policies, and social conditions that determine how AI is developed and who can participate."],
-      ["Selected Work", "Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub, 2026, critiques vague claims such as democratization and AI for good. It calls for evidence, attention to infrastructure, community knowledge, and alternatives built around specific local needs."],
-      ["Relationship to My Project", "The essay helps me question what accessible AI actually promises and who defines it. Accessing Design similarly moves beyond the claim that an available chatbot democratizes design by asking what knowledge, context, agency, and community support are required for meaningful participation."],
+    category: "Critical AI research",
+    summary: "Questions broad claims that AI ‘democratizes’ access by examining the power, infrastructure, and inequalities surrounding the technology.",
+    media: [
+      ["/archive-ai-now-beyond-impact-lingo.png", "Beyond Impact Lingo publication"],
+      ["/archive-ai-now-research-areas.png", "AI Now research areas"],
+      ["/archive-ai-now-publications.png", "AI Now publications"],
     ],
-    connection: "Accessibility must be made concrete through evidence, context, and the needs of actual communities.",
   },
   {
     name: "NotebookLM",
     logo: "/archive-notebooklm.png",
-    category: "AI supported learning tool",
-    layout: "sources",
-    media: ["Source and response interface"],
-    sections: [
-      ["What It Is", "An AI research and learning platform developed by Google. Users build a personal knowledge environment from documents, websites, videos, audio, and notes."],
-      ["What It Does", "NotebookLM helps users question, organize, and understand selected sources through cited responses, study guides, mind maps, audio overviews, flashcards, and quizzes."],
-      ["Selected Feature", "Source Grounding links answers back to user selected material, supporting inquiry and understanding instead of only generating an outcome."],
-      ["Relationship to My Project", "It inspires a learning focused approach, but assumes users already know which sources they need. My project asks how AI might guide people who do not yet have design knowledge or precedents."],
+    category: "AI-supported research and learning platform",
+    summary: "Shows how AI can help people investigate selected sources and build understanding instead of simply generating a finished answer.",
+    media: [
+      ["/archive-notebooklm-interface.png", "NotebookLM source-grounded workspace"],
+      ["/archive-notebooklm-notebooks.png", "Featured and recent notebooks"],
+      ["/archive-notebooklm-formats.png", "NotebookLM learning output formats"],
+      ["/archive-notebooklm-presentation.jpg", "A presentation created with NotebookLM"],
     ],
-    connection: "AI can guide a learning process rather than complete the work for the user.",
   },
   {
     name: "AI Design Guide",
     logo: "/archive-ai-design-guide.png",
-    category: "Design learning",
-    layout: "mosaic",
-    media: ["Learning path interface", "Guide and resource detail"],
-    sections: [
-      ["What It Is", "A learning platform created by designer Romina Kavcic that provides practical resources for designers working with AI and agentic design tools."],
-      ["What It Does", "It organizes guides, prompts, templates, tool reviews, design system references, and interactive resources for professional design workflows."],
-      ["Selected Feature", "Structured Learning Paths turn related guides and exercises into a repeatable sequence of learning, applying, evaluating, and saving what worked."],
-      ["Relationship to My Project", "It shows how AI knowledge can connect to real design work, but it primarily serves people who already understand design. My project begins before that knowledge exists."],
+    category: "Design learning platform",
+    summary: "Organizes design knowledge into practical learning paths, but primarily supports people who already have design experience.",
+    media: [
+      ["/archive-ai-design-guide-learning-path.png", "AI Design Guide learning path"],
+      ["/archive-ai-design-guide-directory.png", "AI Design Guide systems directory"],
+      ["/archive-ai-design-guide-resources.png", "AI Design Guide resource categories"],
+      ["/archive-ai-design-guide-cards.png", "AI Design Guide tool cards"],
     ],
-    connection: "Guidance must respond to what the learner already knows.",
   },
   {
     name: "People + AI Guidebook",
     logo: "/archive-people-ai.png",
-    category: "Human centered AI design",
-    layout: "guidebook",
-    media: ["Guidebook chapters", "Summary of evidence"],
-    sections: [
-      ["Who It Is", "Google’s People + AI Research team studies relationships between people and artificial intelligence through research, tools, and design frameworks."],
-      ["What It Does", "PAIR helps designers create AI products around human needs, addressing control, trust, explainability, feedback, data, and system failure."],
-      ["Selected Work", "The People + AI Guidebook follows the AI product development process from identifying user needs to designing feedback, control, and graceful failure."],
-      ["Relationship to My Project", "Its distinction between automation and augmentation supports an AI that guides rather than replaces design. Feedback + Control helps define how learners retain responsibility and influence the system."],
+    category: "Human-centered AI design guidebook",
+    summary: "Offers frameworks for balancing automation with human control, helping define an AI that guides learners without replacing their decisions.",
+    media: [
+      ["/archive-pair-guidebook-chapters.png", "People + AI Guidebook chapters"],
+      ["/archive-pair-guidebook-evidence.png", "People + AI evidence worksheet"],
+      ["/archive-pair-principles.png", "People + AI design principles"],
+      ["/archive-pair-control.png", "Designing user control"],
+      ["/archive-pair-feedback.png", "Adapting AI through feedback"],
+      ["/archive-pair-controls.png", "Controls for evolving AI workflows"],
     ],
-    connection: "The learner and the system should distribute control without removing human responsibility.",
   },
   {
     name: "Data & Society",
     logo: "/archive-data-society.png",
-    category: "Critical AI and public participation",
-    layout: "participation",
-    media: ["Research areas"],
-    sections: [
-      ["Who They Are", "An independent nonprofit research institute studying the social implications of data, automation, and artificial intelligence through the experiences of affected people and communities."],
-      ["What They Do", "Data & Society produces research, policy guidance, public programs, and educational resources. It studies technology within existing social conditions and asks who participates, whose knowledge is valued, and who is affected."],
-      ["Selected Work", "Democratizing AI: Principles for Meaningful Public Participation by Michele Gilman, 2023, argues that affected people need real influence throughout AI design and deployment, not symbolic feedback after decisions are made."],
-      ["Relationship to My Project", "Entering a prompt may look like participation while the system still makes most design decisions. This precedent defines meaningful participation through the knowledge, support, and agency to understand and influence a process."],
+    category: "Technology and society research institute",
+    summary: "Shows that meaningful participation requires more than giving input—people need the knowledge and agency to understand and influence the process.",
+    media: [
+      ["/archive-data-society-research-areas.png", "Data & Society research areas"],
+      ["/archive-data-society-panel.png", "Data & Society public discussion"],
+      ["/archive-data-society-impact.png", "Data & Society impact statement"],
+      ["/archive-data-society-approaches.png", "Data & Society research approaches"],
     ],
-    connection: "Participation means more than providing an initial input. A person must be able to understand, influence, and take responsibility for the process.",
   },
 ];
 
@@ -599,29 +590,11 @@ function CommunityArchive() {
       const itemIndex = loopIndex % precedents.length;
       return <button key={`${item.name}-${loopIndex}`} aria-label={item.name} className={selected === itemIndex ? "active" : ""} onMouseEnter={() => openProject(itemIndex)} onFocus={() => openProject(itemIndex)} onBlur={closeProject}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i></button>;
     })}</div></div>
-    {selected !== null && <div className={`precedent-record precedent-layout-${precedents[selected].layout}`} onMouseEnter={keepOpen} onMouseLeave={closeProject}>
-      <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2></header>
-      <div className="precedent-sections">{precedents[selected].sections.map(([heading, text], index) => <section className={`precedent-section precedent-section-${index + 1}`} key={heading}><span>0{index + 1}</span><h3>{heading}</h3><p>{text}</p></section>)}</div>
-      <div className="precedent-media">{precedents[selected].media.map((label, index) => <figure className={`media-frame media-frame-${index + 1}`} key={label}>
-        {precedents[selected].name === "Data & Society"
-          ? <img src="/archive-data-society-research-areas.png" alt="Portraits associated with Data and Society research" />
-          : precedents[selected].name === "AI Now Institute"
-            ? <img src="/archive-ai-now-beyond-impact-lingo.png" alt="Beyond Impact Lingo: Questioning, Concretizing, Building by Sumedha Deshmukh and Mila T Samdub" />
-            : precedents[selected].name === "NotebookLM"
-              ? <img src="/archive-notebooklm-interface.png" alt="NotebookLM interface showing sources, chat, and learning tools including audio overview, mind map, flashcards, and quiz" />
-              : precedents[selected].name === "AI Design Guide"
-                ? <img
-                    src={index === 0 ? "/archive-ai-design-guide-learning-path.png" : "/archive-ai-design-guide-directory.png"}
-                    alt={index === 0 ? "AI Design Guide five day learning path" : "AI Design Guide design systems directory"}
-                  />
-              : precedents[selected].name === "People + AI Guidebook"
-                ? <img
-                    src={index === 0 ? "/archive-pair-guidebook-chapters.png" : "/archive-pair-guidebook-evidence.png"}
-                    alt={index === 0 ? "People and AI Guidebook chapters" : "People and AI Guidebook summary of evidence worksheet"}
-                  />
-            : <div aria-hidden="true" />}
+    {selected !== null && <div className="precedent-record precedent-gallery" onMouseEnter={keepOpen} onMouseLeave={closeProject}>
+      <header><span>{precedents[selected].category}</span><h2>{precedents[selected].name}</h2><p>{precedents[selected].summary}</p></header>
+      <div className={`precedent-media precedent-media-${precedents[selected].media.length}`}>{precedents[selected].media.map(([src, alt], index) => <figure className={`media-frame media-frame-${index + 1}`} key={src}>
+        <img src={src} alt={alt} />
       </figure>)}</div>
-      <p className="precedent-connection">{precedents[selected].connection}</p>
     </div>}
   </div>;
 }
