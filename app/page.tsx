@@ -604,7 +604,6 @@ function CommunityArchive() {
       return <button key={`${item.name}-${loopIndex}`} aria-label={item.name} className={selected === itemIndex ? "active" : ""} onPointerEnter={() => setSelected(itemIndex)} onPointerLeave={() => setSelected(null)} onFocus={() => setSelected(itemIndex)} onBlur={() => setSelected(null)} onClick={event => event.currentTarget.blur()}><i data-index={String(itemIndex + 1).padStart(2, "0")}><img src={item.logo} alt="" /></i></button>;
     })}</div></div>
     {selected !== null && <div className={`precedent-record precedent-gallery precedent-organic-${selected + 1}`}>
-      <span className="precedent-category">{precedents[selected].category}</span>
       <h2>{precedents[selected].name}</h2>
       <p className="precedent-summary">{precedents[selected].summary}</p>
       <div className={`precedent-media precedent-media-${precedents[selected].media.length}`}>{precedents[selected].media.map(([src, alt], index) => <figure className={`media-frame media-frame-${index + 1}`} key={src}>
