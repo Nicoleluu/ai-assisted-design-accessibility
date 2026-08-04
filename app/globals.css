@@ -476,7 +476,7 @@ li:nth-child(even)::before { left: 12px; }
 .territory-process .material-2 { right: 2%; top: 0; width: 48%; transform: rotate(2deg); }
 .territory-process .material-3 { left: 9%; bottom: 1%; width: 31%; transform: rotate(5deg); }
 .territory-process .material-4 { right: 15%; bottom: 4%; width: 34%; transform: rotate(-4deg); }
-.triad-center { position: absolute; z-index: 12; left: 50%; top: 61%; width: min(34vw,510px); padding: 18px 22px; background: rgba(8,10,9,.94); border: 1px solid rgba(157,51,40,.72); transform: translate(-50%,-50%); }
+.triad-center { position: absolute; z-index: 12; left: 50%; top: 56%; width: min(34vw,510px); padding: 18px 22px; background: rgba(8,10,9,.94); border: 1px solid rgba(157,51,40,.72); transform: translate(-50%,-50%); }
 .triad-center p { margin: 0; color: var(--text); font: 300 clamp(15px,1.3vw,21px)/1.32 "Helvetica Neue",sans-serif; text-align: center; }
 
 /* Clear territorial divisions: images use dedicated, non-overlapping grids. */
@@ -516,7 +516,7 @@ li:nth-child(even)::before { left: 12px; }
 }
 .territory-process header { right: 2%; bottom: 1%; }
 .territory-process .territory-materials {
-  inset: 1% 2% 23% 28%;
+  inset: 29% 2% 22% 32%;
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
   grid-template-rows: repeat(2,minmax(0,1fr));
