@@ -399,6 +399,7 @@ function InvestigationVisual() {
       <path className="triad-edge" d="M500 92 C578 210 704 345 820 520" />
       <path className="triad-edge" d="M190 520 C390 565 620 565 820 520" />
       <path className="triad-inner" d="M500 92 C500 250 500 350 500 430 M190 520 C315 450 400 420 500 430 M820 520 C680 455 600 425 500 430" />
+      <path className="triad-separator" d="M500 330 L500 35 M500 330 L62 610 M500 330 L938 610" />
     </svg>
     <div className="triad-dots dots-a" aria-hidden="true" /><div className="triad-dots dots-b" aria-hidden="true" /><div className="triad-dots dots-c" aria-hidden="true" />
     <section className="research-territory territory-target">
