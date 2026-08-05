@@ -8,7 +8,7 @@
   --faint: #535752;
   --line: rgba(233, 233, 228, 0.24);
   --line-soft: rgba(233, 233, 228, 0.1);
-  --accent: #9d3328;
+  --accent: #9CB9B7;
 }
 
 * { box-sizing: border-box; }
@@ -393,7 +393,7 @@ li:nth-child(even)::before { left: 12px; }
 }
 .record-overlay { position: absolute; z-index: 4; inset: 0; pointer-events: none; }
 .record-overlay span, .record-overlay b, .record-overlay i { position: absolute; padding: 4px 6px; color: #efefeb; background: #050605; font: 7px/1.2 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
-.record-overlay span { left: 14px; top: 14px; color: #b8493e; }
+.record-overlay span { left: 14px; top: 14px; color: #9CB9B7; }
 .record-overlay b { right: 14px; top: 14px; font-weight: 400; }
 .record-overlay i { left: 14px; bottom: 14px; color: #8e928d; font-style: normal; }
 .experiment-study > strong { grid-column: 1 / -1; padding-top: 13px; border-top: 1px solid var(--line); color: var(--text); font: 300 clamp(17px, 1.45vw, 23px)/1.2 "Helvetica Neue", sans-serif; }
@@ -443,9 +443,9 @@ li:nth-child(even)::before { left: 12px; }
 .triad-lines .triad-zone { stroke-width: 1; stroke-dasharray: 1 8; }
 .zone-target { fill: rgba(216,218,211,.045) !important; stroke: rgba(216,218,211,.34); }
 .zone-ai { fill: rgba(76,116,170,.055) !important; stroke: rgba(121,155,199,.4); }
-.zone-process { fill: rgba(157,51,40,.055) !important; stroke: rgba(157,51,40,.48); }
+.zone-process { fill: rgba(156,185,183,.055) !important; stroke: rgba(156,185,183,.48); }
 .triad-edge { stroke: rgba(230,231,225,.22); stroke-width: 1; stroke-dasharray: 2 7; }
-.triad-inner { stroke: rgba(157,51,40,.5); stroke-width: 1; stroke-dasharray: 1 9; }
+.triad-inner { stroke: rgba(156,185,183,.5); stroke-width: 1; stroke-dasharray: 1 9; }
 .triad-separator { stroke: rgba(225,227,220,.62); stroke-width: 1.2; }
 .triad-dots { position: absolute; z-index: 0; width: 180px; height: 130px; opacity: .28; background-image: radial-gradient(circle,#c7c9c3 1px,transparent 1.5px); background-size: 10px 10px; }
 .dots-a { left: 34%; top: 7%; transform: rotate(-8deg); }.dots-b { left: 5%; bottom: 8%; transform: rotate(5deg); }.dots-c { right: 3%; bottom: 6%; transform: rotate(-4deg); }
@@ -475,7 +475,7 @@ li:nth-child(even)::before { left: 12px; }
 .territory-process .material-2 { right: 2%; top: 0; width: 48%; transform: rotate(2deg); }
 .territory-process .material-3 { left: 9%; bottom: 1%; width: 31%; transform: rotate(5deg); }
 .territory-process .material-4 { right: 15%; bottom: 4%; width: 34%; transform: rotate(-4deg); }
-.triad-center { position: absolute; z-index: 12; left: 50%; top: 56%; width: min(34vw,510px); padding: 18px 22px; background: rgba(8,10,9,.94); border: 1px solid rgba(157,51,40,.72); transform: translate(-50%,-50%); }
+.triad-center { position: absolute; z-index: 12; left: 50%; top: 56%; width: min(34vw,510px); padding: 18px 22px; background: rgba(8,10,9,.94); border: 1px solid rgba(156,185,183,.72); transform: translate(-50%,-50%); }
 .triad-center p { margin: 0; color: var(--text); font: 300 clamp(15px,1.3vw,21px)/1.32 "Helvetica Neue",sans-serif; text-align: center; }
 
 /* Clear territorial divisions: images use dedicated, non-overlapping grids. */
@@ -952,7 +952,7 @@ li:nth-child(even)::before { left: 12px; }
 
 .canvas-capstone { grid-template-columns: .68fr 1.32fr; }.canvas-capstone h1 { font-size: clamp(36px, 4.3vw, 66px); }.canvas-capstone .visual-placeholder { min-height: 74vh; border-radius: 0; }
 .capstone-system { display: grid; grid-template-columns: 1.28fr .72fr; gap: 22px; padding: 20px 20px 55px; }
-.system-flow { display: flex; flex-direction: column; justify-content: center; }.system-flow div { position: relative; padding: 9px 12px; border: 1px solid var(--line); }.system-flow div + div { border-top: 0; }.system-flow span { color: var(--accent); font: 8px "Courier New", monospace; }.system-flow b { margin-left: 16px; color: var(--text); font: 400 10px "Courier New", monospace; text-transform: uppercase; }.system-flow small { float: right; color: var(--faint); font: 7px "Courier New", monospace; }.system-flow div:nth-child(4) { border-color: var(--accent); background: rgba(157,51,40,.08); }
+.system-flow { display: flex; flex-direction: column; justify-content: center; }.system-flow div { position: relative; padding: 9px 12px; border: 1px solid var(--line); }.system-flow div + div { border-top: 0; }.system-flow span { color: var(--accent); font: 8px "Courier New", monospace; }.system-flow b { margin-left: 16px; color: var(--text); font: 400 10px "Courier New", monospace; text-transform: uppercase; }.system-flow small { float: right; color: var(--faint); font: 7px "Courier New", monospace; }.system-flow div:nth-child(4) { border-color: var(--accent); background: rgba(156,185,183,.08); }
 .capstone-system aside { padding: 14px; border-left: 1px dashed var(--line); }.capstone-system aside > span { color: var(--accent); font: 7px "Courier New", monospace; }.capstone-system aside p { margin: 17px 0; padding-bottom: 8px; border-bottom: 1px solid var(--line-soft); color: var(--muted); font: 9px/1.25 "Courier New", monospace; }
 
 /* Capstone direction: an educational bridge across unequal resource contexts. */
