@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: process.env.GITHUB_PAGES === "true" ? "export" : undefined,
+  images: {
+    unoptimized: true,
+  },
+  typescript: {
+    ignoreBuildErrors: process.env.GITHUB_PAGES === "true",
+  },
 };
 
 export default nextConfig;
