@@ -423,7 +423,24 @@ li:nth-child(even)::before { left: 12px; }
 .linear-path div + div { border-top: 0; }
 .linear-path span { margin-right: 32px; color: var(--accent); font-size: clamp(17px, 1.25vw, 21px); }
 .linear-path b { font-weight: 400; text-transform: uppercase; }
-.linear-path em { display: block; margin: 14px 0 0 76px; color: #c2c4bf; font-size: clamp(15px, 1.2vw, 19px); font-style: normal; line-height: 1.4; opacity: 1; }
+.linear-path em {
+  display: block;
+  margin: 14px 0 0 76px;
+  color: #c2c4bf;
+  font-size: clamp(15px, 1.2vw, 19px);
+  font-style: normal;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.linear-path div:hover em,
+.linear-path div:focus em,
+.linear-path div:focus-within em {
+  opacity: 1;
+  transform: translateY(0);
+}
+.linear-path div:focus-visible { outline: 1px solid var(--accent); outline-offset: -3px; }
 .process-web { position: relative; border: 1px solid var(--line); cursor: crosshair; }
 .process-web::before, .process-web::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, transparent, rgba(8,10,9,.84) 55%); pointer-events: none; transition: opacity .25s; }
 .process-web:hover::before { opacity: 0; }

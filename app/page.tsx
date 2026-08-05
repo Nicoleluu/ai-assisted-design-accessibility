@@ -192,7 +192,7 @@ function ExperimentVisual() {
 
 function CompressionVisual() {
   return <div className="compression-study">
-    <div className="linear-path">{["Request", "Prompt", "Generated proposal", "Finished image"].map((step, i) => <div key={step}><span>0{i + 1}</span><b>{step}</b><em>{["Who investigated the context?", "Who framed the question?", "Who evaluated quality?", "What did the learner take away?"][i]}</em></div>)}</div>
+    <div className="linear-path">{["Request", "Prompt", "Generated proposal", "Finished image"].map((step, i) => <div key={step} tabIndex={0}><span>0{i + 1}</span><b>{step}</b><em>{["Who investigated the context?", "Who framed the question?", "Who evaluated quality?", "What did the learner take away?"][i]}</em></div>)}</div>
     <div className="process-web"><p>MOVE THROUGH THE FIELD</p>{processTerms.map((term, index) => <button key={term} style={{ "--x": `${8 + (index * 37) % 82}%`, "--y": `${10 + (index * 47) % 78}%` } as React.CSSProperties}>{term}</button>)}</div>
   </div>;
 }
@@ -202,7 +202,7 @@ function CompressionCanvas() {
   const questions = ["Who investigated the context?", "Who evaluated the quality?", "Who made the design decisions?", "What did the learner take away?"];
   return <div className="compression-canvas">
     <p className="compression-support">AI can move rapidly from request to result. Opportunities for research, judgment, experimentation, and learning can disappear.</p>
-    <div className="linear-path">{steps.map((step, i) => <div key={step}><span>0{i + 1}</span><b>{step}</b><em>{questions[i]}</em></div>)}</div>
+    <div className="linear-path">{steps.map((step, i) => <div key={step} tabIndex={0}><span>0{i + 1}</span><b>{step}</b><em>{questions[i]}</em></div>)}</div>
     <h1>Design is not a one direction sequence.</h1>
     <ForceProcessWeb />
   </div>;
