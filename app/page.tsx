@@ -618,7 +618,7 @@ function CapstoneVisual() {
 }
 
 function ReturnVisual() {
-  return <div className="return-field"><div className="return-point"><i /></div><div className="return-traces" /><div className="return-point"><i /></div></div>;
+  return null;
 }
 
 function VisualContent({ id }: { id: string }) {
